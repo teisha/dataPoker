@@ -1,6 +1,7 @@
 import requests
 import json
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 
 API_ENDPOINT = "https://www.worldometers.info/coronavirus/usa/texas/"
@@ -32,8 +33,8 @@ for data in yesterday_table.findAll('tr'):
             'Total_Tests': fields[6].get_text().replace('\n', '')
         } 
         yesterday_stats.append(stat)
-
-yesterday_file = open(r"data/worldometer.json", "w")
+date_time = datetime.now().strftime("%m-%d-%Y")
+yesterday_file = open(r"data/worldometer-"+ date_time + ".json", "w")
 yesterday_file.writelines(json.dumps(yesterday_stats)  )
 yesterday_file.close()
 
