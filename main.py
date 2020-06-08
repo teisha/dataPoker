@@ -17,3 +17,4 @@ runThis.get_daily_new_cases_by_date()
 runThis.get_daily_counts_by_county()
 
 runThis.write_to_file(file_name)
+runThis.write_to_database()

@@ -6,6 +6,7 @@ import pickle
 import txarc_config
 from urllib.parse import unquote, urlencode
 from functools import reduce
+import database
 
 class Runner:
     def __init__(self):
@@ -56,7 +57,7 @@ class Runner:
         viral_response = response.json()
         viral_stats = []
         for feature in viral_response['features']:
-            print(feature.get('attributes'))
+            # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
@@ -83,7 +84,7 @@ class Runner:
 
     def get_daily_counts_by_county(self):
         response = requests.get(url=txarc_config.DAILY_COUNTY_COUNTS_URL, params=txarc_config.daily_counts_by_county_params)
-        print(response.url)
+        # print(response.url)
         daily_response = response.json()
         daily_stats = []
         for feature in daily_response['features']:
@@ -98,6 +99,7 @@ class Runner:
         #     daily_new_cases=x["DailyNewCases"]+y["DailyNewCases"],
         #     daily_new_fatalities=x["DailyNewFatalities"]+y["DailyNewFatalities"]) ), daily_stats)
 
+        harris = next((stat for stat in daily_stats if stat["County"] == "Harris"), None)            
         positive = 0
         fatalities = 0
         recoveries = 0
@@ -123,7 +125,7 @@ class Runner:
             sum_recoveries=recoveries,
             sum_active=recoveries)
         sum_counties.update({'date_collected' : self.current_date_time})            
-        self.today_stats.update(dict(sum_counties=sum_counties))      
+        self.today_stats.update(dict(sum_counties=sum_counties, harris=harris))      
 
     def get_county_totals(self):
         response_total = requests.get(url=txarc_config.TOTAL_COUNTIES_REPORTING_URL, params=txarc_config.total_counties_reporting_params)
@@ -153,4 +155,47 @@ class Runner:
         today_file = filename.replace('.pickle', '-today.json')
         with open(today_file, "w") as json_handle:
             json_handle.writelines(json.dumps(self.today_stats)  )
+
+    def write_to_database(self):
+        harris_stats = self.today_stats.get("harris") 
+        database.save_harris_county(dict(dhs=dict(date_collected=harris_stats.get("date_collected"),
+            Positive=harris_stats.get("Positive"), 
+            Fatalities=harris_stats.get("Fatalities"),
+            Recoveries=harris_stats.get("Recoveries"),
+            Active=harris_stats.get("Active")))       )
+
+
+        texas_stats = dict()
+        texas_stats["date_collected"] = self.today_stats.get("counties").get("date_collected")
+        texas_stats["positive_counties"] = self.today_stats.get("counties").get("positive_counties")
+        texas_stats["REPORTED_TotalTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "TotalTests"), None) 
+        texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntibodyTests"), None) 
+        texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
+        texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
+        texas_stats["Hospitalizations"] = self.today_stats.get("hospital_stats").get("Hospitalizations")
+        texas_stats["SevenDayPositiveTestRate"] = self.today_stats.get("viral_antibody_stats").get("SevenDayPositiveTestRate")
+        texas_stats["NewViral"] = self.today_stats.get("viral_antibody_stats").get("NewViral")
+        texas_stats["NewAntibody"] = self.today_stats.get("viral_antibody_stats").get("NewAntibody")
+        texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases").get("CumulativeCases")
+        texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases").get("CumulativeFatalities")
+        texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases").get("DailyNewCases")
+        texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases").get("DailyNewFatalities")
+        texas_stats["County_sum_positives"]   = self.today_stats.get("sum_counties").get("sum_positive")
+        texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties").get("sum_fatalities")
+        texas_stats["County_sum_recoveries"]  = self.today_stats.get("sum_counties").get("sum_recoveries")
+        texas_stats["County_sum_active"]  = self.today_stats.get("sum_counties").get("sum_active")
+
+        database.save_texas( dict(dhs=texas_stats))
+
+
+#         {"counties": {"total_counties": 254, "positive_counties": 235, "date_collected": "06-07-2020"}, 
+# "current_day_stats": [{"test": "TotalTests", "total": 1255899}, 
+#     {"test": "AntibodyTests", "total": 118509}, 
+#     {"test": "PostiveAntibody", "total": 4767}, 
+#     {"test": "ViralTests", "total": 1100446}], 
+# "hospital_stats": {"OBJECTID": 65, "Date": 1591509600000, "Hospitalizations": 1878, "date_collected": "06-07-2020", "DateString": "2020-06-07"}, 
+# "viral_antibody_stats": {"OBJECTID": 64, "Date": 1591423200000, "SevenDayPositiveTestRate": 0.0755, "TotalTests": null, "ViralTests": 1100446, "AntibodyTests": 118509, "NewViral": 21226, "NewAntibody": 2226, "NewTotal": 23452, "date_collected": "06-07-2020", "DateString": "2020-06-06"}, 
+# "daily_new_cases": {"OBJECTID": 96, "Date": 1591509600000, "CumulativeCases": 74978, "CumulativeFatalities": 1830, "DailyNewCases": 1425, "DailyNewFatalities": 11, "date_collected": "06-07-2020", "DateString": "2020-06-07"}, 
+# "sum_counties": {"sum_positive": 74978, "sum_fatalities": 1830, "sum_recoveries": 39926, "sum_active": 39926, "date_collected": "06-07-2020"}, 
+    
 
