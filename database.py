@@ -58,6 +58,11 @@ def save_us(us_stats_dict):
         new_stat = us_ref.child(date ).push(us_stats_dict)
     print("Saved: ", new_stat)
 
+
+
+
+
+
 # ref = db.reference('/')
 # ref.set ({
 #     'Employee':
