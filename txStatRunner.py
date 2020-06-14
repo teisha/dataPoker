@@ -172,18 +172,24 @@ class Runner:
         texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntibodyTests"), None) 
         texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
         texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
-        texas_stats["Hospitalizations"] = self.today_stats.get("hospital_stats").get("Hospitalizations")
-        texas_stats["SevenDayPositiveTestRate"] = self.today_stats.get("viral_antibody_stats").get("SevenDayPositiveTestRate")
-        texas_stats["NewViral"] = self.today_stats.get("viral_antibody_stats").get("NewViral")
-        texas_stats["NewAntibody"] = self.today_stats.get("viral_antibody_stats").get("NewAntibody")
-        texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases").get("CumulativeCases")
-        texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases").get("CumulativeFatalities")
-        texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases").get("DailyNewCases")
-        texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases").get("DailyNewFatalities")
-        texas_stats["County_sum_positives"]   = self.today_stats.get("sum_counties").get("sum_positive")
-        texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties").get("sum_fatalities")
-        texas_stats["County_sum_recoveries"]  = self.today_stats.get("sum_counties").get("sum_recoveries")
-        texas_stats["County_sum_active"]  = self.today_stats.get("sum_counties").get("sum_active")
+        texas_stats["Hospitalizations"] = self.today_stats.get("hospital_stats", dict(Hospitalizations=-1)).get("Hospitalizations", -1)
+        if self.today_stats.get("viral_antibody_stats") == None:
+            texas_stats["SevenDayPositiveTestRate"] = -1
+            texas_stats["NewViral"] = -1
+            texas_stats["NewAntibody"] = -1
+        else:            
+            texas_stats["SevenDayPositiveTestRate"] = self.today_stats.get("viral_antibody_stats", dict()).get("SevenDayPositiveTestRate", -1)
+            texas_stats["NewViral"] = self.today_stats.get("viral_antibody_stats", dict()).get("NewViral", -1)
+            texas_stats["NewAntibody"] = self.today_stats.get("viral_antibody_stats", dict()).get("NewAntibody", -1)
+        
+        texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases", dict()).get("CumulativeCases", -1)
+        texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("CumulativeFatalities", -1)
+        texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases", dict()).get("DailyNewCases", -1)
+        texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("DailyNewFatalities", -1)
+        texas_stats["County_sum_positives"]   = self.today_stats.get("sum_counties", dict()).get("sum_positive", -1)
+        texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties", dict()).get("sum_fatalities", -1)
+        texas_stats["County_sum_recoveries"]  = self.today_stats.get("sum_counties", dict()).get("sum_recoveries", -1)
+        texas_stats["County_sum_active"]  = self.today_stats.get("sum_counties", dict()).get("sum_active", -1)
 
         database.save_texas( dict(dhs=texas_stats))
 
