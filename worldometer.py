@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import database
 
+
 def download_texas():
     API_ENDPOINT = "https://www.worldometers.info/coronavirus/usa/texas/"
 
