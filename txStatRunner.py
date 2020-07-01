@@ -15,6 +15,7 @@ class Runner:
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
         self.today = datetime.now().strftime("%Y-%m-%d")
         self.yesterday = date.today() - timedelta(days=1)
+        print('-----------------INIT------------------------------')
 
     def load_from_file(self, filename):
         with open(filename, "rb") as handle:
@@ -38,26 +39,66 @@ class Runner:
         self.today_stats.update( dict(current_day_stats=current_day_stats))
 
 
+    def get_hospital_current(self):
+        response = requests.get(url=txarc_config.HOSPITALS_CURRENT, params=txarc_config.hospitals_current_params)
+        hospital_response = response.json()
+        hospitals_current = []
+        total_covid = 0
+        total_staff = 0
+        total_avail_beds = 0
+        total_avail_icu_beds = 0
+        total_avail_vents = 0
+        for feature in hospital_response['features']:
+            # print(feature.get('attributes'))
+            totals = feature.get('attributes')
+            totals.update({'date_collected' : self.current_date_time})
+            total_covid = total_covid + totals.get("COVIDPatie")
+            total_staff = total_staff + totals.get("TotalStaff")
+            total_avail_beds = total_avail_beds +  totals.get("AvailHospi")
+            total_avail_icu_beds = total_avail_icu_beds + totals.get("AvailICUBe")
+            total_avail_vents = total_avail_vents + totals.get("AvailVenti")
+            hospitals_current.append(totals)
+        harris = next((stat for stat in hospitals_current if stat["TSA"] == "Q"), None)
+        # print( harris)
+        state_totals = dict(total_covid=total_covid, total_staff=total_staff, total_avail_beds=total_avail_beds,
+            total_avail_icu_beds=total_avail_icu_beds, total_avail_vents=total_avail_vents  )
+        state_totals.update({'date_collected' : self.current_date_time})
+        print(state_totals)
+        self.stat_pickler.update( dict(hospitals_current=hospitals_current))
+        self.today_stats.update(dict(harris_hospitals=harris, hospital_current_totals=state_totals) )
+
+
+
     def get_hospital_stats(self):
         response = requests.get(url=txarc_config.HOSPITAL_URL, params=txarc_config.hospitalizations_by_date_params)
         hospital_response = response.json()
+        new_response = requests.get(url=txarc_config.HOSPITALS_CUMULATIVE, params=txarc_config.hospitals_cum_params)
+        new_hospital_response = new_response.json()
         hospital_stats = []
+        todays_stats = []
         for feature in hospital_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
             hospital_stats.append ( totals )
+        for feature in new_hospital_response['features']:
+            totals = feature.get('attributes')        
+            totals.update({'date_collected' : self.current_date_time})
+            todays_stats.append(totals)
         self.stat_pickler.update(dict (hospital_stats=hospital_stats))
         last_stat = next((stat for stat in hospital_stats if stat["DateString"] == self.today), None)
-        self.today_stats.update(dict(hospital_stats=last_stat) )
+        self.today_stats.update(dict(hospital_stats=todays_stats, hosp_stat=last_stat) )
 
     def get_viral_antibody_breakout(self):
+        print(txarc_config.VIRAL_ANTIBODY_BREAKOUT_URL)
+        print(txarc_config.viral_antibody_breakout_by_day_params)
         response = requests.get(url= txarc_config.VIRAL_ANTIBODY_BREAKOUT_URL, params=txarc_config.viral_antibody_breakout_by_day_params )
         viral_response = response.json()
         viral_stats = []
+        print("***VIRAL: " )
         for feature in viral_response['features']:
-            # print(feature.get('attributes'))
+            print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
@@ -142,13 +183,13 @@ class Runner:
 
 
 
-    def write_to_file(self, filename):
+    def write_to_file(self, filename, archive_dir):
         print ('------------------------------------------------------------------')
         # print(self.stat_pickler)
         # with open(filename, "wb") as handle:
         #     pickle.dump(self.stat_pickler, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-        json_file = filename.replace('.pickle', '.json')
+        json_file = archive_dir + filename.replace('.pickle', '.json')
         with open(json_file, "w") as json_handle:
             json_handle.writelines(json.dumps(self.stat_pickler)  )  
 
@@ -158,12 +199,22 @@ class Runner:
 
     def write_to_database(self):
         harris_stats = self.today_stats.get("harris") 
-        database.save_harris_county(dict(dhs=dict(date_collected=harris_stats.get("date_collected"),
-            Positive=harris_stats.get("Positive"), 
-            Fatalities=harris_stats.get("Fatalities"),
-            Recoveries=harris_stats.get("Recoveries"),
-            Active=harris_stats.get("Active")))       )
-
+        harris_hospitals = self.today_stats.get("harris_hospitals")
+        harris_save_stats = dict()
+        harris_save_stats["date_collected"] = harris_stats.get("date_collected")
+        harris_save_stats["Positive"] = harris_stats.get("Positive")
+        harris_save_stats["Fatalities"] = harris_stats.get("Fatalities")
+        harris_save_stats["Recoveries"] = harris_stats.get("Recoveries")
+        harris_save_stats["Active"] = harris_stats.get("Active")
+        harris_save_stats["TraumaServiceArea"] = harris_hospitals.get("TSA")
+        harris_save_stats["RegionalAdvisoryCouncil"] = harris_hospitals.get("RAC") 
+        harris_save_stats["PopulationEstimate"] = harris_hospitals.get("PopEst2020") 
+        harris_save_stats["TotalHospitalStaff"] = harris_hospitals.get("TotalStaff")
+        harris_save_stats["AvailableHospitalBeds"] = harris_hospitals.get("AvailHospi")
+        harris_save_stats["AvailableICUBeds"] = harris_hospitals.get("AvailICUBe")
+        harris_save_stats["AvailableVentilators"] = harris_hospitals.get("AvailVenti")
+        harris_save_stats["COVIDPatients"] = harris_hospitals.get("COVIDPatie")
+        database.save_harris_county(dict(dhs=harris_save_stats))
 
         texas_stats = dict()
         texas_stats["date_collected"] = self.today_stats.get("counties").get("date_collected")
@@ -172,10 +223,16 @@ class Runner:
         texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntibodyTests"), None) 
         texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
         texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
-        if self.today_stats.get("hospital_stats") == None:
+        hospital_totals = self.today_stats.get("hospital_current_totals")
+        texas_stats["TotalCovidPatients"] = hospital_totals.get("total_covid")
+        texas_stats["TotalStaffedBeds"] = hospital_totals.get("total_staff")
+        texas_stats["TotalAvailableBeds"] = hospital_totals.get("total_avail_beds")
+        texas_stats["TotalAvailableICUBeds"] = hospital_totals.get("total_avail_icu_beds")
+        texas_stats["TotalAvailableVents"] = hospital_totals.get("total_avail_vents")
+        if self.today_stats.get("hosp_stat") == None:
             texas_stats["Hospitalizations"] = -1
         else:    
-            texas_stats["Hospitalizations"] = self.today_stats.get("hospital_stats", dict(Hospitalizations=-1)).get("Hospitalizations", -1)
+            texas_stats["Hospitalizations"] = self.today_stats.get("hosp_stat", dict(Hospitalizations=-1)).get("Hospitalizations", -1)
         if self.today_stats.get("viral_antibody_stats") == None:
             texas_stats["SevenDayPositiveTestRate"] = -1
             texas_stats["NewViral"] = -1
@@ -198,7 +255,6 @@ class Runner:
         texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties", dict()).get("sum_fatalities", -1)
         texas_stats["County_sum_recoveries"]  = self.today_stats.get("sum_counties", dict()).get("sum_recoveries", -1)
         texas_stats["County_sum_active"]  = self.today_stats.get("sum_counties", dict()).get("sum_active", -1)
-
         database.save_texas( dict(dhs=texas_stats))
 
 

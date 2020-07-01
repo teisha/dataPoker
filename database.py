@@ -11,10 +11,10 @@ firebase_admin.initialize_app(cred,  {
     'databaseURL': 'https://covid-python-tdb2020.firebaseio.com/'
 })
 ref = db.reference('Texas')
-print(ref.get())
+# print(ref.get())
 
 date = datetime.now().strftime("%Y%m%d")
-print(date)
+# print(date)
 
 
 def save_harris_county(stats_dict):

@@ -1,75 +1,82 @@
-base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Testing_Service/FeatureServer/"
-base_cases_url = base_url.replace('COVID19_Testing', 'COVID19_Cases')
+Old_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Testing_Service/FeatureServer/"
+
+base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_Testing_Data_Service/FeatureServer/"
+base_cases_url = base_url.replace('COVID19_Testing_Data', 'COVID19_Cases')
+hospital_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID_Hospital_Data/FeatureServer/"
           # https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Testing_Service/FeatureServer/8/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=%2A&orderByFields=Date+asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true  
           # https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_Cases_Service/FeatureServer/8/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true
 current_day_report = "2/query?"   # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=pjson&token="
+
+
 CURRENT_DAY_URL = "" + base_url + current_day_report
 current_day_params = {
+    'f':'json',
     'where': '1=1',
-    'resultType': 'none',
+    'returnGeometry':'false',
+    'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
-    'returnIdsOnly': 'false',
-    'returnUniqueIdsOnly': 'false',
-    'returnCountOnly': 'false',
-    'returnDistinctValues': 'false',
-    'cacheHint': 'false',
-    'orderByFields': '',
-    'groupByFieldsForStatistics': '',
-    'outStatistics': '',
-    'having': '',
-    'resultOffset': '',
-    'resultRecordCount': '',
-    'sqlFormat': 'none',
-    'f': 'pjson',
-    'token': ''
+    'resultOffset': '0',
+    'resultRecordCount': '50',
+    'resultType': 'standard',
+    'cacheHint': 'true'
+}
+
+
+# https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID_Hospital_Data/FeatureServer/0/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22count%22%2C%22onStatisticField%22%3A%22OBJECTID%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%5D&outSR=102100&resultType=standard&cacheHint=true
+# https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID_Hospital_Data/FeatureServer/1/query?f=json&where=HospitalData%3D%27AvailableVentilators%27&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=50&resultType=standard&cacheHint=true
+
+
+# where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outSR=102100&resultType=standard&cacheHint=true
+HOSPITALS_CURRENT = hospital_base_url + "0/query?"
+HOSPITALS_CUMULATIVE = hospital_base_url + "1/query?"
+hospitals_current_params = {
+    'where': '1=1',
+    'returnGeometry': 'false',
+    'spatialRel':'esriSpatialRelIntersects',
+    'outFields':'*',
+    'outSR':'102100',
+    'resultType':'standard',
+    'cacheHint':'true',
+    'f': 'json',
+}
+hospitals_cum_params = {
+    'where': '1=1',
+    'returnGeometry': 'false',
+    'spatialRel':'esriSpatialRelIntersects',
+    'outFields':'*',
+    'resultType':'standard',
+    'cacheHint':'true',
+    'f': 'json',
 }
 
 hospitalizations_by_date_url ="1/query?"  # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=pjson&token="
 HOSPITAL_URL = "" + base_url + hospitalizations_by_date_url
 hospitalizations_by_date_params = {
+    'f':'json',
     'where': '1=1',
-    'objectIds': '',
-    'time': '',
-    'resultType': 'none',
+    'returnGeometry':'false',
+    'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
-    'returnIdsOnly': 'false',
-    'returnUniqueIdsOnly': 'false',
-    'returnCountOnly': 'false',
-    'returnDistinctValues': 'false',
-    'cacheHint': 'false',
-    'orderByFields': '',
-    'groupByFieldsForStatistics': '',
-    'outStatistics': '',
-    'having': '',
-    'resultOffset': '',
-    'resultRecordCount': '',
-    'sqlFormat': 'none',
-    'f': 'pjson',
-    'token': ''
+    'orderByFields': 'Date asc',
+    'resultOffset': '0',
+    'resultRecordCount': '32000',
+    'resultType': 'standard',
+    'cacheHint': 'true'
 }
 
 viral_antibody_breakout_by_day_url ="3/query?"    # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token="
 VIRAL_ANTIBODY_BREAKOUT_URL= base_url + viral_antibody_breakout_by_day_url
 viral_antibody_breakout_by_day_params = {
+    'f': 'json',
     'where': '1=1',
-    'objectIds': '',
-    'time': '',
-    'resultType': 'none',
+    'returnGeometry':'false',
+    'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
-    'returnIdsOnly': 'false',
-    'returnUniqueIdsOnly': 'false',
-    'returnCountOnly': 'false',
-    'returnDistinctValues': 'false',
-    'cacheHint': 'false',
-    'orderByFields': '',
-    'groupByFieldsForStatistics': '',
-    'outStatistics': '',
-    'having': '',
-    'resultOffset': '',
-    'resultRecordCount': '',
-    'sqlFormat': 'none',
-    'f': 'pjson',
-    'token': ''
+    'orderByFields': 'Date asc',
+    'resultOffset': '0',
+    'resultRecordCount': '32000',
+    'resultType': 'standard',
+    'cacheHint': 'true'
 }
 
 

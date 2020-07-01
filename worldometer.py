@@ -18,7 +18,7 @@ def download_texas():
     worldometer_soup = BeautifulSoup(response.text, 'html5lib')
     yesterday_stats = []
     yesterday_table = worldometer_soup.find(id="nav-yesterday")
-    print(yesterday_table.thead)
+    # print(yesterday_table.thead)
     headers = yesterday_table.findAll('th')
     for data in yesterday_table.findAll('tr'):
         fields = data.findAll('td')
@@ -70,7 +70,7 @@ def download_world():
     yesterday_stats = []
     yesterday_table = worldometer_soup.find(id="nav-yesterday")
     headers = yesterday_table.findAll('th')
-    print(yesterday_table.thead, headers)
+    # print(yesterday_table.thead, headers)
 
     for data in yesterday_table.findAll('tr'):
         fields = data.findAll('td')
