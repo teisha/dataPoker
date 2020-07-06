@@ -1,7 +1,9 @@
-import txStatRunner
+import harrisCounty
 
-runThis = txStatRunner.Runner()
-runThis.get_hospital_current()
+runThis = harrisCounty.HarrisCountyRunner()
+runThis.catch_em_all()
+runThis.get_summarized_data()
+runThis.save_database()
 
 print ('---------------------------------------------------')
 # print(dir(runThis))

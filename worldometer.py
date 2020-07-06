@@ -11,7 +11,7 @@ def download_texas():
     response = requests.get(url = API_ENDPOINT)
     print("RESPONSE STATUS: %s"%response.status_code)
     # print("RESPONSE %s"%response.text)
-    stats_file = open(r"data/worldometer.html", "w")
+    stats_file = open(r"F:/Dropbox/Coding/covid/data/worldometer.html", "w")
     stats_file.writelines(response.text)
     stats_file.close()
 
@@ -109,7 +109,7 @@ def download_world():
             } 
             yesterday_stats.append(stat)
     date_time = datetime.now().strftime("%m-%d-%Y")
-    yesterday_file = open(r"data/worldometer-"+ date_time + ".json", "a")
+    yesterday_file = open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "a")
     yesterday_out = (dict(world=yesterday_stats))
     yesterday_file.write(',')
     yesterday_file.writelines(json.dumps(yesterday_out)  )

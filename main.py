@@ -1,5 +1,6 @@
 from txStatRunner import Runner
 import worldometer
+import harrisCounty
 
 
 worldometer.download_texas()
@@ -20,3 +21,9 @@ runThis.get_daily_counts_by_county()
 
 runThis.write_to_file(file_name, archive_dir)
 runThis.write_to_database()
+
+
+runHarris = harrisCounty.HarrisCountyRunner()
+runHarris.catch_em_all()
+runHarris.get_summarized_data()
+runHarris.save_database()

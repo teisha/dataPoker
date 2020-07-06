@@ -96,9 +96,8 @@ class Runner:
         response = requests.get(url= txarc_config.VIRAL_ANTIBODY_BREAKOUT_URL, params=txarc_config.viral_antibody_breakout_by_day_params )
         viral_response = response.json()
         viral_stats = []
-        print("***VIRAL: " )
         for feature in viral_response['features']:
-            print(feature.get('attributes'))
+            # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
