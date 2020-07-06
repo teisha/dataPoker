@@ -223,11 +223,11 @@ class Runner:
         texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
         texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
         hospital_totals = self.today_stats.get("hospital_current_totals")
-        texas_stats["TotalCovidPatients"] = hospital_totals.get("total_covid")
-        texas_stats["TotalStaffedBeds"] = hospital_totals.get("total_staff")
-        texas_stats["TotalAvailableBeds"] = hospital_totals.get("total_avail_beds")
-        texas_stats["TotalAvailableICUBeds"] = hospital_totals.get("total_avail_icu_beds")
-        texas_stats["TotalAvailableVents"] = hospital_totals.get("total_avail_vents")
+        texas_stats["HOSP: TotalCovidPatients"] = hospital_totals.get("total_covid")
+        texas_stats["HOSP: TotalStaffedBeds"] = hospital_totals.get("total_staff")
+        texas_stats["HOSP: TotalAvailableBeds"] = hospital_totals.get("total_avail_beds")
+        texas_stats["HOSP: TotalAvailableICUBeds"] = hospital_totals.get("total_avail_icu_beds")
+        texas_stats["HOSP: TotalAvailableVents"] = hospital_totals.get("total_avail_vents")
         if self.today_stats.get("hosp_stat") == None:
             texas_stats["Hospitalizations"] = -1
         else:    

@@ -15,9 +15,9 @@ class HarrisCountyRunner:
         self.people_detail_csv = "F:/Dropbox/Coding/covid/data/harrisCountyDetail-"+ self.current_date_time + ".csv"
         self.today = datetime.now().strftime("%m/%d")
         self.yesterday = date.today() - timedelta(days=1)
-        self.three_days_ago = ( date.today() - timedelta(days=5) ).strftime("%m/%d")
-        print("TODAY: " + self.today + " TWO DAYS AGO: " + self.three_days_ago)
-        print('-----------------INIT------------------------------')
+        self.history_cutoff = ( date.today() - timedelta(days=5) ).strftime("%m/%d")
+        print("TODAY: " + self.today + " HISTORY CUTOFF: " + self.history_cutoff)
+        print('-----------------INIT HARRIS COUNTY RUNNER ------------------------------')
 
 
     def catch_em_all(self):
@@ -53,8 +53,6 @@ class HarrisCountyRunner:
         self.today_stats.update({'cases_by_city': cases_by_city.to_dict()})
         self.today_stats.update({'date_collected' : self.current_date_time})
 
-
-
         series_dateSymptoms = df_people.groupby('DateSymptoms_str')['OBJECTID'].count()
         series_dateConverted = df_people.groupby('DateConvertedtoCase_str')['OBJECTID'].count()
         df_dateSymptoms = pd.DataFrame({'date': series_dateSymptoms.index,
@@ -69,21 +67,16 @@ class HarrisCountyRunner:
 
         # df_dateConverted.drop('DateConvertedtoCase_str', inplace=True)            
         today_counts = dateHistory[dateHistory['date']==self.today].to_dict('records')
-        print(today_counts[0])
-
-        self.today_stats.update({'statsByDate': today_counts[0]})
+        self.today_stats.update({'statsByDate': today_counts[0] if len(today_counts) > 0 else dict()  })
 
         print (f"TODAY_STATS: {self.today_stats}")   
-        print("History")          
-        print (dateHistory.tail(10))
-        print(self.history_stats)
         # print ( pd.concat([series_dateConverted, series_dateConverted_nonupdate]))   # seems to add them together
         print ( '-------------------------------------------------------------' )
         # print(df_people.groupby('DateSymptoms_str')['DateSymptoms'].count().tail(10))
         # print(df_people.groupby('DateConvertedtoCase_str')['DateConvertedtoCase'].count().tail(10))
         # print(df_people.where(df_people['City'] == 'Friendswood').groupby('DateConvertedtoCase_str')['OBJECTID'].count().tail(10))
 
-        # df_current = df_people[df_people['DateConvertedtoCase_str'] >= self.three_days_ago]
+        # df_current = df_people[df_people['DateConvertedtoCase_str'] >= self.history_cutoff]
         # print(df_current.columns)
         # print(df_current['OBJECTID'].count())
         # print(df_current['DateConvertedtoCase_str'].value_counts())
@@ -105,9 +98,9 @@ class HarrisCountyRunner:
         sum_response = response2.json()
         summaries =  [ sub['attributes'] for sub in sum_response['features'] ]
         df_sum = pd.DataFrame(summaries)
-        print(df_sum[df_sum['Date_Str'] >= self.three_days_ago])
-        history_stats = dict(totals=df_sum[df_sum['Date_Str'] >= self.three_days_ago].to_dict('record'))
-        df_rolled = df_sum[df_sum['Date_Str'] >= self.three_days_ago].groupby('Date_Str').agg(
+        # print(df_sum[df_sum['Date_Str'] >= self.history_cutoff])
+        history_stats = dict(totals=df_sum[df_sum['Date_Str'] >= self.history_cutoff].to_dict('record'))
+        df_rolled = df_sum[df_sum['Date_Str'] >= self.history_cutoff].groupby('Date_Str').agg(
             {
                 'Recovered':sum, 
                 'Deceased': sum, 
@@ -141,18 +134,23 @@ class HarrisCountyRunner:
         for statname in statsbydate.keys():
             if (statname != "date"):
                 database_stats[f"STAT {statsbydate.get('date').replace('/','-')} {statname}"] = statsbydate.get(statname)                
-        database_stats['Cities: FRIENDSWOOD'] = self.today_stats.get('cases_by_city').get('Friendswood') 
-        # database_stats['Cities: Others'] = 
+        # database_stats['Cities: FRIENDSWOOD'] = self.today_stats.get('cases_by_city').get('Friendswood') 
+        database_stats['ALL CASES: City Counts'] = self.today_stats.get('cases_by_city')
         summarytotals  = self.today_stats.get('totals')
+        date = None
         for keyname in summarytotals.keys():
             date = keyname
-        database_stats[f"SUMMARY {date.replace('/','-')}: Recovered"] = summarytotals.get(date).get('Recovered')
-        database_stats[f"SUMMARY {date.replace('/','-')}: Deceased"] = summarytotals.get(date).get('Deceased')
-        database_stats[f"SUMMARY {date.replace('/','-')}: Active"] = summarytotals.get(date).get('Active')
-        database_stats[f"SUMMARY {date.replace('/','-')}: NewCases"] = summarytotals.get(date).get('NewCases')
+        if date != None:
+            database_stats[f"SUMMARY {date.replace('/','-')}: Recovered"] = summarytotals.get(date).get('Recovered')
+            database_stats[f"SUMMARY {date.replace('/','-')}: Deceased"] = summarytotals.get(date).get('Deceased')
+            database_stats[f"SUMMARY {date.replace('/','-')}: Active"] = summarytotals.get(date).get('Active')
+            database_stats[f"SUMMARY {date.replace('/','-')}: NewCases"] = summarytotals.get(date).get('NewCases')
         print("DATABASE")
         print(database_stats)        
         database.save_harris_county(dict(harrisCounty=database_stats) )
+        friendswood_stats = dict({'date_collected' : self.current_date_time})
+        friendswood_stats['Harris County:'] = self.today_stats.get('cases_by_city').get('Friendswood') 
+        database.save_friendswood(dict(harrisCounty=friendswood_stats))
         
 
 

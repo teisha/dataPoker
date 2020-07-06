@@ -17,6 +17,18 @@ date = datetime.now().strftime("%Y%m%d")
 # print(date)
 
 
+def save_friendswood(stats_dict):
+    friendswood_ref = db.reference('Friendswood')
+    data = friendswood_ref.child(date).get()
+    key = None
+    if data:
+        key = next(iter(data))
+    if key:
+        new_stat = friendswood_ref.child(date+ "/" + key).update(stats_dict)
+    else:        
+        new_stat = friendswood_ref.child(date).push(stats_dict)
+    print("Saved Friendswood: ", new_stat.path if new_stat != None else key)    
+
 def save_harris_county(stats_dict):
     harris_ref = db.reference('Harris')
     data = harris_ref.child(date).get()
@@ -27,7 +39,7 @@ def save_harris_county(stats_dict):
         new_stat = harris_ref.child(date+ "/" + key).update(stats_dict)
     else:        
         new_stat = harris_ref.child(date).push(stats_dict)
-    print("Saved: ", new_stat)    
+    print("Saved Harris County: ", new_stat.path if new_stat != None else key)    
 
 
 def save_texas(tx_stats_dict):
@@ -42,7 +54,7 @@ def save_texas(tx_stats_dict):
         new_stat = texas_ref.child(date + "/" + key).update(tx_stats_dict)
     else:        
         new_stat = texas_ref.child(date).push(tx_stats_dict) 
-    print("Saved: ", new_stat)
+    print("Saved Texas: ", new_stat.path if new_stat != None else key )
 
 def save_us(us_stats_dict):
     us_ref = db.reference('US')
@@ -56,7 +68,7 @@ def save_us(us_stats_dict):
         new_stat = us_ref.child(date + "/" + key ).update(us_stats_dict)
     else:        
         new_stat = us_ref.child(date ).push(us_stats_dict)
-    print("Saved: ", new_stat)
+    print("Saved US Stats: ", new_stat.path if new_stat != None else key)
 
 
 
