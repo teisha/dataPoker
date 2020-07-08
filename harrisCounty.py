@@ -21,18 +21,45 @@ class HarrisCountyRunner:
 
 
     def catch_em_all(self):
-        harrisCountyStats=[]
-        response = requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.daily_all_params)
-        daily_response = response.json()
+        harrisCountyRecords=[]
+        total_recs = requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.total_rec_params)
+        total_response = total_recs.json()
+        print(total_response)
+
+        total = 0
+        if 'features' in total_response:
+            total = total_response['features'][0].get('attributes').get('value')
+        else:
+            raise Exception('Cannot determine total records: ', total_response)            
+        print(f"Analyzing {total} records")
+        city_totals= requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.city_summary_params)
+        city_response = city_totals.json()
+
+        for feature in city_response['features']:
+            whereClause = f"City='{feature.get('attributes').get('City')}'"
+            chunk_params=harrisCounty_config.daily_all_params
+            chunk_params.update({'where': whereClause})
+            print(chunk_params)
+            response = requests.get(url=harrisCounty_config.DAILY_ALL, params=chunk_params)
+            daily_response = response.json() 
+            for rec in daily_response['features']:
+                harrisCountyRecords.append(rec['attributes'])
+
+            # features = [ sub['attributes'] for sub in  daily_response['features']]
+            print(len(harrisCountyRecords))
 
         # ['OBJECTID', 'Id_str', 'Gender', 'AgeRange', 'Quadrant', 'ExposureType', 'Status', 'CaseType', 'Hospitalized', 'X', 'Y', 'DeceasedCOVID19_str',
         #     'Type', 'DateConvertedtoCase', 'DateConvertedtoCase_str', 'Source', 'confirmed', 'EditDate', 'ZIP', 'Race', 'DateSymptoms', 'DateSymptoms_str', 
         #     'City', 'DeceasedCOVID19Date']
-        features = [ sub['attributes'] for sub in daily_response['features'] ]
-        df_people = pd.DataFrame(features)
-        df_people.to_csv(self.people_detail_csv)
 
+        df_people = pd.DataFrame(harrisCountyRecords)
+        df_people.to_csv(self.people_detail_csv)
+        
         total_cases = df_people['OBJECTID'].count()    # This is the stat for "Confirmed Cases"
+        if int(total_cases) != int(total):
+            print(city_response)
+            raise Exception(f"STOP PROCESSING: Processed {total_cases} records, but expected {total}.  Make sure the API is still pulling back all the records ") 
+
         filterNotCompleted = df_people['Status']!="Completed"
         filterNotDeceased = df_people['Status']!="Deceased"
         active_cases = df_people.where(filterNotCompleted & filterNotDeceased)['OBJECTID'].count()
@@ -81,7 +108,7 @@ class HarrisCountyRunner:
         # print(df_current['OBJECTID'].count())
         # print(df_current['DateConvertedtoCase_str'].value_counts())
         # df_people.to_csv('data/all_harris_county_updated.csv')
-
+    
         history_file = open(self.fileName, "w")
         history_file.write('[')
         history_file.writelines(json.dumps(dict(DASHUpdated=self.today_stats))  )
@@ -90,6 +117,7 @@ class HarrisCountyRunner:
         history_file.close()
         # for feature in hospital_response['features']:
         #     print(feature)
+        
 
     def get_summarized_data(self):
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
@@ -130,6 +158,9 @@ class HarrisCountyRunner:
         ages = self.today_stats.get('cases_by_age')
         for agerange in ages.keys():
             database_stats[f"AGE_RANGE: {agerange}"] = ages.get(agerange) 
+        genders = self.today_stats.get('cases_by_gender')
+        for genderoptions in genders.keys():
+            database_stats[f"GENDER: {genderoptions}"] = genders.get(genderoptions)             
         statsbydate = self.today_stats.get('statsByDate') 
         for statname in statsbydate.keys():
             if (statname != "date"):
@@ -149,7 +180,7 @@ class HarrisCountyRunner:
         print(database_stats)        
         database.save_harris_county(dict(harrisCounty=database_stats) )
         friendswood_stats = dict({'date_collected' : self.current_date_time})
-        friendswood_stats['Harris County:'] = self.today_stats.get('cases_by_city').get('Friendswood') 
+        friendswood_stats['Friendswood:'] = self.today_stats.get('cases_by_city').get('Friendswood') 
         database.save_friendswood(dict(harrisCounty=friendswood_stats))
         
 

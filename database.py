@@ -6,7 +6,7 @@ import sys
 
 # default_app = firebase_admin.initialize_app()
 
-cred = credentials.Certificate('config.json')
+cred = credentials.Certificate('config/config.json')
 firebase_admin.initialize_app(cred,  {
     'databaseURL': 'https://covid-python-tdb2020.firebaseio.com/'
 })
@@ -40,6 +40,18 @@ def save_harris_county(stats_dict):
     else:        
         new_stat = harris_ref.child(date).push(stats_dict)
     print("Saved Harris County: ", new_stat.path if new_stat != None else key)    
+
+def save_galveston_county(stats_dict):
+    galveston_ref = db.reference('Galveston')
+    data = galveston_ref.child(date).get()
+    key = None
+    if data:
+        key = next(iter(data))
+    if key:
+        new_stat = galveston_ref.child(date+ "/" + key).update(stats_dict)
+    else:        
+        new_stat = galveston_ref.child(date).push(stats_dict)
+    print("Saved Galveston County: ", new_stat.path if new_stat != None else key) 
 
 
 def save_texas(tx_stats_dict):

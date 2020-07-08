@@ -1,14 +1,16 @@
 Old_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Testing_Service/FeatureServer/"
 
 base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_Testing_Data_Service/FeatureServer/"
-base_cases_url = base_url.replace('COVID19_Testing_Data', 'COVID19_Cases')
+base_url_v3 = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/"
+
+base_cases_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Cases_Service/FeatureServer/"
 hospital_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID_Hospital_Data/FeatureServer/"
           # https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Testing_Service/FeatureServer/8/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=%2A&orderByFields=Date+asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true  
           # https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_Cases_Service/FeatureServer/8/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true
 current_day_report = "2/query?"   # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=pjson&token="
 
 
-CURRENT_DAY_URL = "" + base_url + current_day_report
+CURRENT_DAY_URL = "" + base_url_v3 + current_day_report
 current_day_params = {
     'f':'json',
     'where': '1=1',
@@ -50,7 +52,7 @@ hospitals_cum_params = {
 }
 
 hospitalizations_by_date_url ="1/query?"  # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=pjson&token="
-HOSPITAL_URL = "" + base_url + hospitalizations_by_date_url
+HOSPITAL_URL = "" + base_url_v3 + hospitalizations_by_date_url
 hospitalizations_by_date_params = {
     'f':'json',
     'where': '1=1',
@@ -65,7 +67,7 @@ hospitalizations_by_date_params = {
 }
 
 viral_antibody_breakout_by_day_url ="3/query?"    # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token="
-VIRAL_ANTIBODY_BREAKOUT_URL= base_url + viral_antibody_breakout_by_day_url
+VIRAL_ANTIBODY_BREAKOUT_URL= base_url_v3 + viral_antibody_breakout_by_day_url
 viral_antibody_breakout_by_day_params = {
     'f': 'json',
     'where': '1=1',

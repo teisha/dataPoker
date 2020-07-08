@@ -1,9 +1,8 @@
-import harrisCounty
+import galvestonCounty
 
-runThis = harrisCounty.HarrisCountyRunner()
-runThis.catch_em_all()
-runThis.get_summarized_data()
-runThis.save_database()
+runThis = galvestonCounty.GalvestonCountyRunner()
+runThis.getAllData()
+runThis.saveToDatabase()
 
 print ('---------------------------------------------------')
 # print(dir(runThis))
