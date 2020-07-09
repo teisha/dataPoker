@@ -15,7 +15,7 @@ class Runner:
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
         self.today = datetime.now().strftime("%Y-%m-%d")
         self.yesterday = date.today() - timedelta(days=1)
-        print('-----------------INIT------------------------------')
+        print('-----------------INIT TXDHS------------------------------')
 
     def load_from_file(self, filename):
         with open(filename, "rb") as handle:

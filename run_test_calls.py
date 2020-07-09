@@ -1,7 +1,9 @@
 import galvestonCounty
 
 runThis = galvestonCounty.GalvestonCountyRunner()
-runThis.getAllData()
+# runThis.getAllData()
+# runThis.pickle_off()
+runThis.pickle_on()
 runThis.saveToDatabase()
 
 print ('---------------------------------------------------')

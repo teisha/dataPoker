@@ -84,7 +84,7 @@ class GalvestonCountyRunner:
         friendswood = next((stat for stat in cityTotals if stat["City"] == 'Friendswood'), None)
         cases_by_city = dict()
         for city in cityTotals:
-            cases_by_city.update({city.get('City') : city.get('Total Cases')})
+            cases_by_city.update({city.get('City').replace('/','') : city.get('Total Cases')})
         self.today_stats.update({'cases_by_city': cases_by_city})            
         self.history_stats.update({'cityTotals': cityTotals})
         self.friendswood_stats.update({'galvestonCounty': friendswood})
@@ -121,7 +121,13 @@ class GalvestonCountyRunner:
     def getTotalsByGender(self):
         totalsByGender = self.getSpreadsheetData(galvestonCounty_config.totals_by_gender)
         self.history_stats.update({'totalsByGender': totalsByGender})
-        self.today_stats.update({'totalsByGender': totalsByGender})
+        gender_today = []
+        for rec in totalsByGender:
+            genderRec = dict({'Total Cases': rec.get('Total Cases'), 
+                'Recovered': rec.get('Recovered'),
+                'Deceased': rec.get('Deceased') })
+            gender_today.append(dict({f"GENDER {rec.get('')}": genderRec }))                
+        self.today_stats.update({'totalsByGender': gender_today})
 
     def getNewCases(self):
         newCases = self.getSpreadsheetData(galvestonCounty_config.new_cases_new_tested_by_week)
@@ -135,43 +141,60 @@ class GalvestonCountyRunner:
         self.getTotalsPerDay()
         self.getTotalsByAge()
         self.getTotalsByGender()
-        # self.getNewCases()
+        self.getNewCases()
 
         print(self.today_stats)   
 
         history_file = open(self.fileName, "w")
         history_file.write('[')
-        history_file.writelines(json.dumps(dict(DASHUpdated=self.today_stats))  )
+        history_file.writelines(json.dumps(dict(TODAY=self.today_stats))  )
         history_file.write(',')
-        history_file.writelines(json.dumps(dict(datedTotals=self.history_stats))  )
+        history_file.writelines(json.dumps(dict(HISTORY=self.history_stats))  )
         history_file.write(']')
         history_file.close()
 
+    def pickle_off(self):
+        print(self.today_stats)
+        with open('data/galveston_today.pickle', "wb") as handle:
+            pickle.dump(self.today_stats, handle, protocol=pickle.HIGHEST_PROTOCOL)     
+        with open('data/galveston_history.pickle', "wb") as handle:
+            pickle.dump(self.history_stats, handle, protocol=pickle.HIGHEST_PROTOCOL) 
+
+    def pickle_on(self):
+        with open('data/galveston_today.pickle', 'rb') as handle:
+            self.today_stats = pickle.load(handle)   
+        with open('data/galveston_history.pickle', 'rb') as handle:
+            self.history_stats = pickle.load(handle)                                     
+
     def saveToDatabase(self):
-        database.save_friendswood(self.friendswood_stats)
+        print("TODAY")
+        print(self.today_stats)
         database_stats = dict({'date_collected' : self.current_date_time})  
-        # database_stats.update({'ALL CASES: City Counts': self.today_stats.get('cases_by_city')})  
-        # database_stats.update({'AGE GROUPS': self.today_stats.get('totalsByAge')}) 
+        print(self.today_stats.get('totalsByAge'))
+        database_stats.update({'ALL CASES: City Counts': self.today_stats.get('cases_by_city')})  
+        database_stats.update({'AGE GROUPS': self.today_stats.get('totalsByAge')}) 
         summary_stats = self.today_stats.get('cumulative_totals')   
         if summary_stats != None:
-            database_stats.update({f"SUMMARY {self.today}: Total Cases": summary_stats.get('Total Cases')})
-            database_stats.update({f"SUMMARY {self.today}: Recovered": summary_stats.get('Recovered')})
-            database_stats.update({f"SUMMARY {self.today}: Deaths": summary_stats.get('Deaths')})
+            database_stats.update({f"SUMMARY {self.today} Total Cases": summary_stats.get('Total Cases')})
+            database_stats.update({f"SUMMARY {self.today} Recovered": summary_stats.get('Recovered')})
+            database_stats.update({f"SUMMARY {self.today} Deaths": summary_stats.get('Deaths')})
         hospital_stats = self.today_stats.get('hospitalized') 
         if hospital_stats != None:
             database_stats.update({'Hospitalized': hospital_stats.get('Hospitalized')})   
             database_stats.update({'Self-Quarantined': hospital_stats.get('Self-Quarantined')})  
         daily_stats = self.today_stats.get('daily_stats')                    
         if daily_stats != None:
-            database_stats.update({f"DAILY {self.today}: Total Cases" : daily_stats.get('Total Cases')})
-            database_stats.update({f"DAILY {self.today}: Recovered" : daily_stats.get('Recovered')})
-            database_stats.update({f"DAILY {self.today}: #Deceased" : daily_stats.get('#Deceased')})
-        gender_totals = self.today_stats.get('totalsByGender')
-        if gender_totals != None:
-            database_stats.update({'GENDER: Male': next((stat for stat in gender_totals if stat[''] == 'Male'), None)})
-            database_stats.update({'GENDER: Female': next((stat for stat in gender_totals if stat[''] == 'Female'), None)})
+            database_stats.update({f"DAILY {self.today} Total Cases" : daily_stats.get('Total Cases')})
+            database_stats.update({f"DAILY {self.today} Recovered" : daily_stats.get('Recovered')})
+            database_stats.update({f"DAILY {self.today} Deceased" : daily_stats.get('#Deceased')})
+        gender_stats = self.today_stats.get('totalsByGender')
+        for gender_rec in gender_stats:
+            database_stats.update(gender_rec)
+        database_stats.update(dict(lastWeeklyUpdate=self.today_stats.get('lastWeeklySummary'))   )         
+        print("DATABASE")
         print(database_stats)
-        database.save_galveston_county(dict(galvestonCounty=database_stats) )            
+        database.save_galveston_county(dict(galvestonCounty=database_stats) )  
+        database.save_friendswood(self.friendswood_stats)          
 
 
 
