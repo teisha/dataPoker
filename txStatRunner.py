@@ -59,13 +59,16 @@ class Runner:
             total_avail_vents = total_avail_vents + totals.get("AvailVenti")
             hospitals_current.append(totals)
         harris = next((stat for stat in hospitals_current if stat["TSA"] == "Q"), None)
+        galveston = next((stat for stat in hospitals_current if stat["TSA"] == "R"), None)
         # print( harris)
         state_totals = dict(total_covid=total_covid, total_staff=total_staff, total_avail_beds=total_avail_beds,
             total_avail_icu_beds=total_avail_icu_beds, total_avail_vents=total_avail_vents  )
         state_totals.update({'date_collected' : self.current_date_time})
         print(state_totals)
         self.stat_pickler.update( dict(hospitals_current=hospitals_current))
-        self.today_stats.update(dict(harris_hospitals=harris, hospital_current_totals=state_totals) )
+        self.today_stats.update(dict(harris_hospitals=harris, galveston_hospitals=galveston, 
+            hospital_current_totals=state_totals) )
+        
 
 
 
@@ -139,7 +142,8 @@ class Runner:
         #     daily_new_cases=x["DailyNewCases"]+y["DailyNewCases"],
         #     daily_new_fatalities=x["DailyNewFatalities"]+y["DailyNewFatalities"]) ), daily_stats)
 
-        harris = next((stat for stat in daily_stats if stat["County"] == "Harris"), None)            
+        harris = next((stat for stat in daily_stats if stat["County"] == "Harris"), None)    
+        galveston = next((stat for stat in daily_stats if stat["County"] == "Galveston"), None)          
         positive = 0
         fatalities = 0
         recoveries = 0
@@ -165,7 +169,7 @@ class Runner:
             sum_recoveries=recoveries,
             sum_active=recoveries)
         sum_counties.update({'date_collected' : self.current_date_time})            
-        self.today_stats.update(dict(sum_counties=sum_counties, harris=harris))      
+        self.today_stats.update(dict(sum_counties=sum_counties, harris=harris, galveston=galveston))      
 
     def get_county_totals(self):
         response_total = requests.get(url=txarc_config.TOTAL_COUNTIES_REPORTING_URL, params=txarc_config.total_counties_reporting_params)
@@ -214,6 +218,24 @@ class Runner:
         harris_save_stats["AvailableVentilators"] = harris_hospitals.get("AvailVenti")
         harris_save_stats["COVIDPatients"] = harris_hospitals.get("COVIDPatie")
         database.save_harris_county(dict(dhs=harris_save_stats))
+
+        galveston_stats = self.today_stats.get("galveston") 
+        galveston_hospitals = self.today_stats.get("galveston_hospitals")
+        galveston_save_stats = dict()
+        galveston_save_stats["date_collected"] = galveston_stats.get("date_collected")
+        galveston_save_stats["Positive"] = galveston_stats.get("Positive")
+        galveston_save_stats["Fatalities"] = galveston_stats.get("Fatalities")
+        galveston_save_stats["Recoveries"] = galveston_stats.get("Recoveries")
+        galveston_save_stats["Active"] = galveston_stats.get("Active")
+        galveston_save_stats["TraumaServiceArea"] = galveston_hospitals.get("TSA")
+        galveston_save_stats["RegionalAdvisoryCouncil"] = galveston_hospitals.get("RAC") 
+        galveston_save_stats["PopulationEstimate"] = galveston_hospitals.get("PopEst2020") 
+        galveston_save_stats["TotalHospitalStaff"] = galveston_hospitals.get("TotalStaff")
+        galveston_save_stats["AvailableHospitalBeds"] = galveston_hospitals.get("AvailHospi")
+        galveston_save_stats["AvailableICUBeds"] = galveston_hospitals.get("AvailICUBe")
+        galveston_save_stats["AvailableVentilators"] = galveston_hospitals.get("AvailVenti")
+        galveston_save_stats["COVIDPatients"] = galveston_hospitals.get("COVIDPatie")
+        database.save_galveston_county(dict(dhs=galveston_save_stats))
 
         texas_stats = dict()
         texas_stats["date_collected"] = self.today_stats.get("counties").get("date_collected")

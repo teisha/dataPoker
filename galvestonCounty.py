@@ -8,6 +8,7 @@ from google.auth.transport.requests import Request
 import galvestonCounty_config
 import json
 import database
+from functools import reduce
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -63,20 +64,25 @@ class GalvestonCountyRunner:
         result = sheet.values().get(spreadsheetId=spreadsheetId,
                                     range=sheetName,majorDimension='ROWS').execute()
         values = result.get('values', [])
-        returnValue = []
 
         if not values:
             return dict()
         else:
+            returnValue = []
             headers = values[0]
+            print(headers)
             sheet_iterator = iter(values)
             next(sheet_iterator)            
             for row in sheet_iterator:
-                asDict = dict({'date_collected' : self.current_date_time})
-                for i in range(len(headers)):
-                    asDict.update({headers[i]: row[i]})
-                print(asDict)
-                returnValue.append(asDict)
+                # print(row)
+                if len(headers) == len(row):
+                    asDict = dict({'date_collected' : self.current_date_time})
+                    for i in range(len(headers)):
+                        asDict.update({headers[i].strip() : row[i]})
+                    # print(asDict)
+                    returnValue.append(asDict)
+                else:
+                    print("SKIPPED:", row)                    
             return returnValue
 
     def getCityTotals(self):
@@ -159,12 +165,16 @@ class GalvestonCountyRunner:
             pickle.dump(self.today_stats, handle, protocol=pickle.HIGHEST_PROTOCOL)     
         with open('data/galveston_history.pickle', "wb") as handle:
             pickle.dump(self.history_stats, handle, protocol=pickle.HIGHEST_PROTOCOL) 
+        with open('data/galveston_friendswood.pickle', "wb") as handle:
+            pickle.dump(self.friendswood_stats, handle, protocol=pickle.HIGHEST_PROTOCOL)             
 
     def pickle_on(self):
         with open('data/galveston_today.pickle', 'rb') as handle:
             self.today_stats = pickle.load(handle)   
         with open('data/galveston_history.pickle', 'rb') as handle:
-            self.history_stats = pickle.load(handle)                                     
+            self.history_stats = pickle.load(handle)   
+        with open('data/galveston_friendswood.pickle', 'rb') as handle:
+            self.friendswood_stats = pickle.load(handle)                                                
 
     def saveToDatabase(self):
         print("TODAY")
@@ -190,7 +200,9 @@ class GalvestonCountyRunner:
         gender_stats = self.today_stats.get('totalsByGender')
         for gender_rec in gender_stats:
             database_stats.update(gender_rec)
-        database_stats.update(dict(lastWeeklyUpdate=self.today_stats.get('lastWeeklySummary'))   )         
+        database_stats.update(dict(lastWeeklyUpdate=self.today_stats.get('lastWeeklySummary'))   )  
+        county_totals = reduce(lambda x,y: int(x) + int(y), self.today_stats.get('cases_by_city').values()) 
+        database_stats.update(dict(total_county=county_totals) )     
         print("DATABASE")
         print(database_stats)
         database.save_galveston_county(dict(galvestonCounty=database_stats) )  

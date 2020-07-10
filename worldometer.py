@@ -55,8 +55,11 @@ def download_texas():
 
     harris_stat = next((stat for stat in yesterday_stats if stat["County"].strip() == "Harris"), None)
     print("HARRIS: ", harris_stat)
-
     database.save_harris_county(dict(worldometer=harris_stat) )
+
+    galveston_stat = next((stat for stat in yesterday_stats if stat["County"].strip() == "Galveston"), None)
+    print('GALVESTON:' , galveston_stat)             
+    database.save_galveston_county(dict(worldometer=galveston_stat))
 
 
 def download_world():
