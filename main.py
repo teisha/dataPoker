@@ -1,8 +1,7 @@
-from txStatRunner import Runner
-import worldometer
-import harrisCounty
-import galvestonCounty
+
 import sys
+from data_gatherers.txStatRunner import Runner
+from data_gatherers import galvestonCounty, harrisCounty, worldometer
 
 
 worldometer.download_texas()
@@ -33,7 +32,7 @@ runHarris.save_database()
 runGalveston = galvestonCounty.GalvestonCountyRunner()
 try:
     runGalveston.getAllData()
-    runGalveston.pickle_off()
-    runGalveston.saveToDatabase()
 except:
-    print("Galveston data not saved", sys.exc_info()[0])    
+    print("Galveston data incomplete", sys.exc_info()[0]) 
+runGalveston.pickle_off()
+runGalveston.saveToDatabase()       

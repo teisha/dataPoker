@@ -3,10 +3,11 @@ import json
 from datetime import datetime, timedelta, date
 from IPython.lib.pretty import pprint
 import pickle
-import txarc_config
+
 from urllib.parse import unquote, urlencode
 from functools import reduce
-import database
+from data_gatherers import txarc_config
+from services import database
 
 class Runner:
     def __init__(self):

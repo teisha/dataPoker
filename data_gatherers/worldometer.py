@@ -2,7 +2,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 from datetime import datetime
-import database
+from services import database
 
 
 def download_texas():

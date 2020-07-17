@@ -1,10 +1,10 @@
 import requests
 import json
 from datetime import datetime, timedelta, date
-import harrisCounty_config
+from data_gatherers import harrisCounty_config
 import numpy as np 
 import pandas as pd 
-import database
+from services import database
 
 class HarrisCountyRunner:
     def __init__(self):

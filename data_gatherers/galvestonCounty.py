@@ -5,10 +5,10 @@ from datetime import datetime, timedelta, date
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-import galvestonCounty_config
 import json
-import database
+from services import database
 from functools import reduce
+from data_gatherers import galvestonCounty_config
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -86,6 +86,7 @@ class GalvestonCountyRunner:
             return returnValue
 
     def getCityTotals(self):
+        print ('City Totals')
         cityTotals = self.getSpreadsheetData(galvestonCounty_config.totals_by_city)
         friendswood = next((stat for stat in cityTotals if stat["City"] == 'Friendswood'), None)
         cases_by_city = dict()
@@ -96,6 +97,7 @@ class GalvestonCountyRunner:
         self.friendswood_stats.update({'galvestonCounty': friendswood})
 
     def getHospitalizedTotals(self):
+        print('Hospitalizations')
         hospitalizedTotals = self.getSpreadsheetData(galvestonCounty_config.hospitalized_quarantined_by_date)
         self.history_stats.update({'hospitalized': hospitalizedTotals})
         today_hospitalized = next((stat for stat in hospitalizedTotals if stat["Date"] == self.today), None)
@@ -103,6 +105,7 @@ class GalvestonCountyRunner:
             self.today_stats.update({'hospitalized': today_hospitalized})
 
     def getRollingTotals(self):
+        print ('Rolling Totals')
         rollingTotals = self.getSpreadsheetData(galvestonCounty_config.rolling_totals)
         self.history_stats.update({'cumulative_totals': rollingTotals})
         cumulative_stats = next((stat for stat in rollingTotals if stat["Date"] == self.today), None)
@@ -110,6 +113,7 @@ class GalvestonCountyRunner:
             self.today_stats.update({'cumulative_totals': cumulative_stats})        
 
     def getTotalsPerDay(self):
+        print ('Total Per Day')
         dailyTotals = self.getSpreadsheetData(galvestonCounty_config.totals_per_day)
         self.history_stats.update({'daily_totals': dailyTotals})
         daily_stats = next((stat for stat in dailyTotals if stat["Date"] == self.today), None)
@@ -117,6 +121,7 @@ class GalvestonCountyRunner:
             self.today_stats.update({'daily_stats': daily_stats})
 
     def getTotalsByAge(self):
+        print ('Total By Age')
         totalsByAge = self.getSpreadsheetData(galvestonCounty_config.totals_by_age)
         age_stats = dict()
         for ageGroup in totalsByAge:
@@ -125,6 +130,7 @@ class GalvestonCountyRunner:
         self.today_stats.update({'totalsByAge': age_stats})
 
     def getTotalsByGender(self):
+        print('Total By Gender')
         totalsByGender = self.getSpreadsheetData(galvestonCounty_config.totals_by_gender)
         self.history_stats.update({'totalsByGender': totalsByGender})
         gender_today = []
@@ -136,6 +142,7 @@ class GalvestonCountyRunner:
         self.today_stats.update({'totalsByGender': gender_today})
 
     def getNewCases(self):
+        print('New Cases')
         newCases = self.getSpreadsheetData(galvestonCounty_config.new_cases_new_tested_by_week)
         self.history_stats.update({'weeklySummary': newCases})
         self.today_stats.update({'lastWeeklySummary': newCases[-1]})
@@ -158,9 +165,10 @@ class GalvestonCountyRunner:
         history_file.writelines(json.dumps(dict(HISTORY=self.history_stats))  )
         history_file.write(']')
         history_file.close()
+        print('-------------------------------------------------------')
 
     def pickle_off(self):
-        print(self.today_stats)
+        print('Saving to file', self.today_stats)
         with open('data/galveston_today.pickle', "wb") as handle:
             pickle.dump(self.today_stats, handle, protocol=pickle.HIGHEST_PROTOCOL)     
         with open('data/galveston_history.pickle', "wb") as handle:
