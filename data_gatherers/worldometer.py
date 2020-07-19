@@ -44,7 +44,7 @@ def download_texas():
             yesterday_stats.append(stat)
     date_time = datetime.now().strftime("%m-%d-%Y")
     yesterday_out = (dict(texas=yesterday_stats))
-    yesterday_file = open(r"data/worldometer-"+ date_time + ".json", "w")
+    yesterday_file = open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "w")
     yesterday_file.write('[')
     yesterday_file.writelines(json.dumps(yesterday_out)  )
     yesterday_file.close()

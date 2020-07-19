@@ -82,8 +82,39 @@ def save_us(us_stats_dict):
         new_stat = us_ref.child(date ).push(us_stats_dict)
     print("Saved US Stats: ", new_stat.path if new_stat != None else key)
 
+def formatDateForKey(date: datetime):
+    return date.strftime("%Y%m%d")
 
 
+def getUs(date: datetime):
+    return getDataFor('US', date) 
+
+def getTexas(date: datetime):
+    return getDataFor('Texas', date)
+
+def getHarrisCounty(date: datetime):
+    return getDataFor('Harris', date)    
+
+def getGalvestonCounty(date: datetime):
+    return getDataFor('Galveston', date)   
+
+def getFriendswood(date: datetime):
+    return getDataFor('Friendswood', date)   
+
+def getDataFor(region_name: str, date: datetime):    
+    data_ref = db.reference(region_name)
+    data = data_ref.child(formatDateForKey(date)).get()
+    key = None
+    if data:
+        key = next(iter(data))
+        # print("DATA: ", data)
+        # print("KEY: ", next(iter(data)) )
+        if key != None:
+            return data.get(key)
+        else:
+            return data
+    else:
+        return None            
 
 
 
