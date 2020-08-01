@@ -10,6 +10,21 @@ hospital_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/s
 current_day_report = "2/query?"   # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=none&f=pjson&token="
 
 
+
+DEATHS_CUMMULATIVE = "" + base_cases_url + "5/query?" 
+death_cummulative_params = {
+    'f': 'json',
+    'where': '1=1',
+    'returnGeometry': 'false',
+    'spatialRel': 'esriSpatialRelIntersects',
+    'outFields':'*',
+    'outStatistics':'[{"statisticType":"sum","onStatisticField":"Count_","outStatisticFieldName":"reportedCumulativeFatalities"}]',
+    'resultType': 'standard',
+    'cacheHint': 'true'
+}
+
+
+
 CURRENT_DAY_URL = "" + base_url_v3 + current_day_report
 current_day_params = {
     'f':'json',

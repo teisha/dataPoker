@@ -115,16 +115,35 @@ class Runner:
         daily_response = response.json()
         # print(daily_response)
         daily_stats = []
+        sum_all_fatalities = 0
+        total_added_fatalities = 0
         for feature in daily_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            total_added_fatalities = total_added_fatalities + (+totals.get('AddedFatalities') if totals.get('AddedFatalities') != None else 0)
+            sum_all_fatalities = sum_all_fatalities + (+totals.get('DailyNewFatalities') if totals.get('DailyNewFatalities') != None else 0)
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
+
+
+
         last_stat = next((stat for stat in daily_stats if stat["DateString"] == self.today), None)
+        if last_stat != None:
+            last_stat.update({'FatalitiesAdded': total_added_fatalities})
+            last_stat.update({'ReportedCummulativeFatalities': self.get_daily_cummulative_deaths()})
+            last_stat.update({'SumDailyNewFatalities': sum_all_fatalities})
         self.today_stats.update(dict(daily_new_cases=last_stat) )          
 
+
+    # this is what's displayed on the website as of the 27th
+    def get_daily_cummulative_deaths(self):
+        response = requests.get(url=txarc_config.DEATHS_CUMMULATIVE, params=txarc_config.death_cummulative_params)
+        daily_response = response.json()
+        print(daily_response)
+        death_stat =  daily_response['features'][0].get('attributes').get("reportedCumulativeFatalities")
+        return death_stat
 
     def get_daily_counts_by_county(self):
         response = requests.get(url=txarc_config.DAILY_COUNTY_COUNTS_URL, params=txarc_config.daily_counts_by_county_params)
@@ -268,11 +287,13 @@ class Runner:
             texas_stats["CumulativeFatalities"] = -1
             texas_stats["DailyNewCases"] = -1
             texas_stats["DailyNewFatalities"] = -1
+            texas_stats["SUM-AllDailyNewFatalities"] = -1
         else:
             texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases", dict()).get("CumulativeCases", -1)
-            texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("CumulativeFatalities", -1)
+            texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("ReportedCummulativeFatalities", -1)
             texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases", dict()).get("DailyNewCases", -1)
-            texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("DailyNewFatalities", -1)
+            texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("FatalitiesAdded", -1)
+            texas_stats["SUM-AllDailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("SumDailyNewFatalities", -1)
         texas_stats["County_sum_positives"]   = self.today_stats.get("sum_counties", dict()).get("sum_positive", -1)
         texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties", dict()).get("sum_fatalities", -1)
         texas_stats["County_sum_recoveries"]  = self.today_stats.get("sum_counties", dict()).get("sum_recoveries", -1)

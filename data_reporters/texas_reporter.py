@@ -16,22 +16,48 @@ class TexasReporter:
 
     def get_texas_stats(self, numdays: int):
         dates = []
+        tx_dates = []
         datelist = pd.date_range(start=self.todaysdate -timedelta(days=numdays), end=self.todaysdate).tolist()
         # print(datelist)
         for date_item in datelist:
-            dhs_stats = database.getTexas(date_item)
-            if dhs_stats != None:
-                dhs_stats.get('dhs').update({'day': date_item.to_pydatetime().strftime('%a')})
-                dates.append(dict({date_item.to_pydatetime().date() :  dhs_stats.get('dhs') }))
+            texas_stats = dict()
+            alltx_stats = database.getTexas(date_item)
+            if alltx_stats != None:
+                dhs_stats = alltx_stats.get('dhs')
+                if dhs_stats != None:
+                    dhs_stats.update({'day': date_item.to_pydatetime().strftime('%a')})
+                    dates.append(dict({date_item.to_pydatetime().date() :  alltx_stats.get('dhs') }))
+
+                    texas_stats.update({'day': date_item.to_pydatetime().strftime('%a')})
+                    texas_stats.update({'DailyNew': dhs_stats.get('DailyNewCases')})
+                    texas_stats.update({'DailyFatal': dhs_stats.get('DailyNewFatalities')})
+                    texas_stats.update({'CumCases': dhs_stats.get('CumulativeCases')})
+                    texas_stats.update({'CumFatal': dhs_stats.get('CumulativeFatalities')})
+                    texas_stats.update({'SevenDayPositive': dhs_stats.get('SevenDayPositiveTestRate')})
+                    texas_stats.update({'NewViral': dhs_stats.get('NewViral')})
+                    texas_stats.update({'CumViral': dhs_stats.get('ViralTests')})
+                    texas_stats.update({'TotalTests': dhs_stats.get('REPORTED_TotalTests')})
+                worldo_stats = alltx_stats.get('worldometer')
+                if worldo_stats != None:
+                    # {'ActiveCases': '139903', 'County': 'Texas Total', 'NewCases': '11060', 'NewDeaths': '131', 'TotalCases': '285772', 'TotalDeaths': '3471', 'TotalTests': '2864541'}
+                    texas_stats.update({'WO DailyNew' : worldo_stats.get('NewCases')})
+                    texas_stats.update({'WO DailyDeaths' : worldo_stats.get('NewDeaths')})
+                    texas_stats.update({'WO TotalCases' : worldo_stats.get('TotalCases')})
+                    texas_stats.update({'WO TotalDeaths' : worldo_stats.get('TotalDeaths')})
+
+            tx_dates.append(dict({date_item.to_pydatetime().date() :  texas_stats }))
         # print(dates)
         print("- ---  ----  ----- TEXAS ----- ---- --- -")
         dframe_dhs = pd.DataFrame.from_dict(ChainMap(*dates), orient='index')
         print(dframe_dhs.columns)
+        dframe_texas = pd.DataFrame.from_dict(ChainMap(*tx_dates), orient='index')
+        # dframe_texas = 
 
         cutoff = datetime(2020,7,6).date()
         print(dframe_dhs.filter(regex='HOSP').sort_index(axis = 0).loc[cutoff:])            
-        print(dframe_dhs[['day','DailyNewCases','DailyNewFatalities','CumulativeCases','CumulativeFatalities','SevenDayPositiveTestRate',
-          'NewViral','ViralTests','REPORTED_TotalTests']].sort_index(axis = 0))
+        # print(dframe_dhs[['day','DailyNewCases','DailyNewFatalities','CumulativeCases','CumulativeFatalities','SevenDayPositiveTestRate',
+        #   'NewViral','ViralTests','REPORTED_TotalTests']].sort_index(axis = 0))
+        print(dframe_texas.sort_index(axis=0))          
 
     def get_friendswood_stats(self, numdays: int):
         dates = []
@@ -76,30 +102,31 @@ class TexasReporter:
             stats = dict()
             stats.update({'day': date_item.to_pydatetime().strftime('%a')})
             harris_stats = database.getHarrisCounty(date_item)
-            har_dhs = harris_stats.get('dhs')
-            if har_dhs != None:
-                stats.update({'Beds': har_dhs.get('AvailableHospitalBeds')})
-                stats.update({'ICU': har_dhs.get('AvailableICUBeds')})
-                stats.update({'Vents': har_dhs.get('AvailableVentilators')})
-                stats.update({'COVID hosp': har_dhs.get('COVIDPatients')})
-                stats.update({'DHS Active': har_dhs.get('Active')})
-                stats.update({'DHS Deaths': har_dhs.get('Fatalities')})
-                stats.update({'DHS Positive': har_dhs.get('Positive')})
-                stats.update({'DHS Recover': har_dhs.get('Recoveries')})
-            har_co = harris_stats.get('harrisCounty')
-            if har_co != None:
-                stats.update({'Active': har_co.get('ActiveCases')})
-                stats.update({'Fatalities': har_co.get('DeceasedCases')})
-                stats.update({'Positive': har_co.get('ConfirmedCases')})
-                stats.update({'Recoveries': har_co.get('RecoveredCases')})                
-                stats.update({'New Cases': har_co.get(f"SUMMARY {date_item.strftime('%m-%d')}: NewCases")})
+            if harris_stats != None:
+                har_dhs = harris_stats.get('dhs')
+                if har_dhs != None:
+                    stats.update({'Beds': har_dhs.get('AvailableHospitalBeds')})
+                    stats.update({'ICU': har_dhs.get('AvailableICUBeds')})
+                    stats.update({'Vents': har_dhs.get('AvailableVentilators')})
+                    stats.update({'COVID hosp': har_dhs.get('COVIDPatients')})
+                    stats.update({'DHS Active': har_dhs.get('Active')})
+                    stats.update({'DHS Deaths': har_dhs.get('Fatalities')})
+                    stats.update({'DHS Positive': har_dhs.get('Positive')})
+                    stats.update({'DHS Recover': har_dhs.get('Recoveries')})
+                har_co = harris_stats.get('harrisCounty')
+                if har_co != None:
+                    stats.update({'Active': har_co.get('ActiveCases')})
+                    stats.update({'Fatalities': har_co.get('DeceasedCases')})
+                    stats.update({'Positive': har_co.get('ConfirmedCases')})
+                    stats.update({'Recoveries': har_co.get('RecoveredCases')})                
+                    stats.update({'New Cases': har_co.get(f"SUMMARY {date_item.strftime('%m-%d')}: NewCases")})
 
-            har_world = harris_stats.get('worldometer')
-            if har_world != None:
-                stats.update({'WO Case': har_world.get('NewCases')})
-                stats.update({'WO Death': har_world.get('NewDeaths')})                
+                har_world = harris_stats.get('worldometer')
+                if har_world != None:
+                    stats.update({'WO Case': har_world.get('NewCases')})
+                    stats.update({'WO Death': har_world.get('NewDeaths')})                
 # 'SUMMARY 07-21: Active': 38791, 'SUMMARY 07-21: Deceased': 560, 'SUMMARY 07-21: NewCases': 1385, 'SUMMARY 07-21: Recovered': 19129                
-            harris_dates.append(dict({date_item.to_pydatetime().date() : stats}))                
+                harris_dates.append(dict({date_item.to_pydatetime().date() : stats}))                
                 
             gal_stats = dict()    
             gal_stats.update({'day': date_item.to_pydatetime().strftime('%a')})
