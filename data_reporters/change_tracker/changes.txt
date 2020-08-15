@@ -1,0 +1,9 @@
+2020-07-27  Mon      4267         NaN    385923       NaN     -  Death calculations changed to be based on death certificates filed.
+
+2020-08-02  Sun -> DSHS software upgrade
+
+
+8/7 -> DSHS changed fatality count
+%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22AddedFatalities%22%2C%22outStatisticFieldName%22%3A%22addedDeaths%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22IncompleteAddedFatalities%22%2C%22outStatisticFieldName%22%3A%22incompleteAddedDeaths%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22DailyNewFatalities%22%2C%22outStatisticFieldName%22%3A%22dailyNewDeaths%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22IncompleteDailyNewFatalities%22%2C%22outStatisticFieldName%22%3A%22incompleteDailyNewDeaths%22%7D%5D
+{"objectIdFieldName":"OBJECTID","uniqueIdField":{"name":"OBJECTID","isSystemMaintained":true},"globalIdFieldName":"","fields":[{"name":"addedDeaths","type":"esriFieldTypeDouble","alias":"addedDeaths","sqlType":"sqlTypeFloat","domain":null,"defaultValue":null},{"name":"incompleteAddedDeaths","type":"esriFieldTypeDouble","alias":"incompleteAddedDeaths","sqlType":"sqlTypeFloat","domain":null,"defaultValue":null},{"name":"dailyNewDeaths","type":"esriFieldTypeDouble","alias":"dailyNewDeaths","sqlType":"sqlTypeFloat","domain":null,"defaultValue":null},{"name":"incompleteDailyNewDeaths","type":"esriFieldTypeDouble","alias":"incompleteDailyNewDeaths","sqlType":"sqlTypeFloat","domain":null,"defaultValue":null}],
+"features":[{"attributes":{"addedDeaths":92,"incompleteAddedDeaths":201,"dailyNewDeaths":7158,"incompleteDailyNewDeaths":645}}]}
