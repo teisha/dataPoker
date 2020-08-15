@@ -28,14 +28,16 @@ class Runner:
         # print(URL)
         URL = txarc_config.CURRENT_DAY_URL
         response = requests.get(url=URL, params=txarc_config.current_day_params)
-        # print(type(stats), stats.keys())
         stats = response.json()
+        print(type(stats), stats.keys())
         current_day_stats = []
         for feature in stats['features']:
             # print(feature.get('attributes'))
-            totals = feature.get('attributes')
+            totals = feature.get('attributes')           
             current_day_stats.append ( dict( test=totals.get('TestType'), total=+totals.get('Count_') ) )
             totals.update({'date_collected' : self.current_date_time})
+
+        print(current_day_stats)
         self.stat_pickler.update( dict(current_day_stats=current_day_stats))
         self.today_stats.update( dict(current_day_stats=current_day_stats))
 
@@ -122,7 +124,8 @@ class Runner:
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
-            total_added_fatalities = total_added_fatalities + (+totals.get('AddedFatalities') if totals.get('AddedFatalities') != None else 0)
+            total_added_fatalities = total_added_fatalities + (int(totals.get('AddedFatalities')) if totals.get('AddedFatalities') != None else 0) + \
+                (int(totals.get('IncompleteAddedFatalities')) if totals.get('IncompleteAddedFatalities') != None else 0)
             sum_all_fatalities = sum_all_fatalities + (+totals.get('DailyNewFatalities') if totals.get('DailyNewFatalities') != None else 0)
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
@@ -263,6 +266,8 @@ class Runner:
         texas_stats["REPORTED_TotalTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "TotalTests"), None) 
         texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntibodyTests"), None) 
         texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
+        texas_stats["AntigenTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntigenTests"), None) 
+        texas_stats["PositiveAntigen"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntigenPositive"), None) 
         texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
         hospital_totals = self.today_stats.get("hospital_current_totals")
         texas_stats["HOSP: TotalCovidPatients"] = hospital_totals.get("total_covid")
@@ -278,10 +283,12 @@ class Runner:
             texas_stats["SevenDayPositiveTestRate"] = -1
             texas_stats["NewViral"] = -1
             texas_stats["NewAntibody"] = -1
+            texas_stats["NewAntigenTests"] = -1
         else:            
             texas_stats["SevenDayPositiveTestRate"] = self.today_stats.get("viral_antibody_stats", dict()).get("SevenDayPositiveTestRate", -1)
             texas_stats["NewViral"] = self.today_stats.get("viral_antibody_stats", dict()).get("NewViral", -1)
             texas_stats["NewAntibody"] = self.today_stats.get("viral_antibody_stats", dict()).get("NewAntibody", -1)
+            texas_stats["NewAntigenTests"] = self.today_stats.get("viral_antibody_stats", dict()).get("AntigenTests", -1)
         if self.today_stats.get("daily_new_cases") == None:
             texas_stats["CumulativeCases"] = -1
             texas_stats["CumulativeFatalities"] = -1

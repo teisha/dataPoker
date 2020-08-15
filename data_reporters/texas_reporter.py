@@ -17,10 +17,12 @@ class TexasReporter:
     def get_texas_stats(self, numdays: int):
         dates = []
         tx_dates = []
+        tx_test_dates = []
         datelist = pd.date_range(start=self.todaysdate -timedelta(days=numdays), end=self.todaysdate).tolist()
         # print(datelist)
         for date_item in datelist:
             texas_stats = dict()
+            texas_test_stats = dict()
             alltx_stats = database.getTexas(date_item)
             if alltx_stats != None:
                 dhs_stats = alltx_stats.get('dhs')
@@ -29,14 +31,16 @@ class TexasReporter:
                     dates.append(dict({date_item.to_pydatetime().date() :  alltx_stats.get('dhs') }))
 
                     texas_stats.update({'day': date_item.to_pydatetime().strftime('%a')})
+                    texas_test_stats.update({'day': date_item.to_pydatetime().strftime('%a')})
                     texas_stats.update({'DailyNew': dhs_stats.get('DailyNewCases')})
                     texas_stats.update({'DailyFatal': dhs_stats.get('DailyNewFatalities')})
                     texas_stats.update({'CumCases': dhs_stats.get('CumulativeCases')})
                     texas_stats.update({'CumFatal': dhs_stats.get('CumulativeFatalities')})
-                    texas_stats.update({'SevenDayPositive': dhs_stats.get('SevenDayPositiveTestRate')})
-                    texas_stats.update({'NewViral': dhs_stats.get('NewViral')})
-                    texas_stats.update({'CumViral': dhs_stats.get('ViralTests')})
-                    texas_stats.update({'TotalTests': dhs_stats.get('REPORTED_TotalTests')})
+                    texas_test_stats.update({'SevenDayPositive': dhs_stats.get('SevenDayPositiveTestRate')})
+                    texas_test_stats.update({'NewAntigen': dhs_stats.get('AntigenTests')})
+                    texas_test_stats.update({'NewViral': dhs_stats.get('NewViral')})
+                    texas_test_stats.update({'CumViral': dhs_stats.get('ViralTests')})
+                    texas_test_stats.update({'TotalTests': dhs_stats.get('REPORTED_TotalTests')})
                 worldo_stats = alltx_stats.get('worldometer')
                 if worldo_stats != None:
                     # {'ActiveCases': '139903', 'County': 'Texas Total', 'NewCases': '11060', 'NewDeaths': '131', 'TotalCases': '285772', 'TotalDeaths': '3471', 'TotalTests': '2864541'}
@@ -46,17 +50,24 @@ class TexasReporter:
                     texas_stats.update({'WO TotalDeaths' : worldo_stats.get('TotalDeaths')})
 
             tx_dates.append(dict({date_item.to_pydatetime().date() :  texas_stats }))
+            tx_test_dates.append(dict({date_item.to_pydatetime().date() :  texas_test_stats }))
         # print(dates)
-        print("- ---  ----  ----- TEXAS ----- ---- --- -")
+        print("- ---  ----  ----- TEXAS STATE NUMBERS ----- ---- --- -")
         dframe_dhs = pd.DataFrame.from_dict(ChainMap(*dates), orient='index')
         print(dframe_dhs.columns)
+        dframe_dhs_tests = pd.DataFrame.from_dict(ChainMap(*tx_test_dates), orient='index')
+        print(dframe_dhs_tests.columns) 
         dframe_texas = pd.DataFrame.from_dict(ChainMap(*tx_dates), orient='index')
         # dframe_texas = 
 
         cutoff = datetime(2020,7,6).date()
+        print("               -- Hospitals --")
         print(dframe_dhs.filter(regex='HOSP').sort_index(axis = 0).loc[cutoff:])            
         # print(dframe_dhs[['day','DailyNewCases','DailyNewFatalities','CumulativeCases','CumulativeFatalities','SevenDayPositiveTestRate',
         #   'NewViral','ViralTests','REPORTED_TotalTests']].sort_index(axis = 0))
+        print("               -- Tests --")
+        print(dframe_dhs_tests.sort_index(axis=0)) 
+        print("               -- Daily Stats --")       
         print(dframe_texas.sort_index(axis=0))          
 
     def get_friendswood_stats(self, numdays: int):
@@ -91,7 +102,7 @@ class TexasReporter:
 
         print("- ---  ----  ----- FRIENDSWOOD ----- ---- --- -")
         dframe_fwood = pd.DataFrame.from_dict(ChainMap(*dates), orient='index')
-        print(dframe_fwood[['Friendswood TOTAL', 'HarrisCo TOTAL','GalvestonCo TOTAL', 'HarrisCo Deceased', 'Friendswood Recovered' ]].sort_index(axis = 0))
+        print(dframe_fwood[['Friendswood TOTAL', 'HarrisCo TOTAL','GalvestonCo TOTAL', 'Friendswood Recovered' , 'HarrisCo Deceased']].sort_index(axis = 0))
 
 
     def get_county_stats(self, numdays: int):

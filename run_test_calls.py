@@ -16,7 +16,7 @@ print (  reduce(lambda x,y: int(x) + int(y), test.get('cases_by_city').values())
 # runThis.saveToDatabase()
 
 runThis = txStatRunner.Runner()
-runThis.get_daily_new_cases_by_date()
+runThis.get_daily_stats()
 
 print ('---------------------------------------------------')
 # print(dir(runThis))
