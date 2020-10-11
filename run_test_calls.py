@@ -1,6 +1,7 @@
 
 from functools import reduce
 from data_gatherers import txStatRunner
+from data_gatherers import galvestonCounty
 
 test = dict({'cases_by_city': dict({'Alvin': '9', 'Bacliff Bayview San Leon': '225', 'Bayou Vista': '5', 
 'Bolivar Peninsula': '14', 'Clear Lake Shores': '16', 'Dickinson': '662', 'Friendswood': '310', 
@@ -9,14 +10,15 @@ test = dict({'cases_by_city': dict({'Alvin': '9', 'Bacliff Bayview San Leon': '2
 
 print (  reduce(lambda x,y: int(x) + int(y), test.get('cases_by_city').values()) )
 
-# runThis = galvestonCounty.GalvestonCountyRunner()
-# runThis.getAllData()
+runThis = galvestonCounty.GalvestonCountyRunner()
+runThis.getTableauTotals()
+runThis.getAllData()
 # # # runThis.pickle_off()
 # # runThis.pickle_on()
-# runThis.saveToDatabase()
+runThis.saveToDatabase()
 
-runThis = txStatRunner.Runner()
-runThis.get_daily_stats()
+# runThis = txStatRunner.Runner()
+# runThis.get_daily_stats()
 
 print ('---------------------------------------------------')
 # print(dir(runThis))

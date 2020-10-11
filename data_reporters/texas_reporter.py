@@ -155,9 +155,13 @@ class TexasReporter:
                     gal_stats.update({'DHS Recoveries': gal_dhs.get('Recoveries')})
                 gal_co = galveston_stats.get('galvestonCounty')
                 if gal_co != None:
+                    # calc_fatal = int(gal_co.get('GENDER Female').get('Deceased')) + int(gal_co.get('GENDER Male').get('Deceased'))
+                    # gal_stats.update({'GAL-CalcdFatal': calc_fatal})
                     gal_stats.update({'GAL-Fatalities': gal_co.get(f"SUMMARY {date_item.strftime('%#d-%B')} Deaths")})
                     gal_stats.update({'GAL-Positive': gal_co.get(f"SUMMARY {date_item.strftime('%#d-%B')} Total Cases")})
+                    gal_stats.update({'GAL-New': gal_co.get(f"SUMMARY {date_item.strftime('%#d-%B')} TotalNew")})
                     gal_stats.update({'GAL-Recoveries': gal_co.get(f"SUMMARY {date_item.strftime('%#d-%B')} Recovered")})    
+                    gal_stats.update({'GAL-Pct Positive': gal_co.get(f"SUMMARY {date_item.strftime('%#d-%B')} PercentPositive")})
                 gal_world = galveston_stats.get('worldometer')
                 if gal_world != None:
                     gal_stats.update({'WO NewCase': gal_world.get('NewCases')})

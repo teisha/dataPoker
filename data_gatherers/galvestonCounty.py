@@ -1,6 +1,10 @@
 from __future__ import print_function
 import pickle
 import os.path
+import requests
+from bs4 import BeautifulSoup
+import re
+
 from datetime import datetime, timedelta, date
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -9,6 +13,7 @@ import json
 from services import database
 from functools import reduce
 from data_gatherers import galvestonCounty_config
+import pandas as pd
 
 
 # If modifying these scopes, delete the file token.pickle.
@@ -16,12 +21,13 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 class GalvestonCountyRunner:
     def __init__(self):
-        self.friendswood_stats = dict()
-        self.history_stats = dict()
-        self.today_stats = dict()
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
+        self.friendswood_stats = dict(dateCollected=self.current_date_time)
+        self.history_stats = dict(dateCollected=self.current_date_time)
+        self.today_stats = dict(dateCollected=self.current_date_time)
         self.fileName = "F:/Dropbox/Coding/covid/data/galvestonCounty-"+ self.current_date_time + ".json"
         self.today = datetime.now().strftime("%#d-%B")
+        self.full_today = datetime.now().strftime("%B %#d, %Y")
         print(self.today)
         self.yesterday = date.today() - timedelta(days=1)
         self.history_cutoff = ( date.today() - timedelta(days=5) ).strftime("%m/%d")
@@ -50,8 +56,261 @@ class GalvestonCountyRunner:
         self.service = build('sheets', 'v4', credentials=creds)
         print ('------------------- INIT GALVESTON COUNTY --------------------')
 
+
+    def getTableauTotals(self):
+        url = galvestonCounty_config.tableau_main_url
+        r = requests.get(
+            url,
+            params= {
+                ":embed":"y",
+                ":showAppBanner":"false",
+                ":showShareOptions":"true",
+                ":display_count":"no",
+                "showVizHome": "no"
+            }
+        )
+        soup = BeautifulSoup(r.text, "html.parser")
+        tableauData = json.loads(soup.find("textarea",{"id": "tsConfigContainer"}).text)
+        dataUrl = f'https://public.tableau.com{tableauData["vizql_root"]}/bootstrapSession/sessions/{tableauData["sessionid"]}'
+        print( ' GET FROM ', tableauData["sheetId"])
+        print( dataUrl)
+
+        r = requests.post(dataUrl, data= {
+            "sheet_id": tableauData["sheetId"],
+        })
+        self.allData = self.distill_response(r, 'ALL')
+
+        for data in self.allData:
+            print (data["sheetName"])
+            with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+                print(data["data"])
+
+
+        # print(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
+        # pagesReg = re.findall('targetSheets\\\\\\\":\[(.*?)\]', r.text, re.MULTILINE)
+        # # for sheetList in pagesReg:
+        # print(pagesReg[0])
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Positives Disparity by Race",
+        # })
+        # self.distill_response(pbr_r, 'RACE_DISPARITY')
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Race",
+        # })
+        # self.distill_response(pbr_r, 'RACE')  
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Race Title",
+        # })
+        # self.distill_response(pbr_r, 'RACE_TITLE')  
+             
+            #  ??????
+        pbr_r = requests.post(dataUrl, data= {
+            "sheet_id": "Positives w/ MA (2)",
+        })
+        positivesPerDay = self.distill_response(pbr_r, 'PosWiMA') 
+        self.allData.append( positivesPerDay[0] )   
+        # for data in positivesPerDay:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"])        
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Age Band",
+        # })
+        # self.distill_response(pbr_r, 'AGE')    
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Cumulative Trends by City (2)",
+        # })
+        # self.distill_response(pbr_r, 'CITY') 
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "CM City (2)",
+        # })
+        # self.distill_response(pbr_r, 'CITY_CM')    
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "CM Gender2",
+        # })
+        # gender = self.distill_response(pbr_r, 'GENDER2')      
+        # for data in gender:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"])               
+        
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "BAN - Cumulative Trends by City",
+        # })
+        # self.distill_response(pbr_r, 'BAN_CITY') 
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "BAN - Cumulative Trends by Race",
+        # })
+        # self.distill_response(pbr_r, 'BAN_RACE') 
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "Positives BAN",
+        # })
+        # self.distill_response(pbr_r, 'BAN_POSITIVES')                 
+
+# \"targetSheets\":[\"Positives Disparity by Race\",
+# \"Race Title\",\"Race\",\"Positives w/ MA (2)\",
+# \"Positives BAN\",\"Max Reported Date\",\"Age Band\",
+# \"City\",\"CM Gender2\",\"BAN - Cumulative Trends by Race\",
+# \"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",
+# \"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"],
+# \"type\":\"C\"}]
+        # Age Band , Cities
+        
+        # kpi_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "KPI Overview",
+        # })
+        # kpi_data = self.distill_response(kpi_r, 'KPIs')
+        kpi_r = requests.post(dataUrl, data= {
+            "sheet_id": "KPIs (2)",
+        })
+        kpis2_data = self.distill_response(kpi_r, 'KPIs2')
+        kpis2 = kpis2_data[0]["data"]
+        caseDateRecorded = kpis2.at[0, 'DAY(Case Date)-alias-2']
+        print("CASE DATE: ", caseDateRecorded)
+        self.history_stats.update({"CaseDateRecorded":caseDateRecorded })
+        self.today_stats.update({"CaseDateRecorded":caseDateRecorded })
+        self.friendswood_stats.update({"CaseDateRecorded":caseDateRecorded })
+
+        # for data in kpis2_data:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"])          
+     
+
+    def distill_response(self, sheetResponse: dict, prefix: str):
+        print (f" ================ {prefix} OVERVIIEW: ======================= ")
+
+        # with open(f"data/galveston_{prefix}.json", "w") as handle:
+        #     handle.writelines( json.dumps(sheetResponse.text )      ) 
+        # panelColumnsData = re.findall('presModelHolder\\\":{(\\\"genVizDataPresModel)(.*?)}', sheetResponse.text, re.MULTILINE)
+        # for columns in panelColumnsData:
+        #     print (columns)
+        dataReg = re.search('\d+;({.*})\d+;({.*})', sheetResponse.text, re.MULTILINE)                                  
+        # panelsReg = re.findall('vizPaneColumns\\\":\[{(.*?)}\]', sheetResponse.text, re.MULTILINE)
+        # for columns in panelsReg:
+        #     print( ' ---  ')
+        #     print(  len(columns))
+        #     print(columns )
+        # print (dataReg)
+        info = json.loads(dataReg.group(1))
+        data = json.loads(dataReg.group(2))
+        # dataTuplesCount = len(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
+        # print (f"data has {dataTuplesCount} values")
+        # for i in range(dataTuplesCount):
+        #     print (data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"][i])
+        #     if i == valueIdx:
+        #         countValues=data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"][valueIdx]
+        #     elif i == labelIdx:
+        #         countLabels=data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"][labelIdx]
+        #         for j in range(len(countLabels["dataValues"])):
+        #             print (f' {countLabels["dataValues"][j]} : {countValues["dataValues"][j]}')
+       
+        workSheets = list(data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"].keys())
+        sheetData = []
+        for sheet in workSheets:
+            print (sheet)
+            sheetdf = self.get_worksheet(data, sheet, prefix)
+            sheetData.append(dict(
+                sheetName=sheet,
+                data=sheetdf) )
+        return sheetData
+
+    def get_worksheet(self, data: dict, worksheetName: str, prefix: str):    
+        def onAlias(it, value, cstring):
+            # print (value[it] if (it >= 0) else cstring["dataValues"][abs(it)-1])
+            return value[it] if (it >= 0) else cstring["dataValues"][abs(it)-1]
+
+        # print(data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"][workSheets[0]]["presModelHolder"]["genVizDataPresModel"]["paneColumnsData"])
+        columnsData = data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"][worksheetName]["presModelHolder"]["genVizDataPresModel"]["paneColumnsData"]
+        # print(columnsData.keys())
+        i = 0
+        result = [ 
+            {
+                "fieldCaption": t.get("fieldCaption", ""), 
+                "valueIndices": columnsData["paneColumnsList"][t["paneIndices"][0]]["vizPaneColumns"][t["columnIndices"][0]]["valueIndices"],
+                "aliasIndices": columnsData["paneColumnsList"][t["paneIndices"][0]]["vizPaneColumns"][t["columnIndices"][0]]["aliasIndices"],
+                "dataType": t.get("dataType"),
+                "paneIndices": t["paneIndices"][0],
+                "columnIndices": t["columnIndices"][0]
+            }
+            for t in columnsData["vizDataColumns"]
+            if t.get("fieldCaption")
+        ]        
+        # for t in columnsData["vizDataColumns"]:
+        #     # print(t)
+        #     if t.keys() >= {"fieldCaption"}:
+        #         print("PANEINDEX: ", t["paneIndices"])
+        #         print("COLUMNINDEX: ",  t["columnIndices"])
+        #         paneIndex = t["paneIndices"][0]
+        #         columnIndex = t["columnIndices"][0]
+        #         if len(t["paneIndices"]) > 1:
+        #             paneIndex = t["paneIndices"][1]
+        #         if len(t["columnIndices"]) > 1:
+        #             columnIndex = t["columnIndices"][1]
+        #         result.append( dict(
+        #             fieldCaption=t["fieldCaption"],
+        #             valueIndicies=columnsData["paneColumnsList"][paneIndex]["vizPaneColumns"][columnIndex]["valueIndices"],
+        #             aliasIndices=columnsData["paneColumnsList"][paneIndex]["vizPaneColumns"][columnIndex]["aliasIndices"],
+        #             dataType=t["dataType"],
+        #             paneIndices=paneIndex,
+        #             columnIndices=columnIndex
+        #         ) )
+        #         i = i + 1
+        #     else:
+        #         print ("NOPE")
+
+        for aThing in result:
+            print(aThing)                
+
+        dataFull = data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"]
+        cstring = [t for t in dataFull if t["dataType"] == "cstring"]
+        if len(cstring) == 0:
+            cstring = "No Title"
+        else:
+            cstring = cstring[0]            
+        # for t in dataFull:
+        #     if t["dataType"] == "cstring":
+        #         cstring.append(t)
+        print ( cstring )
+
+        selectWorksheet = data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"]
+        # print(selectWorksheet)
+        dataIdx = 1 # 0 if dataTuplesCount == 2 else 1
+        nameIdx = 1 # if dataTuplesCount == 2 else 2
+
+        frameData = {}
+        for t in dataFull:
+            # print (t["dataValues"])
+            for index in result:
+                # print(index)
+                if t["dataType"] == index["dataType"]:
+                    if index.get("valueIndices") != None and len(index["valueIndices"]) > 0:
+                        frameData[f'{index["fieldCaption"]}-value-{index["columnIndices"]}'] = [t["dataValues"][abs(it)] for it in index["valueIndices"]]
+                    if len(index["aliasIndices"]) > 0:
+                        print (f'{index["fieldCaption"]}-alias-{index["columnIndices"]}')
+                        frameData[f'{index["fieldCaption"]}-alias-{index["columnIndices"]}'] = [onAlias(it, t["dataValues"], cstring) for it in index["aliasIndices"]]                        
+            print(' ===================================== ')
+
+        df = pd.DataFrame.from_dict(frameData, orient='index').fillna(0).T
+        # with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #     print(df)
+        return df    
+
+     
+
     # Call the Sheets API
     def getSpreadsheetData(self, spreadsheetId):
+        print(spreadsheetId)
         sheet = self.service.spreadsheets()
         meta = self.service.spreadsheets().get(spreadsheetId=spreadsheetId, fields='sheets(properties(index,sheetId,title))').execute()
         res = self.service.spreadsheets().get(spreadsheetId=spreadsheetId, fields='sheets(data/rowData/values/userEnteredValue,properties(index,sheetId,title))').execute()
@@ -74,7 +333,6 @@ class GalvestonCountyRunner:
             sheet_iterator = iter(values)
             next(sheet_iterator)            
             for row in sheet_iterator:
-                # print(row)
                 if len(headers) == len(row):
                     asDict = dict({'date_collected' : self.current_date_time})
                     for i in range(len(headers)):
@@ -87,13 +345,15 @@ class GalvestonCountyRunner:
 
     def getCityTotals(self):
         print ('City Totals')
-        cityTotals = self.getSpreadsheetData(galvestonCounty_config.totals_by_city)
-        friendswood = next((stat for stat in cityTotals if stat["City"] == 'Friendswood'), None)
-        cases_by_city = dict()
-        for city in cityTotals:
-            cases_by_city.update({city.get('City').replace('/','') : city.get('Total Cases')})
+        # cityTotals = self.getSpreadsheetData(galvestonCounty_config.totals_by_city)
+        totalsByCity = next((data["data"] for data in self.allData if data["sheetName"] == "CM City (2)"), None)
+        totals = totalsByCity[['Geographic Level Selected-alias-1','AGG(CM Analysis)-value-3']]
+        cases_by_city = dict(totals.values.tolist())
+        # for city in cityTotals:
+        #     cases_by_city.update({city.get('City').replace('/','') : city.get('Total Cases')})
+        friendswood = cases_by_city["FRIENDSWOOD"]
         self.today_stats.update({'cases_by_city': cases_by_city})            
-        self.history_stats.update({'cityTotals': cityTotals})
+        self.history_stats.update({'cityTotals': totalsByCity.to_json()})
         self.friendswood_stats.update({'galvestonCounty': friendswood})
 
     def getHospitalizedTotals(self):
@@ -109,36 +369,72 @@ class GalvestonCountyRunner:
         rollingTotals = self.getSpreadsheetData(galvestonCounty_config.rolling_totals)
         self.history_stats.update({'cumulative_totals': rollingTotals})
         cumulative_stats = next((stat for stat in rollingTotals if stat["Date"] == self.today), None)
+        print(cumulative_stats)
         if cumulative_stats != None:
             self.today_stats.update({'cumulative_totals': cumulative_stats})        
 
     def getTotalsPerDay(self):
         print ('Total Per Day')
-        dailyTotals = self.getSpreadsheetData(galvestonCounty_config.totals_per_day)
-        self.history_stats.update({'daily_totals': dailyTotals})
-        daily_stats = next((stat for stat in dailyTotals if stat["Date"] == self.today), None)
-        if daily_stats != None:
-            self.today_stats.update({'daily_stats': daily_stats})
+        kpiTotals = next((data["data"] for data in self.allData if data["sheetName"] == "KPI Overview"), None)
+        kpi2Totals = next((data["data"] for data in self.allData if data["sheetName"] == "KPI Overview (2)"), None)
+        # dailyTotals = self.getSpreadsheetData(galvestonCounty_config.totals_per_day)
+        dailyTotals = dict()
+        dailyTotals.update({'Positive': int( kpiTotals.at[0 , "AGG(Total Positive Cases)-alias-1"] )})
+        dailyTotals.update({'Active': int( kpiTotals.at[0 ,'AGG(Active Cases)-alias-3'] )})
+        dailyTotals.update({'Deceased': int( kpi2Totals.at[ 0, 'AGG(Deceased Count)-alias-1'] )})
+        dailyTotals.update({'Recovered': int( kpi2Totals.at[ 0, 'AGG(Recovered Cases)-alias-2'] )})
+        dailyTotals.update({'PercentMortality': int( kpi2Totals.at[ 0, 'AGG(Percent Mortality)-alias-5'] )})
+
+        positives = next((data["data"] for data in self.allData if data["sheetName"] == "Positives w/ MA (2)"), None)
+        # print( positives )
+        print(self.full_today)
+        daily_positives = positives.loc[positives["DAY(Case Date)-alias-2"] == self.full_today]
+        # next((stat for stat in positives if stat["DAY(Case Date)-alias-2"] == self.full_today), None)
+        if daily_positives.shape[0] > 0:
+            print(daily_positives)
+            dailyTotals.update({'TotalNew': int( daily_positives.at[0,'AGG(Total Positive Cases)-value-3'])})
+            dailyTotals.update({'PercentPositiveNew': int(daily_positives.at[0,'AGG(Total Positive Cases)-value-5']) })
+        else:
+            dailyTotals.update({'TotalNew': -1})
+            dailyTotals.update({'PercentPositiveNew': -1})
+
+        kpiTotals['tmp'] = 1
+        kpi2Totals['tmp'] = 1
+        self.history_stats.update({'daily_totals': kpiTotals.merge(kpi2Totals, on=['tmp']).to_json()})
+        self.history_stats.update({'positive_history': positives.to_json()})
+        self.today_stats.update({'daily_stats': dailyTotals})
+
+
+    def getTotalsByRace(self):
+        print ('Total By RACE/Ethnicity')
+        totalsByRace = next((data["data"] for data in self.allData if data["sheetName"] == "Race"), None)
+        totals = totalsByRace[['Race-alias-1','AGG(CM Analysis)-value-2']]
+        race_stats = dict(totals.values.tolist())
+        self.history_stats.update({'totalsByRace': totalsByRace.to_json()})
+        self.today_stats.update({'totalsByRace': race_stats})
 
     def getTotalsByAge(self):
         print ('Total By Age')
-        totalsByAge = self.getSpreadsheetData(galvestonCounty_config.totals_by_age)
-        age_stats = dict()
-        for ageGroup in totalsByAge:
-            age_stats.update({ageGroup.get('') : ageGroup.get('Total Cases')})
-        self.history_stats.update({'totalsByAge': totalsByAge})
+        # totalsByAge = self.getSpreadsheetData(galvestonCounty_config.totals_by_age)
+        totalsByAge = next((data["data"] for data in self.allData if data["sheetName"] == "Age Band"), None)
+        totals = totalsByAge[['Age Band-alias-1','AGG(CM Analysis)-value-2']]
+        age_stats = dict(totals.values.tolist())
+        # print(age_stats)
+        self.history_stats.update({'totalsByAge': totalsByAge.to_json()})
         self.today_stats.update({'totalsByAge': age_stats})
 
     def getTotalsByGender(self):
         print('Total By Gender')
-        totalsByGender = self.getSpreadsheetData(galvestonCounty_config.totals_by_gender)
-        self.history_stats.update({'totalsByGender': totalsByGender})
-        gender_today = []
-        for rec in totalsByGender:
-            genderRec = dict({'Total Cases': rec.get('Total Cases'), 
-                'Recovered': rec.get('Recovered'),
-                'Deceased': rec.get('Deceased') })
-            gender_today.append(dict({f"GENDER {rec.get('')}": genderRec }))                
+        # totalsByGender = self.getSpreadsheetData(galvestonCounty_config.totals_by_gender)
+        totalsByGender = next((data["data"] for data in self.allData if data["sheetName"] == "CM Gender2"), None)
+        totals= totalsByGender[['Gender-alias-1','AGG(CM Analysis)-alias-3']]
+        gender_today = dict(totals.values.tolist())
+        # for rec in totalsByGender:
+        #     genderRec = dict({'Total Cases': rec.get('Total Cases'), 
+        #         'Recovered': rec.get('Recovered'),
+        #         'Deceased': rec.get('Deceased') })
+        #     gender_today.append(dict({f"GENDER {rec.get('')}": genderRec }))                
+        self.history_stats.update({'totalsByGender': totalsByGender.to_json()})
         self.today_stats.update({'totalsByGender': gender_today})
 
     def getNewCases(self):
@@ -148,15 +444,28 @@ class GalvestonCountyRunner:
         self.today_stats.update({'lastWeeklySummary': newCases[-1]})
 
     def getAllData(self):  
-        self.getCityTotals()
-        self.getHospitalizedTotals()
-        self.getRollingTotals()
-        self.getTotalsPerDay()
+        self.getTableauTotals()
+        
         self.getTotalsByAge()
+        self.getCityTotals()
         self.getTotalsByGender()
-        self.getNewCases()
+        self.getTotalsPerDay()
+        self.getTotalsByRace()
 
-        print(self.today_stats)   
+        
+        print(self.today_stats)
+        print(self.friendswood_stats)
+        # print(self.history_stats)
+
+        # self.getCityTotals()
+        # self.getHospitalizedTotals()
+        # self.getRollingTotals()
+        # self.getTotalsPerDay()
+        # self.getTotalsByAge()
+        # self.getTotalsByGender()
+        # self.getNewCases()
+
+        # print(self.today_stats)   
 
         history_file = open(self.fileName, "w")
         history_file.write('[')
@@ -191,30 +500,46 @@ class GalvestonCountyRunner:
         print(self.today_stats.get('totalsByAge'))
         database_stats.update({'ALL CASES: City Counts': self.today_stats.get('cases_by_city')})  
         database_stats.update({'AGE GROUPS': self.today_stats.get('totalsByAge')}) 
-        summary_stats = self.today_stats.get('cumulative_totals')   
-        if summary_stats != None:
-            database_stats.update({f"SUMMARY {self.today} Total Cases": summary_stats.get('Total Cases')})
-            database_stats.update({f"SUMMARY {self.today} Recovered": summary_stats.get('Recovered')})
-            database_stats.update({f"SUMMARY {self.today} Deaths": summary_stats.get('Deaths')})
-        hospital_stats = self.today_stats.get('hospitalized') 
-        if hospital_stats != None:
-            database_stats.update({'Hospitalized': hospital_stats.get('Hospitalized')})   
-            database_stats.update({'Self-Quarantined': hospital_stats.get('Self-Quarantined')})  
+        formatted_stats = dict()
+        race_stats = self.today_stats.get('totalsByRace') 
+        for stat in race_stats.keys():
+            formatted_stats.update({stat.replace('/','-'): race_stats.get(stat) })
+        database_stats.update({'RACE': formatted_stats}) 
+
+
         daily_stats = self.today_stats.get('daily_stats')                    
         if daily_stats != None:
-            database_stats.update({f"DAILY {self.today} Total Cases" : daily_stats.get('Total Cases')})
+            database_stats.update({f"DAILY {self.today} Total Cases" : daily_stats.get('Positive')})
             database_stats.update({f"DAILY {self.today} Recovered" : daily_stats.get('Recovered')})
-            database_stats.update({f"DAILY {self.today} Deceased" : daily_stats.get('#Deceased')})
+            database_stats.update({f"DAILY {self.today} Deceased" : daily_stats.get('Deceased')})
+            database_stats.update({f"DAILY {self.today} Active" : daily_stats.get('Active')})
+            database_stats.update({f"DAILY {self.today} PercentMortality" : daily_stats.get('PercentMortality')})
+            database_stats.update({f"DAILY {self.today} TotalNew" : daily_stats.get('TotalNew')})
+            database_stats.update({f"DAILY {self.today} PercentPositiveNew" : daily_stats.get('PercentPositiveNew')})
         gender_stats = self.today_stats.get('totalsByGender')
-        for gender_rec in gender_stats:
-            database_stats.update(gender_rec)
-        database_stats.update(dict(lastWeeklyUpdate=self.today_stats.get('lastWeeklySummary'))   )  
+        database_stats.update(gender_stats)
+
+
+        # for gender_rec in gender_stats:
+        #     database_stats.update(gender_rec)
+        # database_stats.update(dict(lastWeeklyUpdate=self.today_stats.get('lastWeeklySummary'))   )  
+        # summary_stats = self.today_stats.get('cumulative_totals')   
+        # if summary_stats != None:
+        #     database_stats.update({f"SUMMARY {self.today} Total Cases": summary_stats.get('Total Cases')})
+        #     database_stats.update({f"SUMMARY {self.today} Recovered": summary_stats.get('Recovered')})
+        #     database_stats.update({f"SUMMARY {self.today} Deaths": summary_stats.get('Deaths')})
+        # hospital_stats = self.today_stats.get('hospitalized') 
+        # if hospital_stats != None:
+        #     database_stats.update({'Hospitalized': hospital_stats.get('Hospitalized')})   
+        #     database_stats.update({'Self-Quarantined': hospital_stats.get('Self-Quarantined')}) 
+        # 
+        #  
         county_totals = reduce(lambda x,y: int(x) + int(y), self.today_stats.get('cases_by_city').values()) 
         database_stats.update(dict(total_county=county_totals) )     
         print("DATABASE")
         print(database_stats)
         database.save_galveston_county(dict(galvestonCounty=database_stats) )  
-        database.save_friendswood(self.friendswood_stats)          
+        database.save_friendswood(dict(galvestonCounty=self.friendswood_stats) )          
 
 
 

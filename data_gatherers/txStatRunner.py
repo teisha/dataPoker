@@ -177,11 +177,12 @@ class Runner:
             else:
                 print("NO STATS: ", county_no)
             if county_no.get("Fatalities"):
-                fatalities = fatalities + county_no.get("Fatalities")
+                fatalities = fatalities + int( county_no.get("Fatalities") )
             if county_no.get("Recoveries"):
-                recoveries = recoveries + county_no.get("Recoveries")
+                print(county_no.get("Recoveries"))
+                recoveries = recoveries + int( county_no.get("Recoveries") )
             if county_no.get("Active"):
-                active = active + county_no.get("Active")                                                           
+                active = active + int( county_no.get("Active")   )                                                        
         
         # sum_counties = reduce((lambda x,y: dict(sum_positive=x.get("Positive") + y.get("Positive"),
         #     sum_fatalities=x.get("Fatalities") + y.get("Fatalities"),

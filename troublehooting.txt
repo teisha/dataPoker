@@ -1,0 +1,1269 @@
+5063
+11-October
+<google.oauth2.credentials.Credentials object at 0x044CA280>
+------------------- INIT GALVESTON COUNTY --------------------
+ GET FROM  County%20Overview
+https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/CountyOverview/bootstrapSession/sessions/35648E0B96A344FA9101F359E299BDD1-0:0
+ ================ ALL OVERVIIEW: ======================= 
+Age Band
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+83
+243
+510
+1039
+1610
+1820
+1994
+2415
+1391
+825
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+0.0069572506286672
+0.0203688181056161
+0.0427493713327745
+0.0870913663034367
+0.134953897736798
+0.1525565800502934
+0.1671416596814753
+0.202430846605197
+0.1165968147527242
+0.0691533948030176
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Age Band-alias
++91
+81-90
+71-80
+61-70
+51-60
+41-50
+31-40
+21-30
+11-20
+0-10
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+  AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias Age Band-value-1 Age Band-alias
+0                       83             0.00695725              +91            +91
+1                      243              0.0203688            81-90          81-90
+2                      510              0.0427494            71-80          71-80
+3                     1039              0.0870914            61-70          61-70
+4                     1610               0.134954            51-60          51-60
+5                     1820               0.152557            41-50          41-50
+6                     1994               0.167142            31-40          31-40
+7                     2415               0.202431            21-30          21-30
+8                     1391               0.116597            11-20          11-20
+9                      825              0.0691534             0-10           0-10
+CM City (2)
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+3
+22
+25
+29
+42
+42
+42
+44
+96
+180
+315
+439
+526
+768
+781
+1100
+1986
+2274
+3216
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+0.0002514668901928
+0.0018440905280805
+0.0020955574182733
+0.002430846605197
+0.0035205364626991
+0.0035205364626991
+0.0035205364626991
+0.0036881810561609
+0.0080469404861693
+0.0150880134115675
+0.0264040234702431
+0.0367979882648785
+0.0440905280804694
+0.0643755238893546
+0.0654652137468567
+0.0922045264040235
+0.1664710813076278
+0.1906119027661358
+0.2695725062866723
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Geographic Level Selected-alias
+UNKNOWN
+ALGOA
+JAMAICA BEACH
+TIKI ISLAND
+BOLIVAR PENINSULA
+BAYOU VISTA
+ALVIN
+CLEAR LAKE SHORES
+KEMAH
+SAN LEON
+HITCHCOCK
+BACLIFF
+SANTA FE
+FRIENDSWOOD
+LA MARQUE
+DICKINSON
+TEXAS CITY
+GALVESTON
+LEAGUE CITY
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+ATTR(Geographic Level Selected)-alias
+UNKNOWN
+ALGOA
+JAMAICA BEACH
+TIKI ISLAND
+BOLIVAR PENINSULA
+BAYOU VISTA
+ALVIN
+CLEAR LAKE SHORES
+KEMAH
+SAN LEON
+HITCHCOCK
+BACLIFF
+SANTA FE
+FRIENDSWOOD
+LA MARQUE
+DICKINSON
+TEXAS CITY
+GALVESTON
+LEAGUE CITY
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+   AGG(CM Analysis)-value-3 AGG(CM Analysis)-alias Geographic Level Selected-value-1 Geographic Level Selected-alias ATTR(Geographic Level Selected)-alias
+0                         3            0.000251467                           UNKNOWN                         UNKNOWN                               UNKNOWN
+1                        22             0.00184409                             ALGOA                           ALGOA                                 ALGOA
+2                        25             0.00209556                     JAMAICA BEACH                   JAMAICA BEACH                         JAMAICA BEACH
+3                        29             0.00243085                       TIKI ISLAND                     TIKI ISLAND                           TIKI ISLAND
+4                        42             0.00352054                 BOLIVAR PENINSULA               BOLIVAR PENINSULA                     BOLIVAR PENINSULA
+5                        42             0.00352054                       BAYOU VISTA                     BAYOU VISTA                           BAYOU VISTA
+6                        42             0.00352054                             ALVIN                           ALVIN                                 ALVIN
+7                        44             0.00368818                 CLEAR LAKE SHORES               CLEAR LAKE SHORES                     CLEAR LAKE SHORES
+8                        96             0.00804694                             KEMAH                           KEMAH                                 KEMAH
+9                       180               0.015088                          SAN LEON                        SAN LEON                              SAN LEON
+10                      315               0.026404                         HITCHCOCK                       HITCHCOCK                             HITCHCOCK
+11                      439               0.036798                           BACLIFF                         BACLIFF                               BACLIFF
+12                      526              0.0440905                          SANTA FE                        SANTA FE                              SANTA FE
+13                      768              0.0643755                       FRIENDSWOOD                     FRIENDSWOOD                           FRIENDSWOOD
+14                      781              0.0654652                         LA MARQUE                       LA MARQUE                             LA MARQUE
+15                     1100              0.0922045                         DICKINSON                       DICKINSON                             DICKINSON
+16                     1986               0.166471                        TEXAS CITY                      TEXAS CITY                            TEXAS CITY
+17                     2274               0.190612                         GALVESTON                       GALVESTON                             GALVESTON
+18                     3216               0.269573                       LEAGUE CITY                     LEAGUE CITY                           LEAGUE CITY
+CM Gender2
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+0
+0
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+5630
+6300
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+0.4719195305951384
+0.5280804694048616
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Gender-alias
+Male
+Female
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+  AGG(Placeholder)-value-2 AGG(Placeholder)-alias AGG(CM Analysis)-alias Gender-alias
+0                        0                      0                0.47192         Male
+1                        0                      0                0.52808       Female
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Total Positive Cases)-alias
+11930
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+0
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Active Cases)-alias
+1014
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(Total Positive Cases)-alias  AGG(Placeholder)-value-2  AGG(Placeholder)-alias  AGG(Active Cases)-alias
+0                            11930                         0                       0                     1014
+KPI Overview (2)
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Deceased Count)-alias
+148
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Recovered Cases)-alias
+10768
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Probabl Death Count)-alias
+0
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+AGG(Placeholder)-alias
+0
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+AGG(Percent Mortality)-alias
+0.0124056999161777
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+   AGG(Deceased Count)-alias  AGG(Recovered Cases)-alias  AGG(Probabl Death Count)-alias  AGG(Placeholder)-value-4  AGG(Placeholder)-alias  AGG(Percent Mortality)-alias
+0                      148.0                     10768.0                             0.0                       0.0                     0.0                      0.012406
+Max Reported Date
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+Empty DataFrame
+Columns: []
+Index: []
+Race
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+4
+7
+8
+19
+31
+66
+146
+342
+498
+1234
+3224
+6351
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+0.0003352891869237
+0.0005867560771165
+0.0006705783738474
+0.0015926236378877
+0.0025984911986588
+0.0055322715842414
+0.0122380553227158
+0.0286672254819782
+0.0417435037720034
+0.1034367141659681
+0.2702430846605197
+0.5323554065381392
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Race-alias
+Hispanic - NH / OPI
+Hispanic - AI / AN
+Non Hispanic - NH / OPI
+Non Hispanic - AI / AN
+Hispanic - Asian
+Hispanic - Unknown
+Non Hispanic - Asian
+Hispanic - Black
+Non Hispanic - Unknown
+Non Hispanic - Black
+Non Hispanic - White
+Hispanic - White
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias             Race-value-1               Race-alias
+0                         4            0.000335289      Hispanic - NH / OPI      Hispanic - NH / OPI
+1                         7            0.000586756       Hispanic - AI / AN       Hispanic - AI / AN
+2                         8            0.000670578  Non Hispanic - NH / OPI  Non Hispanic - NH / OPI
+3                        19             0.00159262   Non Hispanic - AI / AN   Non Hispanic - AI / AN
+4                        31             0.00259849         Hispanic - Asian         Hispanic - Asian
+5                        66             0.00553227       Hispanic - Unknown       Hispanic - Unknown
+6                       146              0.0122381     Non Hispanic - Asian     Non Hispanic - Asian
+7                       342              0.0286672         Hispanic - Black         Hispanic - Black
+8                       498              0.0417435   Non Hispanic - Unknown   Non Hispanic - Unknown
+9                      1234               0.103437     Non Hispanic - Black     Non Hispanic - Black
+10                     3224               0.270243     Non Hispanic - White     Non Hispanic - White
+11                     6351               0.532355         Hispanic - White         Hispanic - White
+\"Positives w/ MA (3)\",\"Positives Disparity by Race\",\"Race\",\"Positives w/ MA (2)\",\"Positives BAN\",\"KPI Overview\",\"Weekly Numbers (3)\",\"Age Band\",\"CM Gender2\",\"BAN - Cumulative Trends by Race\",\"KPI Overview (2)\",\"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",\"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"
+ ================ KPIs OVERVIIEW: ======================= 
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [1], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+5063
+11-October
+<google.oauth2.credentials.Credentials object at 0x04C41238>
+------------------- INIT GALVESTON COUNTY --------------------
+ GET FROM  County%20Overview
+https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/CountyOverview/bootstrapSession/sessions/1BB866B467E24A53AEED9EB70BDB4D15-0:0
+ ================ ALL OVERVIIEW: ======================= 
+Age Band
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+83
+243
+510
+1039
+1610
+1820
+1994
+2415
+1391
+825
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+0.0069572506286672
+0.0203688181056161
+0.0427493713327745
+0.0870913663034367
+0.134953897736798
+0.1525565800502934
+0.1671416596814753
+0.202430846605197
+0.1165968147527242
+0.0691533948030176
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Age Band-alias
++91
+81-90
+71-80
+61-70
+51-60
+41-50
+31-40
+21-30
+11-20
+0-10
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+  AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias Age Band-value-1 Age Band-alias
+0                       83             0.00695725              +91            +91
+1                      243              0.0203688            81-90          81-90
+2                      510              0.0427494            71-80          71-80
+3                     1039              0.0870914            61-70          61-70
+4                     1610               0.134954            51-60          51-60
+5                     1820               0.152557            41-50          41-50
+6                     1994               0.167142            31-40          31-40
+7                     2415               0.202431            21-30          21-30
+8                     1391               0.116597            11-20          11-20
+9                      825              0.0691534             0-10           0-10
+CM City (2)
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+3
+22
+25
+29
+42
+42
+42
+44
+96
+180
+315
+439
+526
+768
+781
+1100
+1986
+2274
+3216
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+0.0002514668901928
+0.0018440905280805
+0.0020955574182733
+0.002430846605197
+0.0035205364626991
+0.0035205364626991
+0.0035205364626991
+0.0036881810561609
+0.0080469404861693
+0.0150880134115675
+0.0264040234702431
+0.0367979882648785
+0.0440905280804694
+0.0643755238893546
+0.0654652137468567
+0.0922045264040235
+0.1664710813076278
+0.1906119027661358
+0.2695725062866723
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Geographic Level Selected-alias
+UNKNOWN
+ALGOA
+JAMAICA BEACH
+TIKI ISLAND
+BOLIVAR PENINSULA
+BAYOU VISTA
+ALVIN
+CLEAR LAKE SHORES
+KEMAH
+SAN LEON
+HITCHCOCK
+BACLIFF
+SANTA FE
+FRIENDSWOOD
+LA MARQUE
+DICKINSON
+TEXAS CITY
+GALVESTON
+LEAGUE CITY
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+ATTR(Geographic Level Selected)-alias
+UNKNOWN
+ALGOA
+JAMAICA BEACH
+TIKI ISLAND
+BOLIVAR PENINSULA
+BAYOU VISTA
+ALVIN
+CLEAR LAKE SHORES
+KEMAH
+SAN LEON
+HITCHCOCK
+BACLIFF
+SANTA FE
+FRIENDSWOOD
+LA MARQUE
+DICKINSON
+TEXAS CITY
+GALVESTON
+LEAGUE CITY
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+   AGG(CM Analysis)-value-3 AGG(CM Analysis)-alias Geographic Level Selected-value-1 Geographic Level Selected-alias ATTR(Geographic Level Selected)-alias
+0                         3            0.000251467                           UNKNOWN                         UNKNOWN                               UNKNOWN
+1                        22             0.00184409                             ALGOA                           ALGOA                                 ALGOA
+2                        25             0.00209556                     JAMAICA BEACH                   JAMAICA BEACH                         JAMAICA BEACH
+3                        29             0.00243085                       TIKI ISLAND                     TIKI ISLAND                           TIKI ISLAND
+4                        42             0.00352054                 BOLIVAR PENINSULA               BOLIVAR PENINSULA                     BOLIVAR PENINSULA
+5                        42             0.00352054                       BAYOU VISTA                     BAYOU VISTA                           BAYOU VISTA
+6                        42             0.00352054                             ALVIN                           ALVIN                                 ALVIN
+7                        44             0.00368818                 CLEAR LAKE SHORES               CLEAR LAKE SHORES                     CLEAR LAKE SHORES
+8                        96             0.00804694                             KEMAH                           KEMAH                                 KEMAH
+9                       180               0.015088                          SAN LEON                        SAN LEON                              SAN LEON
+10                      315               0.026404                         HITCHCOCK                       HITCHCOCK                             HITCHCOCK
+11                      439               0.036798                           BACLIFF                         BACLIFF                               BACLIFF
+12                      526              0.0440905                          SANTA FE                        SANTA FE                              SANTA FE
+13                      768              0.0643755                       FRIENDSWOOD                     FRIENDSWOOD                           FRIENDSWOOD
+14                      781              0.0654652                         LA MARQUE                       LA MARQUE                             LA MARQUE
+15                     1100              0.0922045                         DICKINSON                       DICKINSON                             DICKINSON
+16                     1986               0.166471                        TEXAS CITY                      TEXAS CITY                            TEXAS CITY
+17                     2274               0.190612                         GALVESTON                       GALVESTON                             GALVESTON
+18                     3216               0.269573                       LEAGUE CITY                     LEAGUE CITY                           LEAGUE CITY
+CM Gender2
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+0
+0
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+5630
+6300
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+0.4719195305951384
+0.5280804694048616
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Gender-alias
+Male
+Female
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+  AGG(Placeholder)-value-2 AGG(Placeholder)-alias AGG(CM Analysis)-alias Gender-alias
+0                        0                      0                0.47192         Male
+1                        0                      0                0.52808       Female
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Total Positive Cases)-alias
+11930
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+0
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Active Cases)-alias
+1014
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(Total Positive Cases)-alias  AGG(Placeholder)-value-2  AGG(Placeholder)-alias  AGG(Active Cases)-alias
+0                            11930                         0                       0                     1014
+KPI Overview (2)
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Deceased Count)-alias
+148
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Recovered Cases)-alias
+10768
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Probabl Death Count)-alias
+0
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+AGG(Placeholder)-alias
+0
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+AGG(Percent Mortality)-alias
+0.0124056999161777
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+   AGG(Deceased Count)-alias  AGG(Recovered Cases)-alias  AGG(Probabl Death Count)-alias  AGG(Placeholder)-value-4  AGG(Placeholder)-alias  AGG(Percent Mortality)-alias
+0                      148.0                     10768.0                             0.0                       0.0                     0.0                      0.012406
+Max Reported Date
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+Empty DataFrame
+Columns: []
+Index: []
+Race
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+4
+7
+8
+19
+31
+66
+146
+342
+498
+1234
+3224
+6351
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+0.0003352891869237
+0.0005867560771165
+0.0006705783738474
+0.0015926236378877
+0.0025984911986588
+0.0055322715842414
+0.0122380553227158
+0.0286672254819782
+0.0417435037720034
+0.1034367141659681
+0.2702430846605197
+0.5323554065381392
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Race-alias
+Hispanic - NH / OPI
+Hispanic - AI / AN
+Non Hispanic - NH / OPI
+Non Hispanic - AI / AN
+Hispanic - Asian
+Hispanic - Unknown
+Non Hispanic - Asian
+Hispanic - Black
+Non Hispanic - Unknown
+Non Hispanic - Black
+Non Hispanic - White
+Hispanic - White
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias             Race-value-1               Race-alias
+0                         4            0.000335289      Hispanic - NH / OPI      Hispanic - NH / OPI
+1                         7            0.000586756       Hispanic - AI / AN       Hispanic - AI / AN
+2                         8            0.000670578  Non Hispanic - NH / OPI  Non Hispanic - NH / OPI
+3                        19             0.00159262   Non Hispanic - AI / AN   Non Hispanic - AI / AN
+4                        31             0.00259849         Hispanic - Asian         Hispanic - Asian
+5                        66             0.00553227       Hispanic - Unknown       Hispanic - Unknown
+6                       146              0.0122381     Non Hispanic - Asian     Non Hispanic - Asian
+7                       342              0.0286672         Hispanic - Black         Hispanic - Black
+8                       498              0.0417435   Non Hispanic - Unknown   Non Hispanic - Unknown
+9                      1234               0.103437     Non Hispanic - Black     Non Hispanic - Black
+10                     3224               0.270243     Non Hispanic - White     Non Hispanic - White
+11                     6351               0.532355         Hispanic - White         Hispanic - White
+\"Positives w/ MA (3)\",\"Positives Disparity by Race\",\"Race\",\"Positives w/ MA (2)\",\"Positives BAN\",\"KPI Overview\",\"Weekly Numbers (3)\",\"Age Band\",\"CM Gender2\",\"BAN - Cumulative Trends by Race\",\"KPI Overview (2)\",\"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",\"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"
+ ================ KPIs OVERVIIEW: ======================= 
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [1], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+5063
+11-October
+<google.oauth2.credentials.Credentials object at 0x04F90388>
+------------------- INIT GALVESTON COUNTY --------------------
+ GET FROM  County%20Overview
+https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/CountyOverview/bootstrapSession/sessions/EE2713330A0445A2AF98DD14991E24DB-0:0
+ ================ ALL OVERVIIEW: ======================= 
+Age Band
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Age Band-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+  AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias Age Band-value-1 Age Band-alias
+0                       83             0.00695725              +91            +91
+1                      243              0.0203688            81-90          81-90
+2                      510              0.0427494            71-80          71-80
+3                     1039              0.0870914            61-70          61-70
+4                     1610               0.134954            51-60          51-60
+5                     1820               0.152557            41-50          41-50
+6                     1994               0.167142            31-40          31-40
+7                     2415               0.202431            21-30          21-30
+8                     1391               0.116597            11-20          11-20
+9                      825              0.0691534             0-10           0-10
+CM City (2)
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Geographic Level Selected-alias
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+ATTR(Geographic Level Selected)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+   AGG(CM Analysis)-value-3 AGG(CM Analysis)-alias Geographic Level Selected-value-1 Geographic Level Selected-alias ATTR(Geographic Level Selected)-alias
+0                         3            0.000251467                           UNKNOWN                         UNKNOWN                               UNKNOWN
+1                        22             0.00184409                             ALGOA                           ALGOA                                 ALGOA
+2                        25             0.00209556                     JAMAICA BEACH                   JAMAICA BEACH                         JAMAICA BEACH
+3                        29             0.00243085                       TIKI ISLAND                     TIKI ISLAND                           TIKI ISLAND
+4                        42             0.00352054                 BOLIVAR PENINSULA               BOLIVAR PENINSULA                     BOLIVAR PENINSULA
+5                        42             0.00352054                       BAYOU VISTA                     BAYOU VISTA                           BAYOU VISTA
+6                        42             0.00352054                             ALVIN                           ALVIN                                 ALVIN
+7                        44             0.00368818                 CLEAR LAKE SHORES               CLEAR LAKE SHORES                     CLEAR LAKE SHORES
+8                        96             0.00804694                             KEMAH                           KEMAH                                 KEMAH
+9                       180               0.015088                          SAN LEON                        SAN LEON                              SAN LEON
+10                      315               0.026404                         HITCHCOCK                       HITCHCOCK                             HITCHCOCK
+11                      439               0.036798                           BACLIFF                         BACLIFF                               BACLIFF
+12                      526              0.0440905                          SANTA FE                        SANTA FE                              SANTA FE
+13                      768              0.0643755                       FRIENDSWOOD                     FRIENDSWOOD                           FRIENDSWOOD
+14                      781              0.0654652                         LA MARQUE                       LA MARQUE                             LA MARQUE
+15                     1100              0.0922045                         DICKINSON                       DICKINSON                             DICKINSON
+16                     1986               0.166471                        TEXAS CITY                      TEXAS CITY                            TEXAS CITY
+17                     2274               0.190612                         GALVESTON                       GALVESTON                             GALVESTON
+18                     3216               0.269573                       LEAGUE CITY                     LEAGUE CITY                           LEAGUE CITY
+CM Gender2
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Gender-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+  AGG(Placeholder)-value-2 AGG(Placeholder)-alias AGG(CM Analysis)-alias Gender-alias
+0                        0                      0                0.47192         Male
+1                        0                      0                0.52808       Female
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Total Positive Cases)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Active Cases)-alias
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(Total Positive Cases)-alias  AGG(Placeholder)-value-2  AGG(Placeholder)-alias  AGG(Active Cases)-alias
+0                            11930                         0                       0                     1014
+KPI Overview (2)
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Deceased Count)-alias
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Recovered Cases)-alias
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Probabl Death Count)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+AGG(Percent Mortality)-alias
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+   AGG(Deceased Count)-alias  AGG(Recovered Cases)-alias  AGG(Probabl Death Count)-alias  AGG(Placeholder)-value-4  AGG(Placeholder)-alias  AGG(Percent Mortality)-alias
+0                      148.0                     10768.0                             0.0                       0.0                     0.0                      0.012406
+Max Reported Date
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+Empty DataFrame
+Columns: []
+Index: []
+Race
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Race-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias             Race-value-1               Race-alias
+0                         4            0.000335289      Hispanic - NH / OPI      Hispanic - NH / OPI
+1                         7            0.000586756       Hispanic - AI / AN       Hispanic - AI / AN
+2                         8            0.000670578  Non Hispanic - NH / OPI  Non Hispanic - NH / OPI
+3                        19             0.00159262   Non Hispanic - AI / AN   Non Hispanic - AI / AN
+4                        31             0.00259849         Hispanic - Asian         Hispanic - Asian
+5                        66             0.00553227       Hispanic - Unknown       Hispanic - Unknown
+6                       146              0.0122381     Non Hispanic - Asian     Non Hispanic - Asian
+7                       342              0.0286672         Hispanic - Black         Hispanic - Black
+8                       498              0.0417435   Non Hispanic - Unknown   Non Hispanic - Unknown
+9                      1234               0.103437     Non Hispanic - Black     Non Hispanic - Black
+10                     3224               0.270243     Non Hispanic - White     Non Hispanic - White
+11                     6351               0.532355         Hispanic - White         Hispanic - White
+\"Positives w/ MA (3)\",\"Positives Disparity by Race\",\"Race\",\"Positives w/ MA (2)\",\"Positives BAN\",\"KPI Overview\",\"Weekly Numbers (3)\",\"Age Band\",\"CM Gender2\",\"BAN - Cumulative Trends by Race\",\"KPI Overview (2)\",\"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",\"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"
+ ================ KPIs OVERVIIEW: ======================= 
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [1], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+[]
+5063
+11-October
+<google.oauth2.credentials.Credentials object at 0x053E15E0>
+------------------- INIT GALVESTON COUNTY --------------------
+ GET FROM  County%20Overview
+https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/CountyOverview/bootstrapSession/sessions/37CF5E125D63437EB75F4FB7587511A1-0:0
+ ================ ALL OVERVIIEW: ======================= 
+Age Band
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Age Band', 'valueIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'aliasIndices': [33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Age Band-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'aliasIndices': [62, 63, 64, 65, 66, 67, 68, 69, 70, 71], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [72, 73, 74, 75, 76, 77, 78, 79, 80, 81], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+  AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias Age Band-value-1 Age Band-alias
+0                       83             0.00695725              +91            +91
+1                      243              0.0203688            81-90          81-90
+2                      510              0.0427494            71-80          71-80
+3                     1039              0.0870914            61-70          61-70
+4                     1610               0.134954            51-60          51-60
+5                     1820               0.152557            41-50          41-50
+6                     1994               0.167142            31-40          31-40
+7                     2415               0.202431            21-30          21-30
+8                     1391               0.116597            11-20          11-20
+9                      825              0.0691534             0-10           0-10
+CM City (2)
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Geographic Level Selected', 'valueIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Geographic Level Selected-alias
+{'fieldCaption': 'ATTR(Geographic Level Selected)', 'valueIndices': [], 'aliasIndices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 2}
+ATTR(Geographic Level Selected)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'aliasIndices': [0, 1, 2, 3, 4, 4, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [17, 18, 19, 20, 21, 21, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+   AGG(CM Analysis)-value-3 AGG(CM Analysis)-alias Geographic Level Selected-value-1 Geographic Level Selected-alias ATTR(Geographic Level Selected)-alias
+0                         3            0.000251467                           UNKNOWN                         UNKNOWN                               UNKNOWN
+1                        22             0.00184409                             ALGOA                           ALGOA                                 ALGOA
+2                        25             0.00209556                     JAMAICA BEACH                   JAMAICA BEACH                         JAMAICA BEACH
+3                        29             0.00243085                       TIKI ISLAND                     TIKI ISLAND                           TIKI ISLAND
+4                        42             0.00352054                 BOLIVAR PENINSULA               BOLIVAR PENINSULA                     BOLIVAR PENINSULA
+5                        42             0.00352054                       BAYOU VISTA                     BAYOU VISTA                           BAYOU VISTA
+6                        42             0.00352054                             ALVIN                           ALVIN                                 ALVIN
+7                        44             0.00368818                 CLEAR LAKE SHORES               CLEAR LAKE SHORES                     CLEAR LAKE SHORES
+8                        96             0.00804694                             KEMAH                           KEMAH                                 KEMAH
+9                       180               0.015088                          SAN LEON                        SAN LEON                              SAN LEON
+10                      315               0.026404                         HITCHCOCK                       HITCHCOCK                             HITCHCOCK
+11                      439               0.036798                           BACLIFF                         BACLIFF                               BACLIFF
+12                      526              0.0440905                          SANTA FE                        SANTA FE                              SANTA FE
+13                      768              0.0643755                       FRIENDSWOOD                     FRIENDSWOOD                           FRIENDSWOOD
+14                      781              0.0654652                         LA MARQUE                       LA MARQUE                             LA MARQUE
+15                     1100              0.0922045                         DICKINSON                       DICKINSON                             DICKINSON
+16                     1986               0.166471                        TEXAS CITY                      TEXAS CITY                            TEXAS CITY
+17                     2274               0.190612                         GALVESTON                       GALVESTON                             GALVESTON
+18                     3216               0.269573                       LEAGUE CITY                     LEAGUE CITY                           LEAGUE CITY
+CM Gender2
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Gender', 'valueIndices': [], 'aliasIndices': [19, 20], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Gender-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0, 0], 'aliasIndices': [0, 0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [34, 35], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [36, 37], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+ ===================================== 
+  AGG(Placeholder)-value-2 AGG(Placeholder)-alias AGG(CM Analysis)-alias Gender-alias
+0                        0                      0                0.47192         Male
+1                        0                      0                0.52808       Female
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Total Positive Cases)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Active Cases)-alias
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(Total Positive Cases)-alias  AGG(Placeholder)-value-2  AGG(Placeholder)-alias  AGG(Active Cases)-alias
+0                            11930                         0                       0                     1014
+KPI Overview (2)
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Deceased Count)-alias
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Recovered Cases)-alias
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Probabl Death Count)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+AGG(Percent Mortality)-alias
+ ===================================== 
+{'fieldCaption': 'AGG(Deceased Count)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Recovered Cases)', 'valueIndices': [], 'aliasIndices': [4], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Probabl Death Count)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Percent Mortality)', 'valueIndices': [], 'aliasIndices': [82], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+ ===================================== 
+   AGG(Deceased Count)-alias  AGG(Recovered Cases)-alias  AGG(Probabl Death Count)-alias  AGG(Placeholder)-value-4  AGG(Placeholder)-alias  AGG(Percent Mortality)-alias
+0                      148.0                     10768.0                             0.0                       0.0                     0.0                      0.012406
+Max Reported Date
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'MAX(Case Date)', 'valueIndices': [], 'aliasIndices': [-44], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'Data Through', 'valueIndices': [], 'aliasIndices': [-45], 'dataType': 'date', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'Updated', 'valueIndices': [], 'aliasIndices': [-46], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+Empty DataFrame
+Columns: []
+Index: []
+Race
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+[{'dataType': 'cstring', 'dataValues': ['UNKNOWN', 'ALGOA', 'JAMAICA BEACH', 'TIKI ISLAND', 'BOLIVAR PENINSULA', 'BAYOU VISTA', 'ALVIN', 'CLEAR LAKE SHORES', 'KEMAH', 'SAN LEON', 'HITCHCOCK', 'BACLIFF', 'SANTA FE', 'FRIENDSWOOD', 'LA MARQUE', 'DICKINSON', 'TEXAS CITY', 'GALVESTON', 'LEAGUE CITY', 'Male', 'Female', 'Hispanic - NH / OPI', 'Hispanic - AI / AN', 'Non Hispanic - NH / OPI', 'Non Hispanic - AI / AN', 'Hispanic - Asian', 'Hispanic - Unknown', 'Non Hispanic - Asian', 'Hispanic - Black', 'Non Hispanic - Unknown', 'Non Hispanic - Black', 'Non Hispanic - White', 'Hispanic - White', '+91', '81-90', '71-80', '61-70', '51-60', '41-50', '31-40', '21-30', '11-20', '0-10', 'October 08, 2020', 'October 09, 2020', '10/10/2020 at 11:50 AM']}]
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+AGG(CM Analysis)-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+AGG(CM Analysis)-alias
+ ===================================== 
+{'fieldCaption': 'Race', 'valueIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'aliasIndices': [21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32], 'dataType': 'cstring', 'paneIndices': 0, 'columnIndices': 1}
+Race-alias
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'aliasIndices': [38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(CM Analysis)', 'valueIndices': [], 'aliasIndices': [50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 3}
+ ===================================== 
+   AGG(CM Analysis)-value-2 AGG(CM Analysis)-alias             Race-value-1               Race-alias
+0                         4            0.000335289      Hispanic - NH / OPI      Hispanic - NH / OPI
+1                         7            0.000586756       Hispanic - AI / AN       Hispanic - AI / AN
+2                         8            0.000670578  Non Hispanic - NH / OPI  Non Hispanic - NH / OPI
+3                        19             0.00159262   Non Hispanic - AI / AN   Non Hispanic - AI / AN
+4                        31             0.00259849         Hispanic - Asian         Hispanic - Asian
+5                        66             0.00553227       Hispanic - Unknown       Hispanic - Unknown
+6                       146              0.0122381     Non Hispanic - Asian     Non Hispanic - Asian
+7                       342              0.0286672         Hispanic - Black         Hispanic - Black
+8                       498              0.0417435   Non Hispanic - Unknown   Non Hispanic - Unknown
+9                      1234               0.103437     Non Hispanic - Black     Non Hispanic - Black
+10                     3224               0.270243     Non Hispanic - White     Non Hispanic - White
+11                     6351               0.532355         Hispanic - White         Hispanic - White
+\"Positives w/ MA (3)\",\"Positives Disparity by Race\",\"Race\",\"Positives w/ MA (2)\",\"Positives BAN\",\"KPI Overview\",\"Weekly Numbers (3)\",\"Age Band\",\"CM Gender2\",\"BAN - Cumulative Trends by Race\",\"KPI Overview (2)\",\"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",\"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"
+ ================ KPIs OVERVIIEW: ======================= 
+KPI Overview
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [1], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+[]
+{'fieldCaption': 'AGG(Total Positive Cases)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 1}
+AGG(Total Positive Cases)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [1], 'aliasIndices': [1], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 2}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(Active Cases)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Active Cases)-alias
+ ===================================== 
+   AGG(Total Positive Cases)-alias  AGG(Placeholder)-value-2  AGG(Placeholder)-alias  AGG(Active Cases)-alias
+0                            11930                         0                       0                     1014
+ ================ KPIs2 OVERVIIEW: ======================= 
+KPIs (2)
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+[{'dataType': 'cstring', 'dataValues': ['In', 'October 8, 2020']}]
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+AGG(Placeholder)-alias
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+ ===================================== 
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+AGG(7-day Change Positive 7-day MA)-alias
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+AGG(Rolling-7 Positive Cases MA)-alias
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+AGG(14-day Change Positive 7-day MA)-alias
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+AGG(3-day Change Positive 7-day MA)-alias
+ ===================================== 
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+ ===================================== 
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+DAY(Case Date)-alias
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+ ===================================== 
+{'fieldCaption': 'IN/OUT(Today Selected Case Date)', 'valueIndices': [0], 'aliasIndices': [-1], 'dataType': 'boolean', 'paneIndices': 0, 'columnIndices': 1}
+IN/OUT(Today Selected Case Date)-alias
+{'fieldCaption': 'DAY(Case Date)', 'valueIndices': [0], 'aliasIndices': [-2], 'dataType': 'datetime', 'paneIndices': 0, 'columnIndices': 2}
+{'fieldCaption': 'AGG(Placeholder)', 'valueIndices': [0], 'aliasIndices': [0], 'dataType': 'integer', 'paneIndices': 0, 'columnIndices': 3}
+{'fieldCaption': 'AGG(7-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [0], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 4}
+{'fieldCaption': 'AGG(Rolling-7 Positive Cases MA)', 'valueIndices': [], 'aliasIndices': [1], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 5}
+{'fieldCaption': 'AGG(14-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [2], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 6}
+{'fieldCaption': 'AGG(3-day Change Positive 7-day MA)', 'valueIndices': [], 'aliasIndices': [3], 'dataType': 'real', 'paneIndices': 0, 'columnIndices': 7}
+ ===================================== 
+  AGG(Placeholder)-value-3 AGG(Placeholder)-alias AGG(7-day Change Positive 7-day MA)-alias AGG(Rolling-7 Positive Cases MA)-alias AGG(14-day Change Positive 7-day MA)-alias AGG(3-day Change Positive 7-day MA)-alias DAY(Case Date)-value-2 DAY(Case Date)-alias IN/OUT(Today Selected Case Date)-value-1 IN/OUT(Today Selected Case Date)-alias
+0                        0                      0                                  -0.15625                                15.4286                                -0.00917431                                 -0.129032    2020-10-08 00:00:00      October 8, 2020                                     True                                     In
+---------------------------------------------------
