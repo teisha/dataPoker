@@ -15,6 +15,9 @@ from functools import reduce
 from data_gatherers import galvestonCounty_config
 import pandas as pd
 
+from tableaudocumentapi import Workbook
+
+
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
@@ -74,22 +77,120 @@ class GalvestonCountyRunner:
         dataUrl = f'https://public.tableau.com{tableauData["vizql_root"]}/bootstrapSession/sessions/{tableauData["sessionid"]}'
         print( ' GET FROM ', tableauData["sheetId"])
         print( dataUrl)
+   
+        kpi_r = requests.post(dataUrl, data= {
+            "sheet_id": "KPIs (2)",
+        })
+        kpis2_data = self.distill_response(kpi_r, 'KPIs2')
+        kpis2 = kpis2_data[0]["data"]
+        caseDateRecorded = kpis2.at[0, 'DAY(Case Date)-alias-2']
+        print("CASE DATE: ", caseDateRecorded)
+
+        # if caseDateRecorded != self.full_today:
+        #     raise ValueError("Galveston data is not new. Last recorded Case Date is ", caseDateRecorded)
+
+        self.history_stats.update({"CaseDateRecorded":caseDateRecorded })
+        self.today_stats.update({"CaseDateRecorded":caseDateRecorded })
+        self.friendswood_stats.update({"CaseDateRecorded":caseDateRecorded })
 
         r = requests.post(dataUrl, data= {
             "sheet_id": tableauData["sheetId"],
         })
         self.allData = self.distill_response(r, 'ALL')
 
+        pbr_r = requests.post(dataUrl, data= {
+            "sheet_id": "Positives w/ MA (2)",
+        })
+        positivesPerDay = self.distill_response(pbr_r, 'PosWiMA') 
+        self.allData.append( positivesPerDay[0] ) 
+
         for data in self.allData:
             print (data["sheetName"])
             with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
                 print(data["data"])
-
-
+              
+        # https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/TrendsbyCity/bootstrapSession/sessions/70D84C0C52574EE7960A2AF6245FADDB-0:0
         # print(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
         # pagesReg = re.findall('targetSheets\\\\\\\":\[(.*?)\]', r.text, re.MULTILINE)
         # # for sheetList in pagesReg:
         # print(pagesReg[0])
+            #  ??????
+            # GCHDCOVID-19Analysis_15970856171690
+            # GCHDCOVID-19Analysis_15970856171690/sheets/CountyOverview
+        # https://public.tableau.com/workbooks/' + [Workbook Repo Url] + '.twb'
+        # https://public.tableau.com/workbooks/GCHDCOVID-19Analysis_15970856171690/sheets/CountyOverview
+        # https://public.tableau.com/profile/api/galveston.county.health.district#!/workbooks?count=300&index=0
+        # https://public.tableau.com/profile/api/galveston.county.health.district#!/workbooks?count=300&index=0
+        # https://public.tableau.com/profile/galveston.county.health.district#!/vizhome/GCHDCOVID-19Analysis_15970856171690/CountyOverview
+        # https://public.tableau.com/workbooks/BarHoppingThemeandVariationsonaBarChart.twb
+
+
+
+        # sourceWB = Workbook('GCHDCOVID-19Analysis_15970856171690')
+        # sourceWB.datasources[0].connections[0].server = 'https://public.tableau.com'
+
+        # gotoUrl = f'https://public.tableau.com{tableauData["vizql_root"]}/sessions/{tableauData["sessionid"]}/commands/tabdoc/goto-sheet'
+        # goto_r = requests.post(gotoUrl, data={
+        #     "windowId": "{B6E1F643-73DC-4B0C-B6FB-295B150DBF79}"
+        # })
+        # print(goto_r.text)
+
+        # https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/TrendsbyCity/sessions/70D84C0C52574EE7960A2AF6245FADDB-0:0/commands/tabdoc/categorical-filter-by-index
+#         visualIdPresModel: {"worksheet":"Positives w/ MA (2)","dashboard":"Trends by City"}
+# globalFieldName: [federated.17qcxcc12yamab181nrjd0a4r6ej].[none:Calculation_475411296295043086:nk]
+# membershipTarget: filter
+# filterIndices: [7]
+# filterUpdateType: filter-replace
+
+        # tableauData = json.loads(soup.find("textarea",{"id": "tsConfigContainer"}).text)
+        filterPage = tableauData["vizql_root"].replace('CountyOverview', 'TrendsbyCity')
+        citydataUrl = f'https://public.tableau.com{filterPage}/bootstrapSession/sessions/{tableauData["sessionid"]}'
+        print('CITY DATA URL: ' ,citydataUrl)
+   
+        kpi_r = requests.post(dataUrl, data= {
+            "sheet_id": "Trends by City",
+        })
+        id = re.search('\"newSessionId\":\"(.*?)-.:.\"', kpi_r.text,)  
+        new_session_id = id.group().replace('"newSessionId":"','')
+        print(new_session_id)
+        kpis2_data = self.distill_response(kpi_r, 'KPIs2')
+
+
+        filterUrl = f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}/commands/tabdoc/categorical-filter-by-index'
+        print(" ******* TRY TO GET FRIENDSWOOD DATA HISTORY ******* ", filterUrl)
+        pbr_r = requests.post(filterUrl, data= {
+            "visualIdPresModel": '{"worksheet":"Positives w/ MA (2)","dashboard":"Trends by City"}',
+            "globalFieldName": '[federated.17qcxcc12yamab181nrjd0a4r6ej].[none:Calculation_475411296295043086:nk]',
+            "membershipTarget": "filter",
+            "filterIndices": '[7]',
+            "filterUpdateType": "filter-replace"
+        })
+
+        
+        # cumulative_city = self.distill_response(pbr_r, 'CITY') 
+        # for data in cumulative_city:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"])          
+        # print(" ******* END FRIENDSWOOD DATA HISTORY  ***********")
+
+
+
+
+
+        # pbr_r = requests.post(dataUrl, data= {
+        #     "sheet_id": "BAN - Cumulative Trends by City",
+        # })
+        # cumulative_city = self.distill_response(pbr_r, 'BAN_CITY') 
+        # for data in cumulative_city:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"]) 
+
+        # for data in positivesPerDay:
+        #     print (data["sheetName"])
+        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+        #         print(data["data"])        
 
         # pbr_r = requests.post(dataUrl, data= {
         #     "sheet_id": "Positives Disparity by Race",
@@ -106,26 +207,12 @@ class GalvestonCountyRunner:
         # })
         # self.distill_response(pbr_r, 'RACE_TITLE')  
              
-            #  ??????
-        pbr_r = requests.post(dataUrl, data= {
-            "sheet_id": "Positives w/ MA (2)",
-        })
-        positivesPerDay = self.distill_response(pbr_r, 'PosWiMA') 
-        self.allData.append( positivesPerDay[0] )   
-        # for data in positivesPerDay:
-        #     print (data["sheetName"])
-        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
-        #         print(data["data"])        
 
         # pbr_r = requests.post(dataUrl, data= {
         #     "sheet_id": "Age Band",
         # })
         # self.distill_response(pbr_r, 'AGE')    
 
-        # pbr_r = requests.post(dataUrl, data= {
-        #     "sheet_id": "Cumulative Trends by City (2)",
-        # })
-        # self.distill_response(pbr_r, 'CITY') 
 
         # pbr_r = requests.post(dataUrl, data= {
         #     "sheet_id": "CM City (2)",
@@ -140,12 +227,8 @@ class GalvestonCountyRunner:
         #     print (data["sheetName"])
         #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
         #         print(data["data"])               
-        
 
-        # pbr_r = requests.post(dataUrl, data= {
-        #     "sheet_id": "BAN - Cumulative Trends by City",
-        # })
-        # self.distill_response(pbr_r, 'BAN_CITY') 
+
 
         # pbr_r = requests.post(dataUrl, data= {
         #     "sheet_id": "BAN - Cumulative Trends by Race",
@@ -164,22 +247,20 @@ class GalvestonCountyRunner:
 # \"Cumulative Trends by City (2)\",\"BAN - Cumulative Trends by City \",
 # \"Cumulative Trends by Race\",\"KPIs (2)\",\"Positives w/ MA\",\"CM City (2)\"],
 # \"type\":\"C\"}]
+# Weekly Numbers (3)
+# "Weekly Positivity"
+# Weekly Trends
+# Max Reported Date
+# BAN - Cumulative Trends by City
+# Cumulative Trends by City (2)
+
         # Age Band , Cities
         
         # kpi_r = requests.post(dataUrl, data= {
         #     "sheet_id": "KPI Overview",
         # })
         # kpi_data = self.distill_response(kpi_r, 'KPIs')
-        kpi_r = requests.post(dataUrl, data= {
-            "sheet_id": "KPIs (2)",
-        })
-        kpis2_data = self.distill_response(kpi_r, 'KPIs2')
-        kpis2 = kpis2_data[0]["data"]
-        caseDateRecorded = kpis2.at[0, 'DAY(Case Date)-alias-2']
-        print("CASE DATE: ", caseDateRecorded)
-        self.history_stats.update({"CaseDateRecorded":caseDateRecorded })
-        self.today_stats.update({"CaseDateRecorded":caseDateRecorded })
-        self.friendswood_stats.update({"CaseDateRecorded":caseDateRecorded })
+
 
         # for data in kpis2_data:
         #     print (data["sheetName"])
@@ -190,6 +271,7 @@ class GalvestonCountyRunner:
     def distill_response(self, sheetResponse: dict, prefix: str):
         print (f" ================ {prefix} OVERVIIEW: ======================= ")
 
+        print(sheetResponse.text)
         # with open(f"data/galveston_{prefix}.json", "w") as handle:
         #     handle.writelines( json.dumps(sheetResponse.text )      ) 
         # panelColumnsData = re.findall('presModelHolder\\\":{(\\\"genVizDataPresModel)(.*?)}', sheetResponse.text, re.MULTILINE)
@@ -201,7 +283,7 @@ class GalvestonCountyRunner:
         #     print( ' ---  ')
         #     print(  len(columns))
         #     print(columns )
-        # print (dataReg)
+        print (dataReg)
         info = json.loads(dataReg.group(1))
         data = json.loads(dataReg.group(2))
         # dataTuplesCount = len(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
@@ -354,7 +436,7 @@ class GalvestonCountyRunner:
         friendswood = cases_by_city["FRIENDSWOOD"]
         self.today_stats.update({'cases_by_city': cases_by_city})            
         self.history_stats.update({'cityTotals': totalsByCity.to_json()})
-        self.friendswood_stats.update({'galvestonCounty': friendswood})
+        self.friendswood_stats.update({'Total Cases': friendswood})
 
     def getHospitalizedTotals(self):
         print('Hospitalizations')
@@ -497,6 +579,7 @@ class GalvestonCountyRunner:
         print("TODAY")
         print(self.today_stats)
         database_stats = dict({'date_collected' : self.current_date_time})  
+        database_stats.update({"case_date": self.today_stats.get('CaseDateRecorded')})
         print(self.today_stats.get('totalsByAge'))
         database_stats.update({'ALL CASES: City Counts': self.today_stats.get('cases_by_city')})  
         database_stats.update({'AGE GROUPS': self.today_stats.get('totalsByAge')}) 

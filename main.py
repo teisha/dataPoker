@@ -32,9 +32,9 @@ runHarris.save_database()
 runGalveston = galvestonCounty.GalvestonCountyRunner()
 try:
     runGalveston.getAllData()
+    runGalveston.saveToDatabase()       
 except:
     print("Galveston data incomplete", sys.exc_info()[0]) 
 runGalveston.pickle_off()
-runGalveston.saveToDatabase()       
 
 
