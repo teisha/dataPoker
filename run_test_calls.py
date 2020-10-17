@@ -12,10 +12,10 @@ print (  reduce(lambda x,y: int(x) + int(y), test.get('cases_by_city').values())
 
 runThis = galvestonCounty.GalvestonCountyRunner()
 runThis.getTableauTotals()
-# runThis.getAllData()
+runThis.getAllData()
 # # # runThis.pickle_off()
 # # runThis.pickle_on()
-# runThis.saveToDatabase()
+runThis.saveToDatabase()
 
 # runThis = txStatRunner.Runner()
 # runThis.get_daily_stats()

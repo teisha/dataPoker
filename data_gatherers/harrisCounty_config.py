@@ -8,6 +8,7 @@ daily_all_params = {
     'returnGeometry':'false',
     'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
+    'resultOffset': '0',
     'orderByFields': 'OBJECTID',
     'resultType': 'standard',
     'cacheHint': 'true'

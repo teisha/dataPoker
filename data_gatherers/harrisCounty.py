@@ -45,20 +45,30 @@ class HarrisCountyRunner:
         age_totals= requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.agerange_summary_params)
         age_response = age_totals.json()
 
-        for feature in age_response['features']:
-            # whereClause = f"City='{feature.get('attributes').get('City')}'"
-            whereClause = f"AgeRange='{feature.get('attributes').get('AgeRange')}'"
-            chunk_params=harrisCounty_config.daily_all_params
-            chunk_params.update({'where': whereClause})
-            print(chunk_params)
+# A second method that we have been using at CartONG is to take advantage of the resultOffset query parameter (available since 10.3), 
+# which allows to “skip the specified number of records and [to return response] starting from the next record” (Esri). 
+# If we iterate queries, while each time adding the number of returned records
+        chunk_params = harrisCounty_config.daily_all_params 
+        while len(harrisCountyRecords) < int(total):
+            
+        # for feature in age_response['features']:
+        #     # whereClause = f"City='{feature.get('attributes').get('City')}'"
+        #     whereClause = f"AgeRange='{feature.get('attributes').get('AgeRange')}'"
+        #     chunk_params=harrisCounty_config.daily_all_params
+        #     chunk_params.update({'where': whereClause})
+        #     print(chunk_params)
+            currentOffset = int(chunk_params.get('resultOffset') )
+            print('Current Offset is: ', currentOffset)
             response = requests.get(url=harrisCounty_config.DAILY_ALL, params=chunk_params)
             daily_response = response.json() 
-            print(f"Count of record received: {len(daily_response['features'])}")
+            chunk_count = len(daily_response['features'])
+            print(f"Count of chunk received: {chunk_count}")
             for rec in daily_response['features']:
                 harrisCountyRecords.append(rec['attributes'])
 
             # features = [ sub['attributes'] for sub in  daily_response['features']]
             print(len(harrisCountyRecords))
+            chunk_params.update({'resultOffset': f'{currentOffset + chunk_count}'})
 
         # ['OBJECTID', 'Id_str', 'Gender', 'AgeRange', 'Quadrant', 'ExposureType', 'Status', 'CaseType', 'Hospitalized', 'X', 'Y', 'DeceasedCOVID19_str',
         #     'Type', 'DateConvertedtoCase', 'DateConvertedtoCase_str', 'Source', 'confirmed', 'EditDate', 'ZIP', 'Race', 'DateSymptoms', 'DateSymptoms_str', 

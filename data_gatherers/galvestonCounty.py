@@ -31,6 +31,7 @@ class GalvestonCountyRunner:
         self.fileName = "F:/Dropbox/Coding/covid/data/galvestonCounty-"+ self.current_date_time + ".json"
         self.today = datetime.now().strftime("%#d-%B")
         self.full_today = datetime.now().strftime("%B %#d, %Y")
+        self.two_days_ago = ( date.today() - timedelta(days=2) )
         print(self.today)
         self.yesterday = date.today() - timedelta(days=1)
         self.history_cutoff = ( date.today() - timedelta(days=5) ).strftime("%m/%d")
@@ -85,9 +86,11 @@ class GalvestonCountyRunner:
         kpis2 = kpis2_data[0]["data"]
         caseDateRecorded = kpis2.at[0, 'DAY(Case Date)-alias-2']
         print("CASE DATE: ", caseDateRecorded)
+        self.case_date = caseDateRecorded
 
-        # if caseDateRecorded != self.full_today:
-        #     raise ValueError("Galveston data is not new. Last recorded Case Date is ", caseDateRecorded)
+
+        if datetime.strptime(self.case_date, "%B %d, %Y").date() < self.two_days_ago:
+            raise ValueError("Galveston data is not new. Last recorded Case Date is ", caseDateRecorded)
 
         self.history_stats.update({"CaseDateRecorded":caseDateRecorded })
         self.today_stats.update({"CaseDateRecorded":caseDateRecorded })
@@ -146,19 +149,27 @@ class GalvestonCountyRunner:
         filterPage = tableauData["vizql_root"].replace('CountyOverview', 'TrendsbyCity')
         citydataUrl = f'https://public.tableau.com{filterPage}/bootstrapSession/sessions/{tableauData["sessionid"]}'
         print('CITY DATA URL: ' ,citydataUrl)
-   
+
         kpi_r = requests.post(dataUrl, data= {
             "sheet_id": "Trends by City",
+            "filterIndices": '[7]',
         })
         id = re.search('\"newSessionId\":\"(.*?)-.:.\"', kpi_r.text,)  
         new_session_id = id.group().replace('"newSessionId":"','')
         print(new_session_id)
         kpis2_data = self.distill_response(kpi_r, 'KPIs2')
 
+        dataReg = re.search('\d+;({.*})\d+;({.*})', kpi_r.text, re.MULTILINE)                                  
+        print (dataReg)
+        info = json.loads(dataReg.group(1))
+        data = json.loads(dataReg.group(2))
+        print("MAIN PAGE:")
+        print(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
+
 
         filterUrl = f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}/commands/tabdoc/categorical-filter-by-index'
         print(" ******* TRY TO GET FRIENDSWOOD DATA HISTORY ******* ", filterUrl)
-        pbr_r = requests.post(filterUrl, data= {
+        friendswood_r = requests.post(filterUrl, data= {
             "visualIdPresModel": '{"worksheet":"Positives w/ MA (2)","dashboard":"Trends by City"}',
             "globalFieldName": '[federated.17qcxcc12yamab181nrjd0a4r6ej].[none:Calculation_475411296295043086:nk]',
             "membershipTarget": "filter",
@@ -166,13 +177,80 @@ class GalvestonCountyRunner:
             "filterUpdateType": "filter-replace"
         })
 
-        
-        # cumulative_city = self.distill_response(pbr_r, 'CITY') 
-        # for data in cumulative_city:
-        #     print (data["sheetName"])
-        #     with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
-        #         print(data["data"])          
-        # print(" ******* END FRIENDSWOOD DATA HISTORY  ***********")
+
+        # another_friendswood_r = requests.post( f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}', data={
+        #     "sheet_id": "Trends by City",
+        # })
+        # another_friendswood_data = self.distill_response(another_friendswood_r, 'ANOTHER_FRIENDSWOOD')
+        # another_friendswoodReg = re.search('\d+;({.*})\d+;({.*})', another_friendswood_r.text, re.MULTILINE)                       git            
+        # print (another_friendswoodReg)
+        # another_friendswoodinfo = json.loads(another_friendswoodReg.group(1))
+        # another_friendswooddata = json.loads(another_friendswoodReg.group(2))
+        # print("MAIN PAGE:")
+        # print(another_friendswooddata["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
+
+
+
+        data_match = re.search('dataDictionary\":{(.*?)]}}}', friendswood_r.text, re.MULTILINE) 
+        friendswood_data = json.loads(data_match.group().replace('dataDictionary":','') )
+        print ("FRIENDSWOOD DATA ", friendswood_data)
+
+        data_match = re.findall('vizData\":({.*?},\"filtersJson)', friendswood_r.text, re.MULTILINE)
+        friendswood_vizdata = []
+        for line in data_match:
+            friendswood_vizdata.append(json.loads(line.replace(',"filtersJson', '') ))
+
+        result = []
+        for t in friendswood_vizdata:
+            rec = t['paneColumnsData']['vizDataColumns']
+            recResults = []
+            for field in rec:
+                if field.get("fieldCaption") != None:
+                    print(field.get("fieldCaption", ""))
+                    recResults.append({
+                        "fieldCaption": field.get("fieldCaption", ""), 
+                        "valueIndices": t['paneColumnsData']["paneColumnsList"][field["paneIndices"][0]]["vizPaneColumns"][field["columnIndices"][0]]["valueIndices"],
+                        "aliasIndices": t['paneColumnsData']["paneColumnsList"][field["paneIndices"][0]]["vizPaneColumns"][field["columnIndices"][0]]["aliasIndices"],
+                        "dataType": field.get("dataType"),
+                        "paneIndices": field["paneIndices"][0],
+                        "columnIndices": field["columnIndices"][0]
+                    })
+            # print(recResults)                    
+            result.append(recResults)
+      
+        # dataFull = data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"]
+        dataFull = friendswood_data["dataSegments"]["1"]["dataColumns"]  # this is the data source - there is only one
+        print (dataFull)
+        cstring = [t for t in dataFull if t["dataType"] == "cstring"]
+        if len(cstring) == 0:
+            cstring = "No Title"
+        else:
+            cstring = cstring[0]            
+        # for t in dataFull:
+        #     if t["dataType"] == "cstring":
+        #         cstring.append(t)
+        print ( cstring )
+
+        for t in dataFull:
+            # print (t["dataValues"])
+            for index in result:
+                frameData = {}
+                for report in index:
+                # print(index)
+                    if t["dataType"] == report["dataType"]:
+                        if report.get("valueIndices") != None and len(report["valueIndices"]) > 0:
+                            print (f'{report["fieldCaption"]}-value-{report["columnIndices"]}  = {[t["dataValues"][abs(it)] if abs(it) < len(t["dataValues"]) else it for it in report["valueIndices"]]}' )
+                            frameData[f'{report["fieldCaption"]}-value-{report["columnIndices"]}'] = [t["dataValues"][abs(it)] if abs(it) < len(t["dataValues"]) else it for it in report["valueIndices"]]
+                        if len(report["aliasIndices"]) > 0:
+                            print (f'{report["fieldCaption"]}-alias-{report["columnIndices"]} = {onAlias(it, t["dataValues"], cstring) for it in report["aliasIndices"]}')
+                            frameData[f'{report["fieldCaption"]}-alias-{report["columnIndices"]}'] = [onAlias(it, t["dataValues"], cstring) for it in report["aliasIndices"]]                        
+                df = pd.DataFrame.from_dict(frameData, orient='index').fillna(0).T
+                # with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+                #     print(df)        
+            print(' ===================================== ')
+
+         
+        print(" ******* END FRIENDSWOOD DATA HISTORY  ***********")
 
 
 
@@ -308,9 +386,6 @@ class GalvestonCountyRunner:
         return sheetData
 
     def get_worksheet(self, data: dict, worksheetName: str, prefix: str):    
-        def onAlias(it, value, cstring):
-            # print (value[it] if (it >= 0) else cstring["dataValues"][abs(it)-1])
-            return value[it] if (it >= 0) else cstring["dataValues"][abs(it)-1]
 
         # print(data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"][workSheets[0]]["presModelHolder"]["genVizDataPresModel"]["paneColumnsData"])
         columnsData = data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"][worksheetName]["presModelHolder"]["genVizDataPresModel"]["paneColumnsData"]
@@ -438,22 +513,22 @@ class GalvestonCountyRunner:
         self.history_stats.update({'cityTotals': totalsByCity.to_json()})
         self.friendswood_stats.update({'Total Cases': friendswood})
 
-    def getHospitalizedTotals(self):
-        print('Hospitalizations')
-        hospitalizedTotals = self.getSpreadsheetData(galvestonCounty_config.hospitalized_quarantined_by_date)
-        self.history_stats.update({'hospitalized': hospitalizedTotals})
-        today_hospitalized = next((stat for stat in hospitalizedTotals if stat["Date"] == self.today), None)
-        if today_hospitalized != None:
-            self.today_stats.update({'hospitalized': today_hospitalized})
+    # def getHospitalizedTotals(self):
+    #     print('Hospitalizations')
+    #     hospitalizedTotals = self.getSpreadsheetData(galvestonCounty_config.hospitalized_quarantined_by_date)
+    #     self.history_stats.update({'hospitalized': hospitalizedTotals})
+    #     today_hospitalized = next((stat for stat in hospitalizedTotals if stat["Date"] == self.today), None)
+    #     if today_hospitalized != None:
+    #         self.today_stats.update({'hospitalized': today_hospitalized})
 
-    def getRollingTotals(self):
-        print ('Rolling Totals')
-        rollingTotals = self.getSpreadsheetData(galvestonCounty_config.rolling_totals)
-        self.history_stats.update({'cumulative_totals': rollingTotals})
-        cumulative_stats = next((stat for stat in rollingTotals if stat["Date"] == self.today), None)
-        print(cumulative_stats)
-        if cumulative_stats != None:
-            self.today_stats.update({'cumulative_totals': cumulative_stats})        
+    # def getRollingTotals(self):
+    #     print ('Rolling Totals')
+    #     rollingTotals = self.getSpreadsheetData(galvestonCounty_config.rolling_totals)
+    #     self.history_stats.update({'cumulative_totals': rollingTotals})
+    #     cumulative_stats = next((stat for stat in rollingTotals if stat["Date"] == self.today), None)
+    #     print(cumulative_stats)
+    #     if cumulative_stats != None:
+    #         self.today_stats.update({'cumulative_totals': cumulative_stats})        
 
     def getTotalsPerDay(self):
         print ('Total Per Day')
@@ -469,13 +544,13 @@ class GalvestonCountyRunner:
 
         positives = next((data["data"] for data in self.allData if data["sheetName"] == "Positives w/ MA (2)"), None)
         # print( positives )
-        print(self.full_today)
-        daily_positives = positives.loc[positives["DAY(Case Date)-alias-2"] == self.full_today]
+        print(self.full_today, self.case_date)
+        daily_positives = positives.loc[positives["DAY(Case Date)-alias-2"] == self.case_date]
         # next((stat for stat in positives if stat["DAY(Case Date)-alias-2"] == self.full_today), None)
         if daily_positives.shape[0] > 0:
-            print(daily_positives)
+            print(daily_positives.keys())
             dailyTotals.update({'TotalNew': int( daily_positives.at[0,'AGG(Total Positive Cases)-value-3'])})
-            dailyTotals.update({'PercentPositiveNew': int(daily_positives.at[0,'AGG(Total Positive Cases)-value-5']) })
+            dailyTotals.update({'PercentPositiveNew': int(daily_positives.at[0,'AGG(Total Positive Cases)-alias-5']) })
         else:
             dailyTotals.update({'TotalNew': -1})
             dailyTotals.update({'PercentPositiveNew': -1})
@@ -624,7 +699,11 @@ class GalvestonCountyRunner:
         database.save_galveston_county(dict(galvestonCounty=database_stats) )  
         database.save_friendswood(dict(galvestonCounty=self.friendswood_stats) )          
 
-
+def onAlias(it, value, cstring):
+    returnplace = abs(it)-1 if abs(it) < len(cstring["dataValues"]) else -1
+    # print(value, it, returnplace, cstring)
+    # print (value[it] if (it >= 0 and it < len(value)) else cstring["dataValues"][returnplace])
+    return value[it] if (it >= 0 and it < len(value)) else cstring["dataValues"][returnplace]
 
 # 'hospitalized': {'date_collected': '07-07-2020', 'Date': '2-July', 'Hospitalized ': '89', 'Self-Quarantined': '2642'}, 
 # 'cumulative_totals': {'date_collected': '07-07-2020', 'Date': '2-July', 'Total Cases': '3778', 'Recovered': '1001', 'Deaths': '46'}, 
