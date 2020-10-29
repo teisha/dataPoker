@@ -3,6 +3,7 @@ import sys
 from data_gatherers.txStatRunner import Runner
 from data_gatherers import galvestonCounty, harrisCounty, worldometer
 
+errors = []
 
 worldometer.download_texas()
 worldometer.download_world()
@@ -25,16 +26,23 @@ runThis.write_to_database()
 
 
 runHarris = harrisCounty.HarrisCountyRunner()
-runHarris.catch_em_all()
-runHarris.get_summarized_data()
-runHarris.save_database()
+try:
+    runHarris.catch_em_all()
+    runHarris.get_summarized_data()
+    runHarris.save_database()
+except:
+    errors.append(dict(errorsource='harrisCounty',error=sys.exc_info()[0]))
 
 runGalveston = galvestonCounty.GalvestonCountyRunner()
 try:
     runGalveston.getAllData()
     runGalveston.saveToDatabase()       
 except:
+    errors.append(dict(errorsource='galveston',error=sys.exc_info()[0]))
     print("Galveston data incomplete", sys.exc_info()[0]) 
 runGalveston.pickle_off()
+
+print(" ===================ERRORS ==========================")
+print(errors)
 
 

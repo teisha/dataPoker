@@ -67,7 +67,7 @@ class Runner:
         state_totals = dict(total_covid=total_covid, total_staff=total_staff, total_avail_beds=total_avail_beds,
             total_avail_icu_beds=total_avail_icu_beds, total_avail_vents=total_avail_vents  )
         state_totals.update({'date_collected' : self.current_date_time})
-        print(state_totals)
+        # print(state_totals)
         self.stat_pickler.update( dict(hospitals_current=hospitals_current))
         self.today_stats.update(dict(harris_hospitals=harris, galveston_hospitals=galveston, 
             hospital_current_totals=state_totals) )
@@ -179,7 +179,7 @@ class Runner:
             if county_no.get("Fatalities"):
                 fatalities = fatalities + int( county_no.get("Fatalities") )
             if county_no.get("Recoveries"):
-                print(county_no.get("Recoveries"))
+                # print(county_no.get("Recoveries"))
                 recoveries = recoveries + int( county_no.get("Recoveries") )
             if county_no.get("Active"):
                 active = active + int( county_no.get("Active")   )                                                        

@@ -21,6 +21,7 @@ class HarrisCountyRunner:
 
 
     def catch_em_all(self):
+        print(' ----------- CATCH EM ALL ----------------- ')
         harrisCountyRecords=[]
         total_recs = requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.total_rec_params)
         total_response = total_recs.json()
@@ -75,7 +76,10 @@ class HarrisCountyRunner:
         #     'City', 'DeceasedCOVID19Date']
 
         df_people = pd.DataFrame(harrisCountyRecords)
-        df_people.to_csv(self.people_detail_csv)
+        try:
+            df_people.to_csv(self.people_detail_csv)
+        except:
+            pass    
         
         total_cases = df_people['OBJECTID'].count()    # This is the stat for "Confirmed Cases"
         if int(total_cases) != int(total):
@@ -103,13 +107,14 @@ class HarrisCountyRunner:
         self.today_stats.update({'date_collected' : self.current_date_time})
 
         series_dateSymptoms = df_people.groupby('DateSymptoms_str')['OBJECTID'].count()
-        series_dateConverted = df_people.groupby('DateConvertedtoCase_str')['OBJECTID'].count()
         df_dateSymptoms = pd.DataFrame({'date': series_dateSymptoms.index,
             'count_symptoms': series_dateSymptoms}, columns=['date','count_symptoms'])
-        df_dateConverted = pd.DataFrame({'date': series_dateConverted.index,
-            'count_converted': series_dateConverted}, columns=['date','count_converted'])            
+        # series_dateConverted = df_people.groupby('DateConvertedtoCase_str')['OBJECTID'].count()
+        # df_dateConverted = pd.DataFrame({'date': series_dateConverted.index,
+        #     'count_converted': series_dateConverted}, columns=['date','count_converted'])            
+        # dateHistory = pd.merge(df_dateSymptoms, df_dateConverted, how='outer', on="date" )   #.to_csv('data/compare_DateSymptoms_str_updated.csv')
 
-        dateHistory = pd.merge(df_dateSymptoms, df_dateConverted, how='outer', on="date" )   #.to_csv('data/compare_DateSymptoms_str_updated.csv')
+        dateHistory = df_dateSymptoms
         dateHistory.fillna(0, inplace=True)
 
         self.history_stats.update({'datedStats' : dateHistory.to_dict('records')})
@@ -131,12 +136,15 @@ class HarrisCountyRunner:
         # print(df_current['DateConvertedtoCase_str'].value_counts())
         # df_people.to_csv('data/all_harris_county_updated.csv')
     
-        history_file = open(self.fileName, "w")
-        history_file.write('[')
-        history_file.writelines(json.dumps(dict(DASHUpdated=self.today_stats))  )
-        history_file.write(',')
-        history_file.writelines(json.dumps(dict(datedTotals=self.history_stats))  )
-        history_file.close()
+        try:
+            history_file = open(self.fileName, "w")
+            history_file.write('[')
+            history_file.writelines(json.dumps(dict(DASHUpdated=self.today_stats))  )
+            history_file.write(',')
+            history_file.writelines(json.dumps(dict(datedTotals=self.history_stats))  )
+            history_file.close()
+        except:
+            pass            
         # for feature in hospital_response['features']:
         #     print(feature)
         

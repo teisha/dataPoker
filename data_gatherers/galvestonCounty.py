@@ -6,16 +6,16 @@ from bs4 import BeautifulSoup
 import re
 
 from datetime import datetime, timedelta, date
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 import json
 from services import database
 from functools import reduce
 from data_gatherers import galvestonCounty_config
 import pandas as pd
 
-from tableaudocumentapi import Workbook
+# from tableaudocumentapi import Workbook
 
 
 
@@ -24,6 +24,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 class GalvestonCountyRunner:
     def __init__(self):
+        self.tableauData = None
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
         self.friendswood_stats = dict(dateCollected=self.current_date_time)
         self.history_stats = dict(dateCollected=self.current_date_time)
@@ -38,30 +39,30 @@ class GalvestonCountyRunner:
         """Shows basic usage of the Sheets API.
         Prints values from a sample spreadsheet.
         """
-        creds = None
+        # creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists('token.pickle'):
-            with open('token.pickle', 'rb') as token:
-                creds = pickle.load(token)
-                print(creds)
-        # If there are no (valid) credentials available, let the user log in.
-        if not creds or not creds.valid:
-            if creds and creds.expired and creds.refresh_token:
-                creds.refresh(Request())
-            else:
-                flow = InstalledAppFlow.from_client_secrets_file(
-                    'config/credentials.json', SCOPES)
-                creds = flow.run_local_server(port=0)
-            # Save the credentials for the next run
-            with open('token.pickle', 'wb') as token:
-                pickle.dump(creds, token)
-        self.service = build('sheets', 'v4', credentials=creds)
+        # if os.path.exists('token.pickle'):
+        #     with open('token.pickle', 'rb') as token:
+        #         creds = pickle.load(token)
+        #         print(creds)
+        # # If there are no (valid) credentials available, let the user log in.
+        # if not creds or not creds.valid:
+        #     if creds and creds.expired and creds.refresh_token:
+        #         creds.refresh(Request())
+        #     else:
+        #         flow = InstalledAppFlow.from_client_secrets_file(
+        #             'config/credentials.json', SCOPES)
+        #         creds = flow.run_local_server(port=0)
+        #     # Save the credentials for the next run
+        #     with open('token.pickle', 'wb') as token:
+        #         pickle.dump(creds, token)
+        # self.service = build('sheets', 'v4', credentials=creds)
         print ('------------------- INIT GALVESTON COUNTY --------------------')
 
-
-    def getTableauTotals(self):
+    def setup_tableau(self):
+        print("-------------------- SETUP TABLEAU -----------------")
         url = galvestonCounty_config.tableau_main_url
         r = requests.get(
             url,
@@ -74,12 +75,14 @@ class GalvestonCountyRunner:
             }
         )
         soup = BeautifulSoup(r.text, "html.parser")
-        tableauData = json.loads(soup.find("textarea",{"id": "tsConfigContainer"}).text)
-        dataUrl = f'https://public.tableau.com{tableauData["vizql_root"]}/bootstrapSession/sessions/{tableauData["sessionid"]}'
-        print( ' GET FROM ', tableauData["sheetId"])
-        print( dataUrl)
+        self.tableauData = json.loads(soup.find("textarea",{"id": "tsConfigContainer"}).text)
+        self.dataUrl = f'https://public.tableau.com{self.tableauData["vizql_root"]}/bootstrapSession/sessions/{self.tableauData["sessionid"]}'
+        print( ' GET FROM ', self.tableauData["sheetId"])
+        print( self.dataUrl)
    
-        kpi_r = requests.post(dataUrl, data= {
+    def getTableauTotals(self):
+        self.setup_tableau()
+        kpi_r = requests.post(self.dataUrl, data= {
             "sheet_id": "KPIs (2)",
         })
         kpis2_data = self.distill_response(kpi_r, 'KPIs2')
@@ -96,12 +99,12 @@ class GalvestonCountyRunner:
         self.today_stats.update({"CaseDateRecorded":caseDateRecorded })
         self.friendswood_stats.update({"CaseDateRecorded":caseDateRecorded })
 
-        r = requests.post(dataUrl, data= {
-            "sheet_id": tableauData["sheetId"],
+        r = requests.post(self.dataUrl, data= {
+            "sheet_id": self.tableauData["sheetId"],
         })
         self.allData = self.distill_response(r, 'ALL')
 
-        pbr_r = requests.post(dataUrl, data= {
+        pbr_r = requests.post(self.dataUrl, data= {
             "sheet_id": "Positives w/ MA (2)",
         })
         positivesPerDay = self.distill_response(pbr_r, 'PosWiMA') 
@@ -144,15 +147,19 @@ class GalvestonCountyRunner:
 # membershipTarget: filter
 # filterIndices: [7]
 # filterUpdateType: filter-replace
-
+    def get_friendswood_detail(self):
+        
+        if self.tableauData == None:
+            self.setup_tableau()
         # tableauData = json.loads(soup.find("textarea",{"id": "tsConfigContainer"}).text)
-        filterPage = tableauData["vizql_root"].replace('CountyOverview', 'TrendsbyCity')
-        citydataUrl = f'https://public.tableau.com{filterPage}/bootstrapSession/sessions/{tableauData["sessionid"]}'
+        filterPage = self.tableauData["vizql_root"].replace('CountyOverview', 'TrendsbyCity')
+        citydataUrl = f'https://public.tableau.com{filterPage}/bootstrapSession/sessions/{self.tableauData["sessionid"]}'
         print('CITY DATA URL: ' ,citydataUrl)
+        print(" =================================================================== ")
 
-        kpi_r = requests.post(dataUrl, data= {
+        kpi_r = requests.post(citydataUrl, data= {
             "sheet_id": "Trends by City",
-            "filterIndices": '[7]',
+            "exclude": "false"
         })
         id = re.search('\"newSessionId\":\"(.*?)-.:.\"', kpi_r.text,)  
         new_session_id = id.group().replace('"newSessionId":"','')
@@ -165,7 +172,7 @@ class GalvestonCountyRunner:
         data = json.loads(dataReg.group(2))
         print("MAIN PAGE:")
         print(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
-
+        print(" =================================================================== ")
 
         filterUrl = f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}/commands/tabdoc/categorical-filter-by-index'
         print(" ******* TRY TO GET FRIENDSWOOD DATA HISTORY ******* ", filterUrl)
@@ -178,11 +185,14 @@ class GalvestonCountyRunner:
         })
 
 
-        # another_friendswood_r = requests.post( f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}', data={
-        #     "sheet_id": "Trends by City",
+        # https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/CountyOverview/sessions/63B629AA60804B899FBC4EDD80B358ED-0:0/commands/tabdoc/goto-sheet
+        # windowId : {B6E1F643-73DC-4B0C-B6FB-295B150DBF79}
+        # another_url = f'https://public.tableau.com{filterPage}/sessions/{new_session_id[:-1]}/commands/tabdoc/goto-sheet'
+        # another_friendswood_r = requests.post(another_url , data={
+        #      "windowId" : "{B6E1F643-73DC-4B0C-B6FB-295B150DBF79}",
         # })
         # another_friendswood_data = self.distill_response(another_friendswood_r, 'ANOTHER_FRIENDSWOOD')
-        # another_friendswoodReg = re.search('\d+;({.*})\d+;({.*})', another_friendswood_r.text, re.MULTILINE)                       git            
+        # another_friendswoodReg = re.search('\d+;({.*})\d+;({.*})', another_friendswood_r.text, re.MULTILINE)               
         # print (another_friendswoodReg)
         # another_friendswoodinfo = json.loads(another_friendswoodReg.group(1))
         # another_friendswooddata = json.loads(another_friendswoodReg.group(2))
@@ -191,14 +201,20 @@ class GalvestonCountyRunner:
 
 
 
+
+        print(" =================================================================== ")
         data_match = re.search('dataDictionary\":{(.*?)]}}}', friendswood_r.text, re.MULTILINE) 
         friendswood_data = json.loads(data_match.group().replace('dataDictionary":','') )
-        print ("FRIENDSWOOD DATA ", friendswood_data)
+        print ("FRIENDSWOOD DATA DICTIONARY", friendswood_data)
+        print(" =================================================================== ")
 
         data_match = re.findall('vizData\":({.*?},\"filtersJson)', friendswood_r.text, re.MULTILINE)
         friendswood_vizdata = []
         for line in data_match:
             friendswood_vizdata.append(json.loads(line.replace(',"filtersJson', '') ))
+        print(" =================================================================== ")            
+        print ("FRIENDSWOOD VIZDATA (column defs) ", friendswood_vizdata)
+        print ( " ---- create data structure containing metadata defs ")
 
         result = []
         for t in friendswood_vizdata:
@@ -215,9 +231,12 @@ class GalvestonCountyRunner:
                         "paneIndices": field["paneIndices"][0],
                         "columnIndices": field["columnIndices"][0]
                     })
-            # print(recResults)                    
+            print("                            ======================================= ")
+            print(recResults)                    
             result.append(recResults)
-      
+
+        print(" =================================================================== ")      
+        print ( " ---- #this is the data source - there is only one ")
         # dataFull = data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"]
         dataFull = friendswood_data["dataSegments"]["1"]["dataColumns"]  # this is the data source - there is only one
         print (dataFull)
@@ -229,7 +248,9 @@ class GalvestonCountyRunner:
         # for t in dataFull:
         #     if t["dataType"] == "cstring":
         #         cstring.append(t)
-        print ( cstring )
+        print(" =================================================================== ")
+        print ("CSTRING: ", cstring )
+        print(" =================================================================== ")        
 
         for t in dataFull:
             # print (t["dataValues"])
@@ -249,7 +270,7 @@ class GalvestonCountyRunner:
                 #     print(df)        
             print(' ===================================== ')
 
-         
+        print(" =================================================================== ")         
         print(" ******* END FRIENDSWOOD DATA HISTORY  ***********")
 
 
