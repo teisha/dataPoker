@@ -156,7 +156,8 @@ class HarrisCountyRunner:
         sum_response = response2.json()
         summaries =  [ sub['attributes'] for sub in sum_response['features'] ]
         df_sum = pd.DataFrame(summaries)
-        # print(df_sum[df_sum['Date_Str'] >= self.history_cutoff])
+        print (f'History Cutoff => {self.history_cutoff}')
+        print(df_sum[df_sum['Date_Str'] >= self.history_cutoff])
         history_stats = dict(totals=df_sum[df_sum['Date_Str'] >= self.history_cutoff].to_dict('record'))
         df_rolled = df_sum[df_sum['Date_Str'] >= self.history_cutoff].groupby('Date_Str').agg(
             {
@@ -165,9 +166,10 @@ class HarrisCountyRunner:
                 'Active': sum,
                 'NewCases': sum
             })
-        # df_rolled.drop('Date_Str', inplace=True)    
-        print(df_rolled.loc[self.today:].head(1).to_dict('index'))
+        # df_rolled.drop('Date_Str', inplace=True) 
+        # print(df_rolled.loc[self.today:].head(1).to_dict('index'))
         self.today_stats.update(dict(totals=df_rolled.loc[self.today:].head(1).to_dict('index')) )            
+        print(self.today_stats.get('totals'))
 
         history_file = open(self.fileName, "a")
         history_out = (dict(totals=history_stats))
