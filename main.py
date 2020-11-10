@@ -2,30 +2,41 @@
 import sys
 from data_gatherers.txStatRunner import Runner
 from data_gatherers import galvestonCounty, harrisCounty, worldometer
+from sys import platform
+
+
+archive_dir="F:/Dropbox/Coding/covid/"
+if platform == "linux" or platform == "linux2":
+    archive_dir = "/f/Dropbox/Coding/covid/"
 
 errors = []
 
-worldometer.download_texas()
-worldometer.download_world()
+try:
+    worldometer.download_texas()
+    worldometer.download_world()
+except:
+    errors.append(dict(errorsource='worldometer',error=sys.exc_info()[0]))    
 
 runThis = Runner()
 print(dir(runThis))
 file_name = "data/txarcgis-"+ runThis.current_date_time + ".pickle"
-archive_dir="F:/Dropbox/Coding/covid/"
 # runThis.load_from_file(file_name)
-runThis.get_county_totals()
-runThis.get_daily_stats()
-runThis.get_hospital_stats()
-runThis.get_hospital_current()
-runThis.get_viral_antibody_breakout()
-runThis.get_daily_new_cases_by_date()
-runThis.get_daily_counts_by_county()
+try:
+    runThis.get_county_totals()
+    runThis.get_daily_stats()
+    runThis.get_hospital_stats()
+    runThis.get_hospital_current()
+    runThis.get_viral_antibody_breakout()
+    runThis.get_daily_new_cases_by_date()
+    runThis.get_daily_counts_by_county()
 
-runThis.write_to_file(file_name, archive_dir)
-runThis.write_to_database()
+    runThis.write_to_file(file_name, archive_dir)
+    runThis.write_to_database()
+except:
+    errors.append(dict(errorsource='texasDHS',error=sys.exc_info()[0]))
 
 
-runHarris = harrisCounty.HarrisCountyRunner()
+runHarris = harrisCounty.HarrisCountyRunner(archive_dir)
 try:
     runHarris.catch_em_all()
     runHarris.get_summarized_data()
@@ -33,7 +44,7 @@ try:
 except:
     errors.append(dict(errorsource='harrisCounty',error=sys.exc_info()[0]))
 
-runGalveston = galvestonCounty.GalvestonCountyRunner()
+runGalveston = galvestonCounty.GalvestonCountyRunner(archive_dir)
 try:
     runGalveston.getAllData()
     runGalveston.saveToDatabase()       

@@ -3,7 +3,7 @@ import json
 from bs4 import BeautifulSoup
 from datetime import datetime
 from services import database
-
+from contextlib import suppress
 
 def download_texas():
     API_ENDPOINT = "https://www.worldometers.info/coronavirus/usa/texas/"
@@ -11,9 +11,10 @@ def download_texas():
     response = requests.get(url = API_ENDPOINT)
     print("RESPONSE STATUS: %s"%response.status_code)
     # print("RESPONSE %s"%response.text)
-    stats_file = open(r"F:/Dropbox/Coding/covid/data/worldometer.html", "w")
-    stats_file.writelines(response.text)
-    stats_file.close()
+    with suppress(FileNotFoundError):
+        stats_file = open(r"F:/Dropbox/Coding/covid/data/worldometer.html", "w")
+        stats_file.writelines(response.text)
+        stats_file.close()
 
     worldometer_soup = BeautifulSoup(response.text, 'html5lib')
     yesterday_stats = []
@@ -44,10 +45,10 @@ def download_texas():
             yesterday_stats.append(stat)
     date_time = datetime.now().strftime("%m-%d-%Y")
     yesterday_out = (dict(texas=yesterday_stats))
-    yesterday_file = open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "w")
-    yesterday_file.write('[')
-    yesterday_file.writelines(json.dumps(yesterday_out)  )
-    yesterday_file.close()
+    with suppress(FileNotFoundError):
+        with open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "w") as yesterday_file:
+            yesterday_file.write('[')
+            yesterday_file.writelines(json.dumps(yesterday_out)  )
 
     texas_stat = next((stat for stat in yesterday_stats if stat["County"] == "Texas Total"), None)
     print("TEXAS: ", texas_stat)
@@ -112,12 +113,12 @@ def download_world():
             } 
             yesterday_stats.append(stat)
     date_time = datetime.now().strftime("%m-%d-%Y")
-    yesterday_file = open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "a")
-    yesterday_out = (dict(world=yesterday_stats))
-    yesterday_file.write(',')
-    yesterday_file.writelines(json.dumps(yesterday_out)  )
-    yesterday_file.write(']')
-    yesterday_file.close()
+    with suppress(FileNotFoundError):
+        with open(r"F:/Dropbox/Coding/covid/data/worldometer-"+ date_time + ".json", "a") as yesterday_file:
+            yesterday_out = (dict(world=yesterday_stats))
+            yesterday_file.write(',')
+            yesterday_file.writelines(json.dumps(yesterday_out)  )
+            yesterday_file.write(']')
 
     country_stat_name = headers[1].get_text().replace('<br/>', '_').replace(',', '_')
     us_stat = next((stat for stat in yesterday_stats if stat[country_stat_name] == "USA"), None)

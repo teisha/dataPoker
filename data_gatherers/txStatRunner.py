@@ -8,6 +8,7 @@ from urllib.parse import unquote, urlencode
 from functools import reduce
 from data_gatherers import txarc_config
 from services import database
+from contextlib import suppress
 
 class Runner:
     def __init__(self):
@@ -120,13 +121,15 @@ class Runner:
         sum_all_fatalities = 0
         total_added_fatalities = 0
         for feature in daily_response['features']:
-            # print(feature.get('attributes'))
+            print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
             total_added_fatalities = total_added_fatalities + (int(totals.get('AddedFatalities')) if totals.get('AddedFatalities') != None else 0) + \
                 (int(totals.get('IncompleteAddedFatalities')) if totals.get('IncompleteAddedFatalities') != None else 0)
-            sum_all_fatalities = sum_all_fatalities + (+totals.get('DailyNewFatalities') if totals.get('DailyNewFatalities') != None else 0)
+
+            # print((0 if totals.get('DailyNewFatalities') == None or not totals.get('DailyNewFatalities').isnumeric() else totals.get('DailyNewFatalities',0) ))
+            sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('DailyNewFatalities') == None  else totals.get('DailyNewFatalities',0) ) 
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
 
@@ -217,12 +220,14 @@ class Runner:
         #     pickle.dump(self.stat_pickler, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
         json_file = archive_dir + filename.replace('.pickle', '.json')
-        with open(json_file, "w") as json_handle:
-            json_handle.writelines(json.dumps(self.stat_pickler)  )  
+        with suppress(FileNotFoundError):        
+            with open(json_file, "w") as json_handle:
+                json_handle.writelines(json.dumps(self.stat_pickler)  )  
 
-        today_file = filename.replace('.pickle', '-today.json')
-        with open(today_file, "w") as json_handle:
-            json_handle.writelines(json.dumps(self.today_stats)  )
+        with suppress(FileNotFoundError):
+            today_file = filename.replace('.pickle', '-today.json')
+            with open(today_file, "w") as json_handle:
+                json_handle.writelines(json.dumps(self.today_stats)  )
 
     def write_to_database(self):
         harris_stats = self.today_stats.get("harris") 

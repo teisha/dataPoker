@@ -14,6 +14,7 @@ from services import database
 from functools import reduce
 from data_gatherers import galvestonCounty_config
 import pandas as pd
+from contextlib import suppress
 
 # from tableaudocumentapi import Workbook
 
@@ -23,13 +24,13 @@ import pandas as pd
 SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 class GalvestonCountyRunner:
-    def __init__(self):
+    def __init__(self, directory):
         self.tableauData = None
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
         self.friendswood_stats = dict(dateCollected=self.current_date_time)
         self.history_stats = dict(dateCollected=self.current_date_time)
         self.today_stats = dict(dateCollected=self.current_date_time)
-        self.fileName = "F:/Dropbox/Coding/covid/data/galvestonCounty-"+ self.current_date_time + ".json"
+        self.fileName = "{}data/galvestonCounty-{}.json".format(directory, self.current_date_time)
         self.today = datetime.now().strftime("%#d-%B")
         self.full_today = datetime.now().strftime("%B %#d, %Y")
         self.two_days_ago = ( date.today() - timedelta(days=2) )
@@ -167,7 +168,7 @@ class GalvestonCountyRunner:
         kpis2_data = self.distill_response(kpi_r, 'KPIs2')
 
         dataReg = re.search('\d+;({.*})\d+;({.*})', kpi_r.text, re.MULTILINE)                                  
-        print (dataReg)
+        # print (dataReg)
         info = json.loads(dataReg.group(1))
         data = json.loads(dataReg.group(2))
         print("MAIN PAGE:")
@@ -239,7 +240,7 @@ class GalvestonCountyRunner:
         print ( " ---- #this is the data source - there is only one ")
         # dataFull = data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"]
         dataFull = friendswood_data["dataSegments"]["1"]["dataColumns"]  # this is the data source - there is only one
-        print (dataFull)
+        # print (dataFull)
         cstring = [t for t in dataFull if t["dataType"] == "cstring"]
         if len(cstring) == 0:
             cstring = "No Title"
@@ -370,7 +371,7 @@ class GalvestonCountyRunner:
     def distill_response(self, sheetResponse: dict, prefix: str):
         print (f" ================ {prefix} OVERVIIEW: ======================= ")
 
-        print(sheetResponse.text)
+        # print(sheetResponse.text)
         # with open(f"data/galveston_{prefix}.json", "w") as handle:
         #     handle.writelines( json.dumps(sheetResponse.text )      ) 
         # panelColumnsData = re.findall('presModelHolder\\\":{(\\\"genVizDataPresModel)(.*?)}', sheetResponse.text, re.MULTILINE)
@@ -382,7 +383,7 @@ class GalvestonCountyRunner:
         #     print( ' ---  ')
         #     print(  len(columns))
         #     print(columns )
-        print (dataReg)
+        # print (dataReg)
         info = json.loads(dataReg.group(1))
         data = json.loads(dataReg.group(2))
         # dataTuplesCount = len(data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"])
@@ -399,7 +400,7 @@ class GalvestonCountyRunner:
         workSheets = list(data["secondaryInfo"]["presModelMap"]["vizData"]["presModelHolder"]["genPresModelMapPresModel"]["presModelMap"].keys())
         sheetData = []
         for sheet in workSheets:
-            print (sheet)
+            # print (sheet)
             sheetdf = self.get_worksheet(data, sheet, prefix)
             sheetData.append(dict(
                 sheetName=sheet,
@@ -644,14 +645,14 @@ class GalvestonCountyRunner:
         # self.getNewCases()
 
         # print(self.today_stats)   
-
-        history_file = open(self.fileName, "w")
-        history_file.write('[')
-        history_file.writelines(json.dumps(dict(TODAY=self.today_stats))  )
-        history_file.write(',')
-        history_file.writelines(json.dumps(dict(HISTORY=self.history_stats))  )
-        history_file.write(']')
-        history_file.close()
+        with suppress(FileNotFoundError):
+            history_file = open(self.fileName, "w")
+            history_file.write('[')
+            history_file.writelines(json.dumps(dict(TODAY=self.today_stats))  )
+            history_file.write(',')
+            history_file.writelines(json.dumps(dict(HISTORY=self.history_stats))  )
+            history_file.write(']')
+            history_file.close()
         print('-------------------------------------------------------')
 
     def pickle_off(self):

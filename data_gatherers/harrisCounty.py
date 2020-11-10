@@ -5,14 +5,15 @@ from data_gatherers import harrisCounty_config
 import numpy as np 
 import pandas as pd 
 from services import database
+from contextlib import suppress
 
 class HarrisCountyRunner:
-    def __init__(self):
+    def __init__(self, directory: str):
         self.history_stats = dict()
         self.today_stats = dict()
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
-        self.fileName = "F:/Dropbox/Coding/covid/data/harrisCounty-"+ self.current_date_time + ".json"
-        self.people_detail_csv = "F:/Dropbox/Coding/covid/data/harrisCountyDetail-"+ self.current_date_time + ".csv"
+        self.fileName = "{}data/harrisCounty-{}.json".format(directory, self.current_date_time )
+        self.people_detail_csv = "{}data/harrisCountyDetail-{}.csv".format(directory, self.current_date_time )
         self.today = datetime.now().strftime("%m/%d")
         self.yesterday = date.today() - timedelta(days=1)
         self.history_cutoff = ( date.today() - timedelta(days=5) ).strftime("%m/%d")
@@ -171,12 +172,12 @@ class HarrisCountyRunner:
         self.today_stats.update(dict(totals=df_rolled.loc[self.today:].head(1).to_dict('index')) )            
         print(self.today_stats.get('totals'))
 
-        history_file = open(self.fileName, "a")
-        history_out = (dict(totals=history_stats))
-        history_file.write(',')
-        history_file.writelines(json.dumps(history_out)  )
-        history_file.write(']')
-        history_file.close()
+        with suppress(FileNotFoundError):        
+            with open(self.fileName, "a") as history_file:
+                history_out = (dict(totals=history_stats))
+                history_file.write(',')
+                history_file.writelines(json.dumps(history_out)  )
+                history_file.write(']')
 
     def save_database(self):
         database_stats = dict({'date_collected' : self.current_date_time})
