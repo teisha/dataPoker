@@ -36,11 +36,16 @@ class TexasReporter:
                     texas_stats.update({'DailyFatal': dhs_stats.get('DailyNewFatalities')})
                     texas_stats.update({'CumCases': dhs_stats.get('CumulativeCases')})
                     texas_stats.update({'CumFatal': dhs_stats.get('CumulativeFatalities')})
-                    texas_test_stats.update({'SevenDayPositive': dhs_stats.get('SevenDayPositiveTestRate')})
-                    texas_test_stats.update({'NewAntigen': dhs_stats.get('AntigenTests')})
+                    texas_test_stats.update({'Legacy7DayPos': dhs_stats.get('SevenDayPositiveTestRate')})
+                    texas_test_stats.update({'LAB_Pos': dhs_stats.get('LAB_Positivity')})
+                    texas_test_stats.update({'SEPCIMEN_Pos': dhs_stats.get('SEPCIMEN_Positivity')})
+                    texas_test_stats.update({'LAB_Positive': dhs_stats.get('LAB_Positives')})
+                    texas_test_stats.update({'LAB_Pos7Day': dhs_stats.get('LAB_Positive7Day')})
                     texas_test_stats.update({'NewViral': dhs_stats.get('NewViral')})
                     texas_test_stats.update({'CumViral': dhs_stats.get('ViralTests')})
+                    texas_test_stats.update({'CumAntigen': dhs_stats.get('AntigenTests')})
                     texas_test_stats.update({'TotalTests': dhs_stats.get('REPORTED_TotalTests')})
+                    texas_test_stats.update({'LAB_Total': dhs_stats.get('LAB_Tests')})                
                 worldo_stats = alltx_stats.get('worldometer')
                 if worldo_stats != None:
                     # {'ActiveCases': '139903', 'County': 'Texas Total', 'NewCases': '11060', 'NewDeaths': '131', 'TotalCases': '285772', 'TotalDeaths': '3471', 'TotalTests': '2864541'}
@@ -52,22 +57,22 @@ class TexasReporter:
             tx_dates.append(dict({date_item.to_pydatetime().date() :  texas_stats }))
             tx_test_dates.append(dict({date_item.to_pydatetime().date() :  texas_test_stats }))
         # print(dates)
-        print("- ---  ----  ----- TEXAS STATE NUMBERS ----- ---- --- -")
         dframe_dhs = pd.DataFrame.from_dict(ChainMap(*dates), orient='index')
-        print(dframe_dhs.columns)
+        # print(dframe_dhs.columns)
         dframe_dhs_tests = pd.DataFrame.from_dict(ChainMap(*tx_test_dates), orient='index')
-        print(dframe_dhs_tests.columns) 
+        # print(dframe_dhs_tests.columns) 
         dframe_texas = pd.DataFrame.from_dict(ChainMap(*tx_dates), orient='index')
         # dframe_texas = 
 
+        print("- ---  ----  ----- TEXAS STATE NUMBERS ----- ---- --- -")
         cutoff = datetime(2020,7,6).date()
-        print("               -- Hospitals --")
+        print("               -- Hospitals (Statewide) --")
         print(dframe_dhs.filter(regex='HOSP').sort_index(axis = 0).loc[cutoff:])            
         # print(dframe_dhs[['day','DailyNewCases','DailyNewFatalities','CumulativeCases','CumulativeFatalities','SevenDayPositiveTestRate',
         #   'NewViral','ViralTests','REPORTED_TotalTests']].sort_index(axis = 0))
-        print("               -- Tests --")
+        print("               -- Tests (Statewide) --")
         print(dframe_dhs_tests.sort_index(axis=0)) 
-        print("               -- Daily Stats --")       
+        print("               -- Daily Stats (Statewide) --")       
         print(dframe_texas.sort_index(axis=0))          
 
     def get_friendswood_stats(self, numdays: int):

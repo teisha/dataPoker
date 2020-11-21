@@ -22,14 +22,7 @@ print(dir(runThis))
 file_name = "data/txarcgis-"+ runThis.current_date_time + ".pickle"
 # runThis.load_from_file(file_name)
 try:
-    runThis.get_county_totals()
-    runThis.get_daily_stats()
-    runThis.get_hospital_stats()
-    runThis.get_hospital_current()
-    runThis.get_viral_antibody_breakout()
-    runThis.get_daily_new_cases_by_date()
-    runThis.get_daily_counts_by_county()
-
+    runThis.run_all()
     runThis.write_to_file(file_name, archive_dir)
     runThis.write_to_database()
 except:

@@ -111,6 +111,8 @@ class GalvestonCountyRunner:
         positivesPerDay = self.distill_response(pbr_r, 'PosWiMA') 
         self.allData.append( positivesPerDay[0] ) 
 
+
+        print ("~~~~~~~~~~ ALL DATA ~~~~~~~~~~")
         for data in self.allData:
             print (data["sheetName"])
             with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
@@ -448,8 +450,8 @@ class GalvestonCountyRunner:
         #     else:
         #         print ("NOPE")
 
-        for aThing in result:
-            print(aThing)                
+        # for aThing in result:
+        #     print(aThing)                
 
         dataFull = data["secondaryInfo"]["presModelMap"]["dataDictionary"]["presModelHolder"]["genDataDictionaryPresModel"]["dataSegments"]["0"]["dataColumns"]
         cstring = [t for t in dataFull if t["dataType"] == "cstring"]
@@ -566,7 +568,7 @@ class GalvestonCountyRunner:
 
         positives = next((data["data"] for data in self.allData if data["sheetName"] == "Positives w/ MA (2)"), None)
         # print( positives )
-        print(self.full_today, self.case_date)
+        # print(self.full_today, self.case_date)
         daily_positives = positives.loc[positives["DAY(Case Date)-alias-2"] == self.case_date]
         # next((stat for stat in positives if stat["DAY(Case Date)-alias-2"] == self.full_today), None)
         if daily_positives.shape[0] > 0:
