@@ -24,7 +24,8 @@ total_rec_params = {
     'resultType': 'standard',
     'cacheHint': 'true'
 }
-CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/CITY_LIMITS_COVID/FeatureServer/1/query?'
+CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPHCovidCityZip/FeatureServer/1/query?'
+# CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/CITY_LIMITS_COVID/FeatureServer/1/query?'
 # CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPHCovidDashboard/FeatureServer/1/query?'
 city_summary_params = {
     'f':'json',

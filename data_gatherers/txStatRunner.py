@@ -26,11 +26,11 @@ class Runner:
         print("Files loaded", self.stat_pickler)
 
     def get_daily_stats(self):
-        # print(URL)
+        print(URL)
         URL = txarc_config.CURRENT_DAY_URL
         response = requests.get(url=URL, params=txarc_config.current_day_params)
         stats = response.json()
-        print(type(stats), stats.keys())
+        # print(type(stats), stats.keys())
         current_day_stats = []
         for feature in stats['features']:
             # print(feature.get('attributes'))
@@ -158,10 +158,10 @@ class Runner:
         sum_all_fatalities = 0
         total_added_fatalities = 0
         for feature in daily_response['features']:
-            print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            print(totals)
             total_added_fatalities = total_added_fatalities + (int(totals.get('AddedFatalities')) if totals.get('AddedFatalities') != None else 0) + \
                 (int(totals.get('IncompleteAddedFatalities')) if totals.get('IncompleteAddedFatalities') != None else 0)
 
@@ -169,7 +169,6 @@ class Runner:
             sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('DailyNewFatalities') == None  else totals.get('DailyNewFatalities',0) ) 
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
-
 
 
         last_stat = next((stat for stat in daily_stats if stat["DateString"] == self.today), None)
@@ -240,6 +239,7 @@ class Runner:
         total_counties = response_total.json()["features"][0]
         # print(total_counties.get("attributes").get("value"))
         response_positives = requests.get(url=txarc_config.TOTAL_POSITIVES_URL, params=txarc_config.total_counties_with_positives_params)
+        print(response_positives.json())
         positive_counties = response_positives.json()["features"][0]
         # print(positive_counties.get("attributes").get("value"))
         totals = dict(total_counties=total_counties.get("attributes").get("value"), 
@@ -348,17 +348,21 @@ class Runner:
             texas_stats["TotalAntigenTests"] = self.today_stats.get("viral_antibody_stats", dict()).get("AntigenTests", -1)
             texas_stats["TotalMolecularTests"] = self.today_stats.get("viral_antibody_stats", dict()).get("ViralTests", -1)
         if self.today_stats.get("lab_stats") == None:
+            texas_stats["LAB_OldTest"] = -1
+            texas_stats["LAB_OldPositive"] = -1
             texas_stats["LAB_Tests"] = -1
             texas_stats["LAB_Positives"] = -1
             texas_stats["LAB_Positivity"] = -1
             texas_stats["LAB_Test7Day"] = -1
             texas_stats["LAB_Positive7Day"] = -1
         else:
-            texas_stats["LAB_Tests"] = self.today_stats.get("lab_stats").get("Tests")
-            texas_stats["LAB_Positives"] = self.today_stats.get("lab_stats").get("Positives")
-            texas_stats["LAB_Positivity"] = self.today_stats.get("lab_stats").get("Positivity")
-            texas_stats["LAB_Test7Day"] = self.today_stats.get("lab_stats").get("Test7Day")
-            texas_stats["LAB_Positive7Day"] = self.today_stats.get("lab_stats").get("Positive7Day")
+            texas_stats["LAB_OldTest"] =  self.today_stats.get("lab_stats").get("OldTest")
+            texas_stats["LAB_OldPositive"] =  self.today_stats.get("lab_stats").get("OldPositive")            
+            texas_stats["LAB_Tests"] = self.today_stats.get("lab_stats").get("NewTest")
+            texas_stats["LAB_Positives"] = self.today_stats.get("lab_stats").get("NewPositive")
+            texas_stats["LAB_Positivity"] = self.today_stats.get("lab_stats").get("PositivityRate")
+            texas_stats["LAB_Test7Day"] = self.today_stats.get("lab_stats").get("TestSevenDay")
+            texas_stats["LAB_Positive7Day"] = self.today_stats.get("lab_stats").get("PositiveSevenDay")
         if self.today_stats.get("specimen_stats") == None:
             texas_stats["SEPCIMEN_OldTest"] = -1
             texas_stats["SEPCIMEN_NewTest"] = -1

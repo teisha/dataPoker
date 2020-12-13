@@ -12,8 +12,8 @@ if platform == "linux" or platform == "linux2":
 errors = []
 
 try:
-    worldometer.download_texas()
     worldometer.download_world()
+    worldometer.download_texas()
 except:
     errors.append(dict(errorsource='worldometer',error=sys.exc_info()[0]))    
 

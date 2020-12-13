@@ -10,7 +10,7 @@ class TestClass:
     def test_get_data(self):
         self.runThis.get_daily_new_cases_by_date()
 
-        # print(self.runThis.stat_pickler) 
+        print(self.runThis.today_stats) 
         assert self.runThis.stat_pickler.get('daily_new_cases',None) != None
         assert self.runThis.fileName == 'data/test_harris.json'
         # assert runThis.today_stats.get('totals') != dict()
@@ -21,6 +21,9 @@ class TestClass:
         # assert todayStats.get('Deceased') > 0
         # assert todayStats.get('Active') > 0
         # assert todayStats.get('NewCases') > 0
+    def test_all(self):
+        self.runThis.run_all()
+        assert self.runThis.today_stats.get('counties', None) != None        
 
     def test_get_county_totals_data(self):
         self.runThis.get_county_totals()

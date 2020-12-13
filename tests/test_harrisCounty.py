@@ -1,10 +1,18 @@
 import pytest
 from data_gatherers import harrisCounty
+from sys import platform
 
-#  python -m pytest -s tests/test_harrisCounty.py >> printout.txt
+archive_dir="F:/Dropbox/Coding/covid/"
+if platform == "linux" or platform == "linux2":
+    archive_dir = "/f/Dropbox/Coding/covid/"
+
+
+
+
+#  uvenv/bin/python -m pytest -s tests/test_harrisCounty.py >> printout.txt
 class TestClass:
     def test_get_data(self):
-        runThis = harrisCounty.HarrisCountyRunner()
+        runThis = harrisCounty.HarrisCountyRunner(archive_dir)
         runThis.fileName = 'data/test_harris.json'
         runThis.get_summarized_data()
 
@@ -17,3 +25,7 @@ class TestClass:
         assert todayStats.get('Deceased') > 0
         assert todayStats.get('Active') > 0
         assert todayStats.get('NewCases') > 0
+
+    def test_catch_them_all(self):
+        runThis = harrisCounty.HarrisCountyRunner(archive_dir)
+        runThis.catch_em_all()
