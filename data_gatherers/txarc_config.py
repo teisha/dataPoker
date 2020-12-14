@@ -13,17 +13,20 @@ hospital_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/s
 current_day_report = "3/query?" 
 
 
-DEATHS_CUMMULATIVE = "" + base_cases_url + "5/query?" 
+DEATHS_CUMMULATIVE = "" + base_cases_url + "3/query?" 
+# DEATHS_CUMMULATIVE = "" + base_cases_url + "5/query?" 
 death_cummulative_params = {
     'f': 'json',
-    'where': '1=1',
+    'where': 'CaseCat=\'Fatalities\'',
     'returnGeometry': 'false',
     'spatialRel': 'esriSpatialRelIntersects',
     'outFields':'*',
-    'outStatistics':'[{"statisticType":"sum","onStatisticField":"Count_","outStatisticFieldName":"reportedCumulativeFatalities"}]',
+    'outStatistics':'[{"statisticType":"sum","onStatisticField":"GenderCount","outStatisticFieldName":"reportedCumulativeFatalities"}]',
     'resultType': 'standard',
     'cacheHint': 'true'
 }
+
+# 23565
 
 
 
@@ -103,6 +106,8 @@ viral_antibody_breakout_by_day_params = {
 }
 
 
+
+
 daily_new_cases_by_date_url ="2/query?"
 # daily_new_cases_by_date_url ="8/query?"   # f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true"
 DAILY_NEW_CASES_URL = base_cases_url + daily_new_cases_by_date_url
@@ -120,6 +125,7 @@ daily_new_cases_by_date_params = {
 }
 
 
+# https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/TX_DSHS_COVID19_Cases_Service/FeatureServer/3/query?f=json&where=(GenderCount%20IS%20NOT%20NULL)%20AND%20(CaseCat%3D%27Confirmed%20Cases%27)&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&resultOffset=0&resultRecordCount=20&resultType=standard&cacheHint=true
 # This was on page 1
 daily_counts_by_county_url ="1/query?"   # f=json&where=Positive%3C%3E0&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Positive%20desc&resultOffset=0&resultRecordCount=254&resultType=standard&cacheHint=true"
 DAILY_COUNTY_COUNTS_URL = base_cases_url + daily_counts_by_county_url

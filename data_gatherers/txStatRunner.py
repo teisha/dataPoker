@@ -26,8 +26,8 @@ class Runner:
         print("Files loaded", self.stat_pickler)
 
     def get_daily_stats(self):
-        print(URL)
         URL = txarc_config.CURRENT_DAY_URL
+        print(URL)
         response = requests.get(url=URL, params=txarc_config.current_day_params)
         stats = response.json()
         # print(type(stats), stats.keys())
@@ -171,7 +171,7 @@ class Runner:
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
 
 
-        last_stat = next((stat for stat in daily_stats if stat["DateString"] == self.today), None)
+        last_stat = next((stat for stat in daily_stats if stat["DateString"] >= self.yesterday.strftime("%Y-%m-%d")), None)
         if last_stat != None:
             last_stat.update({'FatalitiesAdded': total_added_fatalities})
             last_stat.update({'ReportedCummulativeFatalities': self.get_daily_cummulative_deaths()})

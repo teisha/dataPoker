@@ -25,6 +25,12 @@ class TestClass:
         self.runThis.run_all()
         assert self.runThis.today_stats.get('counties', None) != None        
 
+    def test_get_daily_new_data(self):
+        self.runThis.get_daily_new_cases_by_date()
+        print(self.runThis.today_stats) 
+        assert self.runThis.stat_pickler.get('daily_new_cases', None) != None
+        assert self.runThis.today_stats.get('daily_new_cases', None) != None
+
     def test_get_county_totals_data(self):
         self.runThis.get_county_totals()
         # print(self.runThis.today_stats) 
