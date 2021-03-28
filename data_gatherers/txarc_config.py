@@ -92,6 +92,7 @@ viral_antibody_breakout_by_day_url ="4/query?"
 VIRAL_ANTIBODY_BREAKOUT_URL= base_url_v4 + viral_antibody_breakout_by_day_url
 LAB_TESTING_URL = f"{base_url_v4}5/query?"
 SPECIMEN_TESTING_URL = f"{base_url_v4}6/query?"
+POSITIVITY_TESTING_URL = f"{base_url_v4}7/query?"
 viral_antibody_breakout_by_day_params = {
     'f': 'json',
     'where': '1=1',

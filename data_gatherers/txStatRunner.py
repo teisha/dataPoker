@@ -17,6 +17,7 @@ class Runner:
         self.current_date_time = datetime.now().strftime("%m-%d-%Y")
         self.today = datetime.now().strftime("%Y-%m-%d")
         self.yesterday = date.today() - timedelta(days=1)
+        self.minustwo = date.today() - timedelta(days=2)
         print('-----------------INIT TXDHS------------------------------')
 
     def load_from_file(self, filename):
@@ -38,7 +39,7 @@ class Runner:
             current_day_stats.append ( dict( test=totals.get('TestType'), total=+totals.get('Count_') ) )
             totals.update({'date_collected' : self.current_date_time})
 
-        print(current_day_stats)
+        # print(current_day_stats)
         self.stat_pickler.update( dict(current_day_stats=current_day_stats))
         self.today_stats.update( dict(current_day_stats=current_day_stats))
 
@@ -130,6 +131,8 @@ class Runner:
             lab_stats.append(totals)
         self.stat_pickler.update(dict(lab_stats=lab_stats))   
         last_stat = next((stat for stat in lab_stats if stat["DateString"] == self.yesterday.strftime("%Y-%m-%d")), None)
+        if last_stat == None:
+            last_stat = next((stat for stat in lab_stats if stat["DateString"] == self.minustwo.strftime("%Y-%m-%d")), None)
         self.today_stats.update( dict(lab_stats=last_stat) ) 
 
 
@@ -144,10 +147,12 @@ class Runner:
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
-            print(totals)
+            # print(totals)
             specimen_stats.append(totals)
         self.stat_pickler.update(dict(specimen_stats=specimen_stats))   
         last_stat = next((stat for stat in specimen_stats if stat["DateString"] == self.yesterday.strftime("%Y-%m-%d")), None)
+        if last_stat == None:
+            last_stat = next((stat for stat in specimen_stats if stat["DateString"] == self.minustwo.strftime("%Y-%m-%d")), None)
         self.today_stats.update( dict(specimen_stats=last_stat) ) 
 
     def get_daily_new_cases_by_date(self):
@@ -161,7 +166,7 @@ class Runner:
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
-            print(totals)
+            # print(totals)
             total_added_fatalities = total_added_fatalities + (int(totals.get('AddedFatalities')) if totals.get('AddedFatalities') != None else 0) + \
                 (int(totals.get('IncompleteAddedFatalities')) if totals.get('IncompleteAddedFatalities') != None else 0)
 
@@ -239,7 +244,7 @@ class Runner:
         total_counties = response_total.json()["features"][0]
         # print(total_counties.get("attributes").get("value"))
         response_positives = requests.get(url=txarc_config.TOTAL_POSITIVES_URL, params=txarc_config.total_counties_with_positives_params)
-        print(response_positives.json())
+        # print(response_positives.json())
         positive_counties = response_positives.json()["features"][0]
         # print(positive_counties.get("attributes").get("value"))
         totals = dict(total_counties=total_counties.get("attributes").get("value"), 
