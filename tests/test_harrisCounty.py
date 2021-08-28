@@ -29,3 +29,5 @@ class TestClass:
     def test_catch_them_all(self):
         runThis = harrisCounty.HarrisCountyRunner(archive_dir)
         runThis.catch_em_all()
+        runThis.get_summarized_data()
+        runThis.save_database()

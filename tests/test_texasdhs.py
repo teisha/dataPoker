@@ -23,6 +23,7 @@ class TestClass:
         # assert todayStats.get('NewCases') > 0
     def test_all(self):
         self.runThis.run_all()
+        print("all() completed")
         assert self.runThis.today_stats.get('counties', None) != None        
 
     def test_get_daily_new_data(self):

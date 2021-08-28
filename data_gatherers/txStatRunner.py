@@ -254,15 +254,25 @@ class Runner:
         self.today_stats.update(dict(counties=totals))
 
     def run_all(self):
+        print (" ===================== TEXAS DSHS BEGIN County Totals ====================")
         self.get_county_totals()
+        print (" ===================== TEXAS DSHS BEGIN Daily Stats ====================")
         self.get_daily_stats()
+        print (" ===================== TEXAS DSHS BEGIN Hospital Stats ====================")
         self.get_hospital_stats()
+        print (" ===================== TEXAS DSHS BEGIN Hospital Current ====================")
         self.get_hospital_current()
+        print (" ===================== TEXAS DSHS BEGIN Antibody Breakout ====================")
         self.get_viral_antibody_breakout()
+        print (" ===================== TEXAS DSHS BEGIN Lab Testing Results ====================")
         self.get_lab_testing_results()
+        print (" ===================== TEXAS DSHS BEGIN Specimen Results ====================")
         self.get_specimen_results()
+        print (" ===================== TEXAS DSHS BEGIN Daily New Cases ====================")
         self.get_daily_new_cases_by_date()
+        print (" ===================== TEXAS DSHS BEGIN Counts By County ====================")
         self.get_daily_counts_by_county()
+        print (" ===================== TEXAS DSHS DONE ====================")
 
     def write_to_file(self, filename, archive_dir):
         print ('------------------------------------------------------------------')

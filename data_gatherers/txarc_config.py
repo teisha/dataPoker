@@ -4,6 +4,9 @@ base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/D
 base_url_v3 = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/"
 base_url_v4 = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/TX_DSHS_COVID19_TestData_Service/FeatureServer/"
 
+
+# https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/TX_DSHS_COVID19_Cases_Service/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=254&where=CatOrder%3D2&orderByFields=Count_%20DESC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
+
 base_cases_url_0 = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/DSHS_COVID19_Cases_Service/FeatureServer/"
 base_cases_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/ArcGIS/rest/services/TX_DSHS_COVID19_Cases_Service/FeatureServer/"
 hospital_base_url = "https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID_Hospital_Data/FeatureServer/"

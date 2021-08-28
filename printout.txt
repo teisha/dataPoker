@@ -828,3 +828,70 @@ uvenv/lib/python3.8/site-packages/html5lib/_trie/_base.py:3
 
 -- Docs: https://docs.pytest.org/en/stable/warnings.html
 ======================== 1 passed, 3 warnings in 9.47s =========================
+============================= test session starts ==============================
+platform linux -- Python 3.8.10, pytest-6.1.1, py-1.9.0, pluggy-0.13.1
+rootdir: /mnt/c/git/dataPoker
+collected 2 items
+
+tests/test_harrisCounty.py TODAY: 08/27 HISTORY CUTOFF: 08/22
+-----------------INIT HARRIS COUNTY RUNNER ------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+History Cutoff => 08/22
+     OBJECTID   id           Source  ...  NewActive  X  Y
+396       397  397  City of Houston  ...        470  0  0
+397       398  398         Combined  ...        634  0  0
+398       399  399    Harris County  ...        164  0  0
+399       400  400  City of Houston  ...      -1592  0  0
+400       401  401         Combined  ...      -1212  0  0
+..        ...  ...              ...  ...        ... .. ..
+787       788  788         Combined  ...      -1389  0  0
+788       789  789    Harris County  ...        136  0  0
+789       790  790  City of Houston  ...      -1756  0  0
+790       791  791         Combined  ...      -1615  0  0
+791       792  792    Harris County  ...        141  0  0
+
+[396 rows x 15 columns]
+{'08/27': {'Recovered': 157220, 'Deceased': 2540, 'Active': 43580, 'NewCases': 1186}}
+dict_values([{'Recovered': 157220, 'Deceased': 2540, 'Active': 43580, 'NewCases': 1186}])
+.TODAY: 08/27 HISTORY CUTOFF: 08/22
+-----------------INIT HARRIS COUNTY RUNNER ------------------------------
+ ----------- CATCH EM ALL ----------------- 
+{'objectIdFieldName': 'OBJECTID', 'uniqueIdField': {'name': 'OBJECTID', 'isSystemMaintained': True}, 'globalIdFieldName': '', 'geometryType': 'esriGeometryPoint', 'spatialReference': {'wkid': 4326, 'latestWkid': 4326}, 'fields': [{'name': 'value', 'type': 'esriFieldTypeDouble', 'alias': 'value', 'sqlType': 'sqlTypeFloat', 'domain': None, 'defaultValue': None}], 'features': [{'attributes': {'value': 395975}}]}
+Analyzing 395975 records
+F
+
+=================================== FAILURES ===================================
+________________________ TestClass.test_catch_them_all _________________________
+
+self = <test_harrisCounty.TestClass object at 0x7ff97fcff3d0>
+
+>   ???
+
+/c/git/dataPoker/tests/test_harrisCounty.py:31: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <data_gatherers.harrisCounty.HarrisCountyRunner object at 0x7ff97fcff8e0>
+
+    def catch_em_all(self):
+        print(' ----------- CATCH EM ALL ----------------- ')
+        harrisCountyRecords=[]
+        total_recs = requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.total_rec_params)
+        total_response = total_recs.json()
+        print(total_response)
+    
+        total = 0
+        if 'features' in total_response:
+            total = total_response['features'][0].get('attributes').get('value')
+        else:
+            raise Exception('Cannot determine total records: ', total_response)
+        print(f"Analyzing {total} records")
+        city_totals= requests.get(url=harrisCounty_config.CITY_SUMMARY_URL, params=harrisCounty_config.city_summary_params)
+        city_response = city_totals.json()
+        cases_by_city = []
+>       for citydata in city_response['features']:
+E       KeyError: 'features'
+
+data_gatherers/harrisCounty.py:40: KeyError
+=========================== short test summary info ============================
+FAILED tests/test_harrisCounty.py::TestClass::test_catch_them_all - KeyError:...
+========================= 1 failed, 1 passed in 25.72s =========================
