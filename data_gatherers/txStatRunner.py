@@ -57,6 +57,7 @@ class Runner:
         total_avail_vents = 0
         patients_ventilated = 0
         total_lab_confirmed = 0
+        total_staffed_beds = 0
         for feature in hospital_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
@@ -69,13 +70,15 @@ class Runner:
             total_avail_vents = total_avail_vents + totals.get("total_ventilators_available")
             patients_ventilated = patients_ventilated + totals.get("patients_ventilated")
             total_lab_confirmed = total_lab_confirmed + totals.get("total_lab_confirmed")
+            total_staffed_beds = total_staffed_beds + totals.get("total_hospital_capacity")
             hospitals_current.append(totals)
         harris = next((stat for stat in hospitals_current if stat["tsa"] == "Q"), None)
         galveston = next((stat for stat in hospitals_current if stat["tsa"] == "R"), None)
         # print( harris)
         state_totals = dict(total_covid=total_covid, total_avail_beds=total_avail_beds, total_lab_confirmed=total_lab_confirmed,
             total_avail_icu_beds=total_avail_icu_beds, total_avail_picu_beds=total_avail_picu_beds, total_avail_vents=total_avail_vents,
-            total_beds_occupied=total_beds_occupied , patients_ventilated=patients_ventilated )
+            total_beds_occupied=total_beds_occupied , patients_ventilated=patients_ventilated,
+            total_staffed_beds=total_staffed_beds )
         state_totals.update({'date_collected' : self.current_date_time})
         # print(state_totals)
         self.stat_pickler.update( dict(hospitals_current=hospitals_current))
@@ -125,6 +128,25 @@ class Runner:
         last_stat = next((stat for stat in viral_stats if stat["DateString"] == self.yesterday.strftime("%Y-%m-%d")), None)
         self.today_stats.update( dict(viral_antibody_stats=last_stat) )         
 
+
+    def get_positivity(self):
+        print(txarc_config.POSITIVITY_TESTING_URL)
+        response = requests.get(url= txarc_config.POSITIVITY_TESTING_URL, params=txarc_config.viral_antibody_breakout_by_day_params )
+        positivity_response = response.json()
+        positivity_stats = []
+        # print(positivity_response)
+        for feature in positivity_response['features']:
+            # print(feature.get('attributes'))
+            totals = feature.get('attributes')
+            totals.update({'date_collected' : self.current_date_time})
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
+            # print(totals)
+            positivity_stats.append(totals)
+        self.stat_pickler.update(dict(positivity_stats=positivity_stats))   
+        last_stat = next((stat for stat in positivity_stats if stat["DateString"] == self.yesterday.strftime("%Y-%m-%d")), None)
+        if last_stat == None:
+            last_stat = next((stat for stat in positivity_stats if stat["DateString"] == self.minustwo.strftime("%Y-%m-%d")), None)
+        self.today_stats.update( dict(positivity_stats=last_stat) ) 
 
     def get_lab_testing_results(self):
         print(txarc_config.LAB_TESTING_URL)
@@ -182,7 +204,7 @@ class Runner:
                 (int(totals.get('incomplete_added_fatalities')) if totals.get('incomplete_added_fatalities') != None else 0)
 
             # print((0 if totals.get('DailyNewFatalities') == None or not totals.get('DailyNewFatalities').isnumeric() else totals.get('DailyNewFatalities',0) ))
-            sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('daily_new_fatalities') == None  else totals.get('daily_new_fatalities',0) ) 
+            sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('fatality_count') == None  else totals.get('fatality_count',0) ) 
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
 
@@ -275,6 +297,8 @@ class Runner:
         self.get_hospital_current()
         print (" ===================== TEXAS DSHS BEGIN Antibody Breakout ====================")
         self.get_viral_antibody_breakout()
+        print (" ===================== TEXAS DSHS BEGIN Current Day Positivity ====================")
+        self.get_positivity()
         print (" ===================== TEXAS DSHS BEGIN Lab Testing Results ====================")
         self.get_lab_testing_results()
         print (" ===================== TEXAS DSHS BEGIN Specimen Results ====================")
@@ -306,53 +330,59 @@ class Runner:
         harris_hospitals = self.today_stats.get("harris_hospitals")
         harris_save_stats = dict()
         harris_save_stats["date_collected"] = harris_stats.get("date_collected")
-        harris_save_stats["Positive"] = harris_stats.get("Positive")
-        harris_save_stats["Fatalities"] = harris_stats.get("Fatalities")
-        harris_save_stats["Recoveries"] = harris_stats.get("Recoveries")
-        harris_save_stats["Active"] = harris_stats.get("Active")
-        harris_save_stats["TraumaServiceArea"] = harris_hospitals.get("TSA")
-        harris_save_stats["RegionalAdvisoryCouncil"] = harris_hospitals.get("RAC") 
-        harris_save_stats["PopulationEstimate"] = harris_hospitals.get("PopEst2020") 
-        harris_save_stats["TotalHospitalStaff"] = harris_hospitals.get("TotalStaff")
-        harris_save_stats["AvailableHospitalBeds"] = harris_hospitals.get("AvailHospi")
-        harris_save_stats["AvailableICUBeds"] = harris_hospitals.get("AvailICUBe")
-        harris_save_stats["AvailableVentilators"] = harris_hospitals.get("AvailVenti")
-        harris_save_stats["COVIDPatients"] = harris_hospitals.get("COVIDPatie")
+        harris_save_stats["Positive"] = harris_stats.get("confirmed")
+        harris_save_stats["Fatalities"] = harris_stats.get("fatalities")
+        harris_save_stats["Recoveries"] = harris_stats.get("recovered")
+        harris_save_stats["Active"] = harris_stats.get("active")
+        harris_save_stats["TraumaServiceArea"] = harris_hospitals.get("tsa")
+        harris_save_stats["RegionalAdvisoryCouncil"] = harris_hospitals.get("rac") 
+        harris_save_stats["PopulationEstimate"] = harris_hospitals.get("est_population_2020") 
+        harris_save_stats["TotalHospitalCapacity"] = harris_hospitals.get("total_hospital_capacity")
+        harris_save_stats["AvailableHospitalBeds"] = harris_hospitals.get("total_beds_available")
+        harris_save_stats["AvailableICUBeds"] = harris_hospitals.get("available_staffed_icu")
+        harris_save_stats["AvailablePICUBeds"] = harris_hospitals.get("available_staffed_picu")
+        harris_save_stats["AvailableVentilators"] = harris_hospitals.get("total_ventilators_available")
+        harris_save_stats["COVIDPatients"] = harris_hospitals.get("total_lab_confirmed")
+        harris_save_stats["PatientsVentilated"] = harris_hospitals.get("patients_ventilated")
         database.save_harris_county(dict(dhs=harris_save_stats))
 
         galveston_stats = self.today_stats.get("galveston") 
         galveston_hospitals = self.today_stats.get("galveston_hospitals")
         galveston_save_stats = dict()
         galveston_save_stats["date_collected"] = galveston_stats.get("date_collected")
-        galveston_save_stats["Positive"] = galveston_stats.get("Positive")
-        galveston_save_stats["Fatalities"] = galveston_stats.get("Fatalities")
-        galveston_save_stats["Recoveries"] = galveston_stats.get("Recoveries")
-        galveston_save_stats["Active"] = galveston_stats.get("Active")
-        galveston_save_stats["TraumaServiceArea"] = galveston_hospitals.get("TSA")
-        galveston_save_stats["RegionalAdvisoryCouncil"] = galveston_hospitals.get("RAC") 
-        galveston_save_stats["PopulationEstimate"] = galveston_hospitals.get("PopEst2020") 
-        galveston_save_stats["TotalHospitalStaff"] = galveston_hospitals.get("TotalStaff")
-        galveston_save_stats["AvailableHospitalBeds"] = galveston_hospitals.get("AvailHospi")
-        galveston_save_stats["AvailableICUBeds"] = galveston_hospitals.get("AvailICUBe")
-        galveston_save_stats["AvailableVentilators"] = galveston_hospitals.get("AvailVenti")
-        galveston_save_stats["COVIDPatients"] = galveston_hospitals.get("COVIDPatie")
+        galveston_save_stats["Positive"] = galveston_stats.get("confirmed")
+        galveston_save_stats["Fatalities"] = galveston_stats.get("fatalities")
+        galveston_save_stats["Recoveries"] = galveston_stats.get("recovered")
+        galveston_save_stats["Active"] = galveston_stats.get("active")
+        galveston_save_stats["TraumaServiceArea"] = galveston_hospitals.get("tsa")
+        galveston_save_stats["RegionalAdvisoryCouncil"] = galveston_hospitals.get("rac") 
+        galveston_save_stats["PopulationEstimate"] = galveston_hospitals.get("est_population_2020") 
+        galveston_save_stats["TotalHospitalCapacity"] = galveston_hospitals.get("total_hospital_capacity")
+        galveston_save_stats["AvailableHospitalBeds"] = galveston_hospitals.get("total_beds_available")
+        galveston_save_stats["AvailableICUBeds"] = galveston_hospitals.get("available_staffed_icu")
+        galveston_save_stats["AvailablePICUBeds"] = galveston_hospitals.get("available_staffed_picu")
+        galveston_save_stats["AvailableVentilators"] = galveston_hospitals.get("total_ventilators_available")
+        galveston_save_stats["COVIDPatients"] = galveston_hospitals.get("total_lab_confirmed")
+        galveston_save_stats["PatientsVentilated"] = galveston_hospitals.get("patients_ventilated")
         database.save_galveston_county(dict(dhs=galveston_save_stats))
 
         texas_stats = dict()
         texas_stats["date_collected"] = self.today_stats.get("counties").get("date_collected")
         texas_stats["positive_counties"] = self.today_stats.get("counties").get("positive_counties")
-        texas_stats["REPORTED_TotalTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "TotalTests"), None) 
-        texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntibodyTests"), None) 
-        texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "PostiveAntibody"), None) 
-        texas_stats["AntigenTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntigenTests"), None) 
-        texas_stats["PositiveAntigen"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "AntigenPositive"), None) 
-        texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "ViralTests"), None) 
+        texas_stats["REPORTED_TotalTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "total_test"), None) 
+        texas_stats["AntibodyTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "antibody_test"), None) 
+        texas_stats["PostiveAntibody"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "antibody_positive"), None) 
+        texas_stats["AntigenTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "antigen_test"), None) 
+        texas_stats["PositiveAntigen"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "antigen_positive"), None) 
+        texas_stats["ViralTests"] = next((stat.get("total") for stat in self.today_stats.get("current_day_stats") if stat["test"] == "viral_test"), None) 
         hospital_totals = self.today_stats.get("hospital_current_totals")
         texas_stats["HOSP: TotalCovidPatients"] = hospital_totals.get("total_covid")
-        texas_stats["HOSP: TotalStaffedBeds"] = hospital_totals.get("total_staff")
+        texas_stats["HOSP: TotalBedsOccupied"] = hospital_totals.get("total_beds_occupied")
         texas_stats["HOSP: TotalAvailableBeds"] = hospital_totals.get("total_avail_beds")
         texas_stats["HOSP: TotalAvailableICUBeds"] = hospital_totals.get("total_avail_icu_beds")
         texas_stats["HOSP: TotalAvailableVents"] = hospital_totals.get("total_avail_vents")
+        texas_stats["HOSP: TotalPatientsVentilated"] = hospital_totals.get('patients_ventilated')
+        texas_stats["HOSP: TotalStaffedBeds"] = hospital_totals.get('total_staffed_beds')
         if self.today_stats.get("hosp_stat") == None:
             texas_stats["Hospitalizations"] = -1
         else:    
@@ -382,13 +412,13 @@ class Runner:
             texas_stats["LAB_Test7Day"] = -1
             texas_stats["LAB_Positive7Day"] = -1
         else:
-            texas_stats["LAB_OldTest"] =  self.today_stats.get("lab_stats").get("OldTest")
-            texas_stats["LAB_OldPositive"] =  self.today_stats.get("lab_stats").get("OldPositive")            
-            texas_stats["LAB_Tests"] = self.today_stats.get("lab_stats").get("NewTest")
-            texas_stats["LAB_Positives"] = self.today_stats.get("lab_stats").get("NewPositive")
-            texas_stats["LAB_Positivity"] = self.today_stats.get("lab_stats").get("PositivityRate")
-            texas_stats["LAB_Test7Day"] = self.today_stats.get("lab_stats").get("TestSevenDay")
-            texas_stats["LAB_Positive7Day"] = self.today_stats.get("lab_stats").get("PositiveSevenDay")
+            texas_stats["LAB_OldTest"] =  self.today_stats.get("lab_stats").get("total_tests")
+            texas_stats["LAB_OldPositive"] =  self.today_stats.get("lab_stats").get("positives")            
+            texas_stats["LAB_Tests"] = self.today_stats.get("lab_stats").get("new_tests")
+            texas_stats["LAB_Positives"] = self.today_stats.get("lab_stats").get("new_positives")
+            texas_stats["LAB_Positivity"] = self.today_stats.get("positivity_stats").get("antigen_rate")
+            texas_stats["LAB_Test7Day"] = self.today_stats.get("lab_stats").get("test_seven_day")
+            texas_stats["LAB_Positive7Day"] = self.today_stats.get("lab_stats").get("positive_seven_day")
         if self.today_stats.get("specimen_stats") == None:
             texas_stats["SEPCIMEN_OldTest"] = -1
             texas_stats["SEPCIMEN_NewTest"] = -1
@@ -398,13 +428,13 @@ class Runner:
             texas_stats["SPECIMEN_Test7Day"] = -1
             texas_stats["SPECIMEN_TestPositive7Day"] = -1
         else:
-            texas_stats["SEPCIMEN_OldTest"] = self.today_stats.get("specimen_stats").get("OldTest")
-            texas_stats["SEPCIMEN_NewTest"] = self.today_stats.get("specimen_stats").get("NewTest")
-            texas_stats["SEPCIMEN_OldPositive"] = self.today_stats.get("specimen_stats").get("OldPositive")
-            texas_stats["SEPCIMEN_NewPositive"] = self.today_stats.get("specimen_stats").get("NewPositive")
-            texas_stats["SEPCIMEN_Positivity"] = self.today_stats.get("specimen_stats").get("PositivityRate")
-            texas_stats["SPECIMEN_Test7Day"] = self.today_stats.get("specimen_stats").get("TestSevenDay")
-            texas_stats["SPECIMEN_TestPositive7Day"] = self.today_stats.get("specimen_stats").get("PositiveSevenDay")
+            texas_stats["SEPCIMEN_OldTest"] = self.today_stats.get("specimen_stats").get("total_tests")
+            texas_stats["SEPCIMEN_NewTest"] = self.today_stats.get("specimen_stats").get("positives")
+            texas_stats["SEPCIMEN_OldPositive"] = self.today_stats.get("specimen_stats").get("new_tests")
+            texas_stats["SEPCIMEN_NewPositive"] = self.today_stats.get("specimen_stats").get("new_positives")
+            texas_stats["SEPCIMEN_Positivity"] = self.today_stats.get("positivity_stats").get("molecular_rate")
+            texas_stats["SPECIMEN_Test7Day"] = self.today_stats.get("specimen_stats").get("test_seven_day")
+            texas_stats["SPECIMEN_TestPositive7Day"] = self.today_stats.get("specimen_stats").get("positive_seven_day")
         if self.today_stats.get("daily_new_cases") == None:
             texas_stats["CumulativeCases"] = -1
             texas_stats["CumulativeFatalities"] = -1
@@ -412,10 +442,10 @@ class Runner:
             texas_stats["DailyNewFatalities"] = -1
             texas_stats["SUM-AllDailyNewFatalities"] = -1
         else:
-            texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases", dict()).get("CumulativeCases", -1)
-            texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("ReportedCummulativeFatalities", -1)
-            texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases", dict()).get("DailyNewCases", -1)
-            texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("FatalitiesAdded", -1)
+            texas_stats["CumulativeCases"] = self.today_stats.get("daily_new_cases", dict()).get("cumulative_cases", -1)
+            texas_stats["CumulativeFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("cumulative_fatalities", -1)
+            texas_stats["DailyNewCases"] = self.today_stats.get("daily_new_cases", dict()).get("daily_new_cases", -1)
+            texas_stats["DailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("fatality_count", -1)
             texas_stats["SUM-AllDailyNewFatalities"] = self.today_stats.get("daily_new_cases", dict()).get("SumDailyNewFatalities", -1)
         texas_stats["County_sum_positives"]   = self.today_stats.get("sum_counties", dict()).get("sum_positive", -1)
         texas_stats["County_sum_fatalities"]  = self.today_stats.get("sum_counties", dict()).get("sum_fatalities", -1)

@@ -57,6 +57,17 @@ class TestClass:
         print(self.runThis.today_stats)
         assert self.runThis.stat_pickler.get("lab_stats") != None
 
+    def test_positivity(self):
+        self.runThis.get_positivity()
+        print(self.runThis.today_stats)
+        assert self.runThis.stat_pickler.get("positivity_stats") != None      
+
+    def test_viral_antibody(self):
+        self.runThis.get_viral_antibody_breakout()
+        print(self.runThis.today_stats)
+        assert self.runThis.stat_pickler.get("positivity_stats") != None      
+         
+
 # "features":[{"attributes":{"OBJECTID":1,"TestType":"TotalTests","Count_":10862674}},
 # {"attributes":{"OBJECTID":2,"TestType":"AntibodyTests","Count_":539765}},
 # {"attributes":{"OBJECTID":3,"TestType":"PostiveAntibody","Count_":55555}},
