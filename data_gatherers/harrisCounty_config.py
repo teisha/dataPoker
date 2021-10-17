@@ -45,6 +45,8 @@ Today (type: esriFieldTypeString, alias: Today, SQL Type: sqlTypeOther, length: 
 
 
 '''
+# https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/COH_City_Limit_hatched/FeatureServer/0/query?f=json&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&outStatistics=%5B%7B%22statisticType%22%3A%22exceedslimit%22%2C%22outStatisticFieldName%22%3A%22exceedslimit%22%2C%22maxPointCount%22%3A4000%2C%22maxRecordCount%22%3A2000%2C%22maxVertexCount%22%3A250000%7D%5D
+# https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Reported_COVID_Cases_Timeline/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=32000&where=Source%3D%27HCTX%27&orderByFields=Date_Str%20ASC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_New_Cases_Trend/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=32000&where=1%3D1&orderByFields=Date%20ASC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Hospital_Usage_14_Day_Average/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1%3D1&orderByFields=Date%20DESC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Positivity_Rate/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1%3D1&orderByFields=Date%20DESC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects

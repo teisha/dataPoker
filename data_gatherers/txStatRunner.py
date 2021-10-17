@@ -27,16 +27,17 @@ class Runner:
         print("Files loaded", self.stat_pickler)
 
     def get_daily_stats(self):
-        URL = txarc_config.CURRENT_DAY_URL
+        URL = txarc_config.CURRENT_DAY_TEST_URL
         print(URL)
         response = requests.get(url=URL, params=txarc_config.current_day_params)
+        print(response)
         stats = response.json()
         # print(type(stats), stats.keys())
         current_day_stats = []
         for feature in stats['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')           
-            current_day_stats.append ( dict( test=totals.get('TestType'), total=+totals.get('Count_') ) )
+            current_day_stats.append ( dict( test=totals.get('test_type'), total=+totals.get('count_') ) )
             totals.update({'date_collected' : self.current_date_time})
 
         # print(current_day_stats)
@@ -49,25 +50,32 @@ class Runner:
         hospital_response = response.json()
         hospitals_current = []
         total_covid = 0
-        total_staff = 0
+        total_beds_occupied = 0
         total_avail_beds = 0
         total_avail_icu_beds = 0
+        total_avail_picu_beds = 0
         total_avail_vents = 0
+        patients_ventilated = 0
+        total_lab_confirmed = 0
         for feature in hospital_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            total_covid = total_covid + totals.get("COVIDPatie")
-            total_staff = total_staff + totals.get("TotalStaff")
-            total_avail_beds = total_avail_beds +  totals.get("AvailHospi")
-            total_avail_icu_beds = total_avail_icu_beds + totals.get("AvailICUBe")
-            total_avail_vents = total_avail_vents + totals.get("AvailVenti")
+            total_covid = total_covid + totals.get("ped_lab_confirmed_inpatient") + totals.get("total_adult_lab_confirmed")
+            total_beds_occupied = total_beds_occupied + totals.get('total_beds_occupied')
+            total_avail_beds = total_avail_beds +  totals.get("total_beds_available")
+            total_avail_icu_beds = total_avail_icu_beds + totals.get("available_staffed_icu") 
+            total_avail_picu_beds = total_avail_picu_beds + totals.get("available_staffed_picu")
+            total_avail_vents = total_avail_vents + totals.get("total_ventilators_available")
+            patients_ventilated = patients_ventilated + totals.get("patients_ventilated")
+            total_lab_confirmed = total_lab_confirmed + totals.get("total_lab_confirmed")
             hospitals_current.append(totals)
-        harris = next((stat for stat in hospitals_current if stat["TSA"] == "Q"), None)
-        galveston = next((stat for stat in hospitals_current if stat["TSA"] == "R"), None)
+        harris = next((stat for stat in hospitals_current if stat["tsa"] == "Q"), None)
+        galveston = next((stat for stat in hospitals_current if stat["tsa"] == "R"), None)
         # print( harris)
-        state_totals = dict(total_covid=total_covid, total_staff=total_staff, total_avail_beds=total_avail_beds,
-            total_avail_icu_beds=total_avail_icu_beds, total_avail_vents=total_avail_vents  )
+        state_totals = dict(total_covid=total_covid, total_avail_beds=total_avail_beds, total_lab_confirmed=total_lab_confirmed,
+            total_avail_icu_beds=total_avail_icu_beds, total_avail_picu_beds=total_avail_picu_beds, total_avail_vents=total_avail_vents,
+            total_beds_occupied=total_beds_occupied , patients_ventilated=patients_ventilated )
         state_totals.update({'date_collected' : self.current_date_time})
         # print(state_totals)
         self.stat_pickler.update( dict(hospitals_current=hospitals_current))
@@ -80,15 +88,17 @@ class Runner:
     def get_hospital_stats(self):
         response = requests.get(url=txarc_config.HOSPITAL_URL, params=txarc_config.hospitalizations_by_date_params)
         hospital_response = response.json()
+        # print(hospital_response)
         new_response = requests.get(url=txarc_config.HOSPITALS_CUMULATIVE, params=txarc_config.hospitals_cum_params)
         new_hospital_response = new_response.json()
+        # print(new_hospital_response)
         hospital_stats = []
         todays_stats = []
         for feature in hospital_response['features']:
-            # print(feature.get('attributes'))
+            # print(feature)
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             hospital_stats.append ( totals )
         for feature in new_hospital_response['features']:
             totals = feature.get('attributes')        
@@ -108,7 +118,7 @@ class Runner:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             # print(totals)
             viral_stats.append(totals)
         self.stat_pickler.update(dict(viral_antibody_stats=viral_stats))   
@@ -122,11 +132,12 @@ class Runner:
         response = requests.get(url= txarc_config.LAB_TESTING_URL, params=txarc_config.viral_antibody_breakout_by_day_params )
         lab_response = response.json()
         lab_stats = []
+        # print(lab_response)
         for feature in lab_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             # print(totals)
             lab_stats.append(totals)
         self.stat_pickler.update(dict(lab_stats=lab_stats))   
@@ -146,7 +157,7 @@ class Runner:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             # print(totals)
             specimen_stats.append(totals)
         self.stat_pickler.update(dict(specimen_stats=specimen_stats))   
@@ -165,13 +176,13 @@ class Runner:
         for feature in daily_response['features']:
             totals = feature.get('attributes')
             totals.update({'date_collected' : self.current_date_time})
-            totals.update({'DateString': datetime.fromtimestamp(+totals.get('Date')/1000).strftime('%Y-%m-%d') })
+            totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             # print(totals)
-            total_added_fatalities = total_added_fatalities + (int(totals.get('AddedFatalities')) if totals.get('AddedFatalities') != None else 0) + \
-                (int(totals.get('IncompleteAddedFatalities')) if totals.get('IncompleteAddedFatalities') != None else 0)
+            total_added_fatalities = total_added_fatalities + (int(totals.get('added_fatalities')) if totals.get('added_fatalities') != None else 0) + \
+                (int(totals.get('incomplete_added_fatalities')) if totals.get('incomplete_added_fatalities') != None else 0)
 
             # print((0 if totals.get('DailyNewFatalities') == None or not totals.get('DailyNewFatalities').isnumeric() else totals.get('DailyNewFatalities',0) ))
-            sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('DailyNewFatalities') == None  else totals.get('DailyNewFatalities',0) ) 
+            sum_all_fatalities = sum_all_fatalities + int(0 if totals.get('daily_new_fatalities') == None  else totals.get('daily_new_fatalities',0) ) 
             daily_stats.append(totals)
         self.stat_pickler.update(dict(daily_new_cases=daily_stats))      
 
@@ -188,8 +199,8 @@ class Runner:
     def get_daily_cummulative_deaths(self):
         response = requests.get(url=txarc_config.DEATHS_CUMMULATIVE, params=txarc_config.death_cummulative_params)
         daily_response = response.json()
-        print(daily_response)
-        death_stat =  daily_response['features'][0].get('attributes').get("reportedCumulativeFatalities")
+        # print(daily_response)
+        death_stat =  daily_response['features'][0].get('attributes').get("cumulative_fatalities")
         return death_stat
 
     def get_daily_counts_by_county(self):
@@ -209,24 +220,24 @@ class Runner:
         #     daily_new_cases=x["DailyNewCases"]+y["DailyNewCases"],
         #     daily_new_fatalities=x["DailyNewFatalities"]+y["DailyNewFatalities"]) ), daily_stats)
 
-        harris = next((stat for stat in daily_stats if stat["County"] == "Harris"), None)    
-        galveston = next((stat for stat in daily_stats if stat["County"] == "Galveston"), None)          
+        harris = next((stat for stat in daily_stats if stat["county"] == "Harris"), None)    
+        galveston = next((stat for stat in daily_stats if stat["county"] == "Galveston"), None)          
         positive = 0
         fatalities = 0
         recoveries = 0
         active = 0
         for county_no in daily_stats:
             if county_no.get("Positive"):
-                positive = positive + county_no.get("Positive")
+                positive = positive + county_no.get("confirmed")
             else:
                 print("NO STATS: ", county_no)
-            if county_no.get("Fatalities"):
-                fatalities = fatalities + int( county_no.get("Fatalities") )
-            if county_no.get("Recoveries"):
+            if county_no.get("fatalities"):
+                fatalities = fatalities + int( county_no.get("fatalities") )
+            if county_no.get("recovered"):
                 # print(county_no.get("Recoveries"))
-                recoveries = recoveries + int( county_no.get("Recoveries") )
-            if county_no.get("Active"):
-                active = active + int( county_no.get("Active")   )                                                        
+                recoveries = recoveries + int( county_no.get("recovered") )
+            if county_no.get("active"):
+                active = active + int( county_no.get("active")   )                                                        
         
         # sum_counties = reduce((lambda x,y: dict(sum_positive=x.get("Positive") + y.get("Positive"),
         #     sum_fatalities=x.get("Fatalities") + y.get("Fatalities"),

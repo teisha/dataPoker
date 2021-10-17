@@ -3,6 +3,7 @@ from data_gatherers import txStatRunner
 
 #  uvenv/bin/python -m pytest -s tests/test_texasdhs.py >> printout.txt
 #  uvenv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_lab"
+#  uvenv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_hospital"
 class TestClass:
     runThis = txStatRunner.Runner()
     runThis.fileName = 'data/test_harris.json'
@@ -38,6 +39,18 @@ class TestClass:
         assert self.runThis.stat_pickler.get('counties', None) != None
         assert self.runThis.today_stats.get('counties', None) != None
 
+
+    def test_get_hospital_results(self):
+        self.runThis.get_hospital_stats()
+        print(self.runThis.today_stats)
+        assert self.runThis.stat_pickler.get("hospital_stats") != None
+
+    def test_get_hospital_current_results(self):
+        self.runThis.get_hospital_current()
+        print(self.runThis.today_stats)
+        assert self.runThis.today_stats.get("harris_hospitals") != None        
+        assert self.runThis.today_stats.get("galveston_hospitals") != None    
+        assert self.runThis.stat_pickler.get("hospitals_current") != None 
 
     def test_get_lab_testing_results(self):
         self.runThis.get_lab_testing_results()

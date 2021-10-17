@@ -1,0 +1,61 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Tuesday, October 5, 2021 11:14:03 PM
+2021/10/05 23:17:41 ERROR 121 (0x00000079) Getting File System Type of Destination M:\Movies\PG13 Or Less\
+The semaphore timeout period has expired.
+
+   Source : C:\Shared\movies\Move\
+     Dest = M:\Movies\PG13 Or Less\
+
+    Files : *PG13.mp4
+	    
+Exc Files : Thumbs.db
+	    
+  Options : /TEE /DCOPY:D /COPY:DT /NP /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   5	C:\Shared\movies\Move\
+	  *EXTRA File 		   4.2 g	42 [2013] (HD) PG13.mp4
+	  *EXTRA File 		   3.0 g	500 Days of Summer [2009] (HD) - PG13.mp4
+	  *EXTRA File 		   2.7 g	Ace Ventura - Pet Detective [1994] (HD) - PG13.mp4
+	  *EXTRA File 		   3.1 g	Charlie St. Cloud [2010] - PG13.mp4
+	  *EXTRA File 		   2.8 g	Club Paradise [1996] - PG13.mp4
+	  *EXTRA File 		   4.2 g	Concussion [2015] (HD) PG13.mp4
+	  *EXTRA File 		   2.9 g	Date Night [2010] (HD) PG13.mp4
+	  *EXTRA File 		   3.3 g	Escape from Pretoria [2020] (HD) - PG13.mp4
+	  *EXTRA File 		   4.1 g	Ever After_ A Cinderella Story [1998] - PG13.mp4
+	  *EXTRA File 		   5.2 g	Ford v Ferrari [2019] (HD) - PG13.mp4
+	  *EXTRA File 		   3.9 g	Free Guy [2021] - PG13.mp4
+	  *EXTRA File 		   3.5 g	Gifted [2017] - PG13.mp4
+	  *EXTRA File 		   3.6 g	Hanna [2011] (HD) PG13.mp4
+	  *EXTRA File 		   1.0 g	Jojo Rabbit [2019] - PG13.mp4
+	  *EXTRA File 		   3.6 g	Judy [2019] (HD) - PG13.mp4
+	  *EXTRA File 		   4.6 g	Just Mercy [2019] (HD) - PG13.mp4
+	  *EXTRA File 		   1.4 g	Knives Out [2019] -PG13.mp4
+	  *EXTRA File 		   4.0 g	Love & Basketball [2000]  (HD) PG13.mp4
+	  *EXTRA File 		   3.8 g	Marshall [2017] (HD) PG13.mp4
+	  *EXTRA File 		   3.1 g	Moonrise Kingdom [2012] (HD) - PG13.mp4
+	  *EXTRA File 		   3.7 g	Now You See Me [2013] (HD) - PG13.mp4
+	  *EXTRA File 		   1.0 g	Replicas [2018] - PG13.mp4
+	  *EXTRA File 		   3.2 g	The Current War - Director's Cut [2017] (HD) - PG13.mp4
+	  *EXTRA File 		   4.5 g	The Hate U Give [2018] (HD) PG13.mp4
+	  *EXTRA File 		   3.2 g	The Old Man & the Gun [2018] (HD) PG13.mp4
+	  *EXTRA File 		   7.1 g	The Post [2017] - PG13.mp4
+	  *EXTRA File 		   3.7 g	The Proposal [2009]  (HD) - PG13.mp4
+	  *EXTRA File 		   4.2 g	The Way Back [2010] (HD) - PG13.mp4
+	  *EXTRA File 		   3.1 g	Tommy Boy [1995] (HD) - PG13.mp4
+	  *EXTRA File 		   3.6 g	Twister [1996] (HD) PG13.mp4
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         1         0         0         0
+   Files :         5         0         5         0         0        30
+   Bytes :  18.934 g         0  18.934 g         0         0 106.478 g
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Tuesday, October 5, 2021 11:20:34 PM
+
