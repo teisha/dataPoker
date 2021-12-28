@@ -1,5 +1,9 @@
 
 
+
+# 12/27/2021
+# https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Positivity_Rate/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1=1&orderByFields=&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
+
 # DAILY_ALL="https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/InvestigationForPublicDashboard_DASHUpdate/FeatureServer/0/query?"
 DAILY_ALL="https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/HCPHCovidDashboard/FeatureServer/0/query?"
 # DAILY_ALL_NOUPDATE="https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/InvestigationForPublicDashboard_DASH/FeatureServer/0/query?"
@@ -87,12 +91,13 @@ total_rec_params = {
     'returnGeometry':'false',
     'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
+    'groupByFieldsForStatistics':'Today',
     'outStatistics': '[{"statisticType":"sum","onStatisticField":"TotalConfirmedCases","outStatisticFieldName":"TotalConfirmedCases"},{"statisticType":"sum","onStatisticField":"ActiveCases","outStatisticFieldName":"ActiveCases"},{"statisticType":"sum","onStatisticField":"Recovered","outStatisticFieldName":"Recovered"},{"statisticType":"sum","onStatisticField":"Death","outStatisticFieldName":"Deceased"}]',
     'resultType': 'standard',
     'cacheHint': 'true'
 }
 
-
+# Today
 
 
 

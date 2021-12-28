@@ -125,21 +125,21 @@ class TexasReporter:
             if harris_stats != None:
                 har_dhs = harris_stats.get('dhs')
                 if har_dhs != None:
-                    stats.update({'Beds': har_dhs.get('AvailableHospitalBeds')})
-                    stats.update({'ICU': har_dhs.get('AvailableICUBeds')})
-                    stats.update({'Vents': har_dhs.get('AvailableVentilators')})
-                    stats.update({'COVID hosp': har_dhs.get('COVIDPatients')})
+                    stats.update({'DHS Beds': har_dhs.get('AvailableHospitalBeds')})
+                    stats.update({'DHS ICU': har_dhs.get('AvailableICUBeds')})
+                    stats.update({'DHS Vents': har_dhs.get('AvailableVentilators')})
+                    stats.update({'DHS COVID hosp': har_dhs.get('COVIDPatients')})
                     stats.update({'DHS Active': har_dhs.get('Active')})
                     stats.update({'DHS Deaths': har_dhs.get('Fatalities')})
                     stats.update({'DHS Positive': har_dhs.get('Positive')})
                     stats.update({'DHS Recover': har_dhs.get('Recoveries')})
                 har_co = harris_stats.get('harrisCounty')
                 if har_co != None:
-                    stats.update({'Active': har_co.get('ActiveCases')})
-                    stats.update({'Fatalities': har_co.get('DeceasedCases')})
-                    stats.update({'Positive': har_co.get('ConfirmedCases')})
-                    stats.update({'Recoveries': har_co.get('RecoveredCases')})                
-                    stats.update({'New Cases': har_co.get(f"SUMMARY {date_item.strftime('%m-%d')}: NewCases")})
+                    stats.update({'HC-Active': har_co.get('ActiveCases')})
+                    stats.update({'HC-Fatalities': har_co.get('DeceasedCases')})
+                    stats.update({'HC-Positive': har_co.get('ConfirmedCases')})
+                    stats.update({'HC-Recoveries': har_co.get('RecoveredCases')})                
+                    # stats.update({'HC-New Cases': har_co.get(f"SUMMARY {date_item.strftime('%m-%d')}: NewCases")})
 
                 har_world = harris_stats.get('worldometer')
                 if har_world != None:

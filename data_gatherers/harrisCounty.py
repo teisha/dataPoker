@@ -34,10 +34,20 @@ class HarrisCountyRunner:
             active_cases = total_response['features'][0].get('attributes').get('ActiveCases')
             recovered_cases = total_response['features'][0].get('attributes').get('Recovered')
             deceased_cases = total_response['features'][0].get('attributes').get('Deceased')
+            report_date = total_response['features'][0].get('attributes').get('Today')
             self.today_stats.update({'confirmed_cases': int(total)}) 
             self.today_stats.update({'active_cases': int(active_cases)})
             self.today_stats.update({'recovered_cases': int(recovered_cases)})
-            self.today_stats.update({'deceased_cases': int(deceased_cases)})            
+            self.today_stats.update({'deceased_cases': int(deceased_cases)})  
+            self.today_stats.update({'report_date': report_date})          
+
+        #         'Recovered':sum, 
+        #         'Deceased': sum, 
+        #         'Active': sum,
+        #         'NewCases': sum
+            self.today_stats.update(dict(totals=dict(Recovered=int(recovered_cases),Deceased=int(deceased_cases), \
+                    Active=int(active_cases),NewCases=-1,Date=report_date)) ) 
+
         else:
             raise Exception('Cannot determine total records: ', total_response)            
         print(f"Analyzing {total} records")
@@ -50,11 +60,17 @@ class HarrisCountyRunner:
             city_stats = dict({'TotalConfirmedCases': citydata.get('attributes').get('Total'),
                 'ActiveCases': citydata.get('attributes').get('Active'),
                 'Recovered': citydata.get('attributes').get('Recovered'),
-                'Deceased': citydata.get('attributes').get('Deceased'),})
+                'Deceased': citydata.get('attributes').get('Deceased'),
+                'Date': citydata.get('attributes').get('Date'),
+                'Date_Label': citydata.get('attributes').get('Date_Label')})
             cases_by_city.append(dict({citydata.get('attributes').get('City'): city_stats }) )
         print(cases_by_city)
-        age_totals= requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.agerange_summary_params)
-        age_response = age_totals.json()
+
+
+
+        # Last Edit Date:  5/12/2021
+        # age_totals= requests.get(url=harrisCounty_config.DAILY_ALL, params=harrisCounty_config.agerange_summary_params)
+        # age_response = age_totals.json()
 
 # # A second method that we have been using at CartONG is to take advantage of the resultOffset query parameter (available since 10.3), 
 # # which allows to “skip the specified number of records and [to return response] starting from the next record” (Esri). 
@@ -161,32 +177,35 @@ class HarrisCountyRunner:
 
     def get_summarized_data(self):
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('  This is no longer an updated URL :' + harrisCounty_config.SUMMARY_ALL)
         # This is where worldometer pulls from
-        response2 = requests.get(url=harrisCounty_config.SUMMARY_ALL, params=harrisCounty_config.summary_all_params)
-        sum_response = response2.json()
-        summaries =  [ sub['attributes'] for sub in sum_response['features'] ]
-        df_sum = pd.DataFrame(summaries)
-        print (f'History Cutoff => {self.history_cutoff}')
-        print(df_sum[df_sum['Date_Str'] >= self.history_cutoff])
-        history_stats = dict(totals=df_sum[df_sum['Date_Str'] >= self.history_cutoff].to_dict('record'))
-        df_rolled = df_sum[df_sum['Date_Str'] >= self.history_cutoff].groupby('Date_Str').agg(
-            {
-                'Recovered':sum, 
-                'Deceased': sum, 
-                'Active': sum,
-                'NewCases': sum
-            })
-        # df_rolled.drop('Date_Str', inplace=True) 
-        # print(df_rolled.loc[self.today:].head(1).to_dict('index'))
-        self.today_stats.update(dict(totals=df_rolled.loc[self.today:].head(1).to_dict('index')) )            
-        print(self.today_stats.get('totals'))
 
-        with suppress(FileNotFoundError):        
-            with open(self.fileName, "a") as history_file:
-                history_out = (dict(totals=history_stats))
-                history_file.write(',')
-                history_file.writelines(json.dumps(history_out)  )
-                history_file.write(']')
+        # # Last updated in May 2020!!
+        # response2 = requests.get(url=harrisCounty_config.SUMMARY_ALL, params=harrisCounty_config.summary_all_params)
+        # sum_response = response2.json()
+        # summaries =  [ sub['attributes'] for sub in sum_response['features'] ]
+        # df_sum = pd.DataFrame(summaries)
+        # print (f'History Cutoff => {self.history_cutoff}')
+        # print(df_sum[df_sum['Date_Str'] >= self.history_cutoff])
+        # history_stats = dict(totals=df_sum[df_sum['Date_Str'] >= self.history_cutoff].to_dict('record'))
+        # df_rolled = df_sum[df_sum['Date_Str'] >= self.history_cutoff].groupby('Date_Str').agg(
+        #     {
+        #         'Recovered':sum, 
+        #         'Deceased': sum, 
+        #         'Active': sum,
+        #         'NewCases': sum
+        #     })
+        # # df_rolled.drop('Date_Str', inplace=True) 
+        # # print(df_rolled.loc[self.today:].head(1).to_dict('index'))
+        # self.today_stats.update(dict(totals=df_rolled.loc[self.today:].head(1).to_dict('index')) )            
+        # print(self.today_stats.get('totals'))
+
+        # with suppress(FileNotFoundError):        
+        #     with open(self.fileName, "a") as history_file:
+        #         history_out = (dict(totals=history_stats))
+        #         history_file.write(',')
+        #         history_file.writelines(json.dumps(history_out)  )
+        #         history_file.write(']')
 
     def save_database(self):
         print ("Save to database")
@@ -213,14 +232,14 @@ class HarrisCountyRunner:
         database_stats['ALL CASES: City Counts'] = self.today_stats.get('cases_by_city')
         summarytotals  = self.today_stats.get('totals')
         print(summarytotals)
-        date = None
-        for keyname in summarytotals.keys():
-            date = keyname
+        date = summarytotals.get('Date')
+        # for keyname in summarytotals.keys():
+        #     date = keyname
         if date != None:
-            database_stats[f"SUMMARY {date.replace('/','-')}: Recovered"] = summarytotals.get(date).get('Recovered')
-            database_stats[f"SUMMARY {date.replace('/','-')}: Deceased"] = summarytotals.get(date).get('Deceased')
-            database_stats[f"SUMMARY {date.replace('/','-')}: Active"] = summarytotals.get(date).get('Active')
-            database_stats[f"SUMMARY {date.replace('/','-')}: NewCases"] = summarytotals.get(date).get('NewCases')
+            database_stats[f"SUMMARY {date.replace('/','-')}: Recovered"] = summarytotals.get('Recovered')
+            database_stats[f"SUMMARY {date.replace('/','-')}: Deceased"] = summarytotals.get('Deceased')
+            database_stats[f"SUMMARY {date.replace('/','-')}: Active"] = summarytotals.get('Active')
+            database_stats[f"SUMMARY {date.replace('/','-')}: NewCases"] = summarytotals.get('NewCases')
         print("DATABASE")
         print(database_stats)        
         database.save_harris_county(dict(harrisCounty=database_stats) )

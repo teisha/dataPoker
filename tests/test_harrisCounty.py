@@ -10,16 +10,20 @@ if platform == "linux" or platform == "linux2":
 
 
 #  uvenv/bin/python -m pytest -s tests/test_harrisCounty.py >> printout.txt
+#  uvenv/bin/python -m pytest -s tests/test_harrisCounty.py -k 'test_get_data'
 class TestClass:
     def test_get_data(self):
         runThis = harrisCounty.HarrisCountyRunner(archive_dir)
         runThis.fileName = 'data/test_harris.json'
-        runThis.get_summarized_data()
+        runThis.catch_em_all()
 
         assert runThis.fileName == 'data/test_harris.json'
         assert runThis.today_stats.get('totals') != dict()
+        print (runThis.today_stats.get('totals'))
+        print ("VALUES::")
         print (runThis.today_stats.get('totals').values())
-        todayStats = next( stat for stat in runThis.today_stats.get('totals').values())
+        # todayStats = next( stat for stat in runThis.today_stats.get('totals').values())
+        todayStats = runThis.today_stats.get('totals')
         assert todayStats != None
         assert todayStats.get('Recovered') > 0
         assert todayStats.get('Deceased') > 0
