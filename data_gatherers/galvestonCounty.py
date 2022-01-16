@@ -115,7 +115,7 @@ class GalvestonCountyRunner:
         print ("~~~~~~~~~~ ALL DATA ~~~~~~~~~~")
         for data in self.allData:
             print (data["sheetName"])
-            with pd.option_context('display.max_rows', None, 'display.max_columns', None, 'display.width', 1000):
+            with pd.option_context('display.max_rows', 10, 'display.max_columns', None, 'display.width', 1000):
                 print(data["data"])
               
         # https://public.tableau.com/vizql/w/GCHDCOVID-19Analysis_15970856171690/v/TrendsbyCity/bootstrapSession/sessions/70D84C0C52574EE7960A2AF6245FADDB-0:0

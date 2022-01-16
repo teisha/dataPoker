@@ -58,6 +58,7 @@ class Runner:
         patients_ventilated = 0
         total_lab_confirmed = 0
         total_staffed_beds = 0
+        total_lab_confirmed_24hrs = 0
         for feature in hospital_response['features']:
             # print(feature.get('attributes'))
             totals = feature.get('attributes')
@@ -71,6 +72,7 @@ class Runner:
             patients_ventilated = patients_ventilated + totals.get("patients_ventilated")
             total_lab_confirmed = total_lab_confirmed + totals.get("total_lab_confirmed")
             total_staffed_beds = total_staffed_beds + totals.get("total_hospital_capacity")
+            total_lab_confirmed_24hrs = total_lab_confirmed_24hrs + totals.get("total_lab_confirmed_24hrs")
             hospitals_current.append(totals)
         harris = next((stat for stat in hospitals_current if stat["tsa"] == "Q"), None)
         galveston = next((stat for stat in hospitals_current if stat["tsa"] == "R"), None)
@@ -96,7 +98,7 @@ class Runner:
         new_hospital_response = new_response.json()
         # print(new_hospital_response)
         hospital_stats = []
-        todays_stats = []
+        todays_stats = dict()
         for feature in hospital_response['features']:
             # print(feature)
             totals = feature.get('attributes')
@@ -104,9 +106,10 @@ class Runner:
             totals.update({'DateString': datetime.fromtimestamp(+totals.get('date')/1000).strftime('%Y-%m-%d') })
             hospital_stats.append ( totals )
         for feature in new_hospital_response['features']:
-            totals = feature.get('attributes')        
-            totals.update({'date_collected' : self.current_date_time})
-            todays_stats.append(totals)
+            totals = feature.get('attributes')  
+            todays_stats[totals.get('count_type')] = totals.get('count_');      
+            # todays_stats.append(totals)
+        todays_stats.update({'date_collected' : self.current_date_time})
         self.stat_pickler.update(dict (hospital_stats=hospital_stats))
         last_stat = next((stat for stat in hospital_stats if stat["DateString"] == self.today), None)
         self.today_stats.update(dict(hospital_stats=todays_stats, hosp_stat=last_stat) )
@@ -221,8 +224,8 @@ class Runner:
     def get_daily_cummulative_deaths(self):
         response = requests.get(url=txarc_config.DEATHS_CUMMULATIVE, params=txarc_config.death_cummulative_params)
         daily_response = response.json()
-        # print(daily_response)
-        death_stat =  daily_response['features'][0].get('attributes').get("cumulative_fatalities")
+        print(daily_response)
+        death_stat =  daily_response['features'][0].get('attributes').get("fatalities")
         return death_stat
 
     def get_daily_counts_by_county(self):
@@ -249,7 +252,7 @@ class Runner:
         recoveries = 0
         active = 0
         for county_no in daily_stats:
-            if county_no.get("Positive"):
+            if county_no.get("confirmed"):
                 positive = positive + county_no.get("confirmed")
             else:
                 print("NO STATS: ", county_no)
@@ -383,6 +386,18 @@ class Runner:
         texas_stats["HOSP: TotalAvailableVents"] = hospital_totals.get("total_avail_vents")
         texas_stats["HOSP: TotalPatientsVentilated"] = hospital_totals.get('patients_ventilated')
         texas_stats["HOSP: TotalStaffedBeds"] = hospital_totals.get('total_staffed_beds')
+        texas_stats["HOSP: NewLast24Hours"] = hospital_totals.get('total_lab_confirmed_24hrs')
+        print(" +++++++++++++++++++++++++++++++++++++++++++++++++++++ ")
+        print (self.today_stats.get("hospital_stats"))
+        if self.today_stats.get("hospital_stats") == None:
+            texas_stats["HOSP: StateTotals"] = -1
+        else:
+            state_hosp_totals=self.today_stats.get("hospital_stats")
+            texas_stats["HOSP: C19All-In"] = state_hosp_totals.get("patient_count")
+            texas_stats["HOSP: C19Adult"] = state_hosp_totals.get("adult_beds")
+            texas_stats["HOSP: C19AdultICU"] = state_hosp_totals.get("adult_icu_beds")
+            texas_stats["HOSP: C19Ped"] = state_hosp_totals.get("pediatric_beds")
+            texas_stats["StateHospitalReportedTotals"] = state_hosp_totals
         if self.today_stats.get("hosp_stat") == None:
             texas_stats["Hospitalizations"] = -1
         else:    

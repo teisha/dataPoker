@@ -30,11 +30,11 @@ DEATHS_CUMMULATIVE = "" + base_cases_url + "4/query?"
 # DEATHS_CUMMULATIVE = "" + base_cases_url + "5/query?" 
 death_cummulative_params = {
     'f': 'json',
-    'where': 'case_category=\'Fatalities\'',
+    'where': 'category=\'Fatalities\'',
     'returnGeometry': 'false',
     'spatialRel': 'esriSpatialRelIntersects',
     'outFields':'*',
-    'outStatistics':'[{"statisticType":"sum","onStatisticField":"gender_count","outStatisticFieldName":"reportedCumulativeFatalities"}]',
+    'outStatistics':'[{"statisticType":"sum","onStatisticField":"count_","outStatisticFieldName":"reportedCumulativeFatalities"}]',
     'resultType': 'standard',
     'cacheHint': 'true'
 }

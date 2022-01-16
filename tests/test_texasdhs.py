@@ -25,7 +25,8 @@ class TestClass:
     def test_all(self):
         self.runThis.run_all()
         print("all() completed")
-        assert self.runThis.today_stats.get('counties', None) != None        
+        assert self.runThis.today_stats.get('counties', None) != None  
+        self.runThis.write_to_database()      
 
     def test_get_daily_new_data(self):
         self.runThis.get_daily_new_cases_by_date()
