@@ -63,7 +63,10 @@ class HarrisCountyRunner:
                 'Deceased': citydata.get('attributes').get('Deceased'),
                 'Date': citydata.get('attributes').get('Date'),
                 'Date_Label': citydata.get('attributes').get('Date_Label')})
-            cases_by_city.append(dict({citydata.get('attributes').get('City'): city_stats }) )
+            cityName = "none"
+            if citydata.get('attributes').get('City'):
+                cityName = citydata.get('attributes').get('City').lower()
+            cases_by_city.append(dict({cityName: city_stats }) )
         print(cases_by_city)
 
 
@@ -152,6 +155,9 @@ class HarrisCountyRunner:
         # print (f"TODAY_STATS: {self.today_stats}")   
         # print ( pd.concat([series_dateConverted, series_dateConverted_nonupdate]))   # seems to add them together
         print ( '-------------------------------------------------------------' )
+        get_friendswood = next((stat for stat in self.today_stats.get('cases_by_city') if "friendswood" in stat.keys() ), None)
+        print("Today's Friendswood stats")
+        print(get_friendswood)
         # print(df_people.groupby('DateSymptoms_str')['DateSymptoms'].count().tail(10))
         # print(df_people.groupby('DateConvertedtoCase_str')['DateConvertedtoCase'].count().tail(10))
         # print(df_people.where(df_people['City'] == 'Friendswood').groupby('DateConvertedtoCase_str')['OBJECTID'].count().tail(10))
@@ -245,12 +251,13 @@ class HarrisCountyRunner:
         database.save_harris_county(dict(harrisCounty=database_stats) )
 
         friendswood_stats = dict({'date_collected' : self.current_date_time})
-        get_friendswood = next((stat for stat in self.today_stats.get('cases_by_city') if "Friendswood" in stat.keys()), None)
+        get_friendswood = next((stat for stat in self.today_stats.get('cases_by_city') if "friendswood" in stat.keys()), None)
+        print("FRIENDSWOOD STATS")
         print(get_friendswood)
-        friendswood_stats['Friendswood TotalConfirmedCases'] = get_friendswood.get('Friendswood').get('TotalConfirmedCases')
-        friendswood_stats['Friendswood ActiveCases'] = get_friendswood.get('Friendswood').get('ActiveCases')
-        friendswood_stats['Friendswood Recovered'] = get_friendswood.get('Friendswood').get('Recovered')
-        friendswood_stats['Friendswood Deceased'] = get_friendswood.get('Friendswood').get('Deceased')
+        friendswood_stats['Friendswood TotalConfirmedCases'] = get_friendswood.get('friendswood').get('TotalConfirmedCases')
+        friendswood_stats['Friendswood ActiveCases'] = get_friendswood.get('friendswood').get('ActiveCases')
+        friendswood_stats['Friendswood Recovered'] = get_friendswood.get('friendswood').get('Recovered')
+        friendswood_stats['Friendswood Deceased'] = get_friendswood.get('friendswood').get('Deceased')
         database.save_friendswood(dict(harrisCounty=friendswood_stats))
         
 

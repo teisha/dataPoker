@@ -87,12 +87,17 @@ class TexasReporter:
             # print(friendswood_stats)
             if friendswood_stats != None:
                 fwood = dict()
+                harrisCountyTotal = 0
                 harris = friendswood_stats.get('harrisCounty')
-                harrisCountyTotal = int(harris.get('Friendswood TotalConfirmedCases') if harris.get('Friendswood TotalConfirmedCases') != None else harris.get('Harris County:') )
-                fwood.update({'HarrisCo TOTAL': harrisCountyTotal})
-                fwood.update({'HarrisCo Deceased': harris.get('Friendswood Deceased') })
-                fwood.update({'HarrisCo Recovered': harris.get('Friendswood Recovered') })
-                fwood.update({'HarrisCo ActiveCases': harris.get('Friendswood ActiveCases') })
+                harrisRecovered = 0
+                if harris != None:
+                    harrisCountyTotal = int(harris.get('Friendswood TotalConfirmedCases') if harris.get('Friendswood TotalConfirmedCases') != None else harris.get('Harris County:') )
+                    harrisRecovered = int(harris.get('Friendswood Recovered')  if harris.get('Friendswood Recovered') != None else '0' )
+                    fwood.update({'HarrisCo TOTAL': harrisCountyTotal})
+                    fwood.update({'HarrisCo Deceased': harris.get('Friendswood Deceased') })
+                    fwood.update({'HarrisCo Recovered': harris.get('Friendswood Recovered') })
+                    fwood.update({'HarrisCo ActiveCases': harris.get('Friendswood ActiveCases') })
+                    fwood.update({'Friendswood Recovered': harris.get('Friendswood Recovered')})    
 
                 galveston = friendswood_stats.get('galvestonCounty')
                 if galveston != None:
@@ -100,11 +105,11 @@ class TexasReporter:
                     fwood.update({'GalvestonCo TOTAL': galveston.get('Total Cases')})
                     fwood.update({'GalvestonCo Recovered': galveston.get('Recovered') })
                     fwood.update({'Friendswood TOTAL': harrisCountyTotal + galvestonTotal})
-                    fwood.update({'Friendswood Recovered': int(harris.get('Friendswood Recovered')  if harris.get('Friendswood Recovered') != None else '0' ) + 
+                    fwood.update({'Friendswood Recovered':  harrisRecovered + 
                         int(galveston.get('Recovered') if galveston.get('Recovered') != None else '0' )  })
                 else:
                     fwood.update({'Friendswood TOTAL': harrisCountyTotal}) 
-                    fwood.update({'Friendswood Recovered': harris.get('Friendswood Recovered')})                   
+                                  
 
                 dates.append(dict({date_item.to_pydatetime().date() : fwood}))
                 # print(dates)
