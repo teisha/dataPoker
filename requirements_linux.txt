@@ -90,7 +90,7 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.4
 toml==0.10.1
 traitlets==5.0.4
-Twisted==20.3.0
+Twisted==22.2.0
 uritemplate==3.0.1
 urllib3==1.25.10
 wcwidth==0.2.5
