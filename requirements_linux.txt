@@ -8,7 +8,7 @@ bcrypt==3.1.7
 beautifulsoup4==4.8.2
 CacheControl==0.12.6
 cachetools==4.1.1
-certifi==2020.6.20
+certifi==2022.12.7
 cffi==1.14.3
 chardet==3.0.4
 constantly==15.1.0
