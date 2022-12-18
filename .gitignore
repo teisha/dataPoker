@@ -3,4 +3,5 @@ __pycache__
 config.json
 config/*
 covid_env/
-uvenv/
+venv/
+out/**
