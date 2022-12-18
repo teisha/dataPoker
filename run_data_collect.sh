@@ -24,5 +24,3 @@ venv/bin/python main.py >> ./out/$FILE
 # venv/bin/python -m pip freeze > requirements.txt  
 # venv/bin/python -m pip uninstall -r requirements.txt -y
 
-# 
-
