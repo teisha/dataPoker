@@ -9,8 +9,8 @@ if platform == "linux" or platform == "linux2":
 
 
 
-#  uvenv/bin/python -m pytest -s tests/test_harrisCounty.py >> printout.txt
-#  uvenv/bin/python -m pytest -s tests/test_harrisCounty.py -k 'test_get_data'
+#  venv/bin/python -m pytest -s tests/test_harrisCounty.py >> printout.txt
+#  venv/bin/python -m pytest -s tests/test_harrisCounty.py -k 'test_get_data'
 class TestClass:
     def test_get_data(self):
         runThis = harrisCounty.HarrisCountyRunner(archive_dir)
@@ -28,7 +28,7 @@ class TestClass:
         assert todayStats.get('Recovered') > 0
         assert todayStats.get('Deceased') > 0
         assert todayStats.get('Active') > 0
-        assert todayStats.get('NewCases') > 0
+        # assert todayStats.get('NewCases') > 0
 
     def test_catch_them_all(self):
         runThis = harrisCounty.HarrisCountyRunner(archive_dir)

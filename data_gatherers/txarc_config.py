@@ -105,9 +105,21 @@ hospitalizations_by_date_params = {
 viral_antibody_breakout_by_day_url ="4/query?"
 # viral_antibody_breakout_by_day_url ="3/query?"    # where=1%3D1&objectIds=&time=&resultType=none&outFields=*&returnIdsOnly=false&returnUniqueIdsOnly=false&returnCountOnly=false&returnDistinctValues=false&cacheHint=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&having=&resultOffset=&resultRecordCount=&sqlFormat=standard&f=pjson&token="
 VIRAL_ANTIBODY_BREAKOUT_URL= test_cases_url + viral_antibody_breakout_by_day_url
-LAB_TESTING_URL = f"{test_cases_url}3/query?"     # Antigen
+LAB_TESTING_URL = f"{test_cases_url}5/query?"     # Antigen
 SPECIMEN_TESTING_URL = f"{test_cases_url}4/query?"      # PCR (molecular)
 POSITIVITY_TESTING_URL = f"{test_cases_url}6/query?"
+no_date_params = {
+    'f': 'json',
+    'where': '1=1',
+    'returnGeometry':'false',
+    'spatialRel':'esriSpatialRelIntersects',
+    'outFields':'*',
+    'resultOffset': '0',
+    'resultRecordCount': '50',
+    'resultType': 'standard',
+    'cacheHint': 'true'
+}
+
 viral_antibody_breakout_by_day_params = {
     'f': 'json',
     'where': '1=1',

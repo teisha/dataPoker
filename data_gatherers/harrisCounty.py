@@ -26,7 +26,7 @@ class HarrisCountyRunner:
         # harrisCountyRecords=[]
         total_recs = requests.get(url=harrisCounty_config.TOTAL_REC_URL, params=harrisCounty_config.total_rec_params)
         total_response = total_recs.json()
-        print(total_response)
+        print(total_response.get('features'))
 
         total = 0
         if 'features' in total_response:
@@ -56,7 +56,7 @@ class HarrisCountyRunner:
 
         cases_by_city = []
         for citydata in city_response['features']:
-            # print( citydata.get('attributes').get('City'))
+            # print( citydata.get('attributes').get('City'), citydata.get('attributes').get('NAME') )
             city_stats = dict({'TotalConfirmedCases': citydata.get('attributes').get('Total'),
                 'ActiveCases': citydata.get('attributes').get('Active'),
                 'Recovered': citydata.get('attributes').get('Recovered'),
@@ -64,9 +64,9 @@ class HarrisCountyRunner:
                 'Date': citydata.get('attributes').get('Date'),
                 'Date_Label': citydata.get('attributes').get('Date_Label')})
             cityName = "none"
-            if citydata.get('attributes').get('City'):
-                cityName = citydata.get('attributes').get('City').lower()
-            cases_by_city.append(dict({cityName: city_stats }) )
+            if citydata.get('attributes').get('City') is not None or citydata.get('attributes').get('NAME') is not None:
+                cityName = citydata.get('attributes').get('NAME') if citydata.get('attributes').get('City') is None else citydata.get('attributes').get('City') 
+            cases_by_city.append(dict({cityName.lower(): city_stats }) )
         print(cases_by_city)
 
 

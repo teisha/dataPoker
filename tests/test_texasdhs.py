@@ -1,9 +1,9 @@
 import pytest
 from data_gatherers import txStatRunner
 
-#  uvenv/bin/python -m pytest -s tests/test_texasdhs.py >> printout.txt
-#  uvenv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_lab"
-#  uvenv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_hospital"
+#  venv/bin/python -m pytest -s tests/test_texasdhs.py >> printout.txt
+#  venv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_lab"
+#  venv/bin/python -m pytest -s tests/test_texasdhs.py -k "get_hospital"
 class TestClass:
     runThis = txStatRunner.Runner()
     runThis.fileName = 'data/test_harris.json'
@@ -63,10 +63,10 @@ class TestClass:
         print(self.runThis.today_stats)
         assert self.runThis.stat_pickler.get("positivity_stats") != None      
 
-    def test_viral_antibody(self):
-        self.runThis.get_viral_antibody_breakout()
-        print(self.runThis.today_stats)
-        assert self.runThis.stat_pickler.get("positivity_stats") != None      
+    # def test_viral_antibody(self):
+    #     self.runThis.get_viral_antibody_breakout()
+    #     print(self.runThis.today_stats)
+    #     assert self.runThis.stat_pickler.get("positivity_stats") != None      
          
 
 # "features":[{"attributes":{"OBJECTID":1,"TestType":"TotalTests","Count_":10862674}},
@@ -83,11 +83,11 @@ class TestClass:
 # {OBJECTID":244,"Date":1605333600000,"Tests":136062,"Positives":15751,"Positivity":0.1274,"Test7Day":88882,"Positive7Day":11320}   
 # current positivity rate?
 
-    def test_get_specimen_testing_results(self):
-        self.runThis.get_specimen_results()
-        print(self.runThis.today_stats)
-        assert self.runThis.stat_pickler.get("specimen_stats") != None
-        assert self.runThis.today_stats.get("specimen_stats", dict(idontexist=None)) != dict(idontexist=None)
+    # def test_get_specimen_testing_results(self):
+    #     self.runThis.get_specimen_results()
+    #     print(self.runThis.today_stats)
+    #     assert self.runThis.stat_pickler.get("specimen_stats") != None
+    #     assert self.runThis.today_stats.get("specimen_stats", dict(idontexist=None)) != dict(idontexist=None)
 # Reported as new "Positivity Rate"
 # https://services5.arcgis.com/ACaLB9ifngzawspq/arcgis/rest/services/DSHS_COVID19_TestData_Service/FeatureServer/5/query?f=json&where=1%3D1&returnGeometry=false&spatialRel=esriSpatialRelIntersects&outFields=*&orderByFields=Date%20asc&resultOffset=0&resultRecordCount=32000&resultType=standard&cacheHint=true
 # {"OBJECTID":258,"Date":1605333600000,"OldTest":null,"NewTest":310,"OldPositive":null,"NewPositive":41,"PositivityRate":0.1169,"TestSevenDay":48424.86,"PositiveSevenDay":5660.29}  

@@ -1,6 +1,9 @@
 
 
 
+
+
+
 # 12/27/2021
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Positivity_Rate/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1=1&orderByFields=&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 
@@ -56,7 +59,8 @@ Today (type: esriFieldTypeString, alias: Today, SQL Type: sqlTypeOther, length: 
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Positivity_Rate/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1%3D1&orderByFields=Date%20DESC&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Hospital_Population_Trend/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=1&where=1%3D1&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects
 # https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_New_Cases_Trend/FeatureServer/0/query?f=json&where=1%3D1&outFields=*&returnCountOnly=true
-CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPH_COVID19_City_list_/FeatureServer/1/query?'
+CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/Download_COVID_Cases_By_City/FeatureServer/0/query?'
+# CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPH_COVID19_City_list_/FeatureServer/1/query?'
 # CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPHCovidCityZip/FeatureServer/1/query?'
 # CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/CITY_LIMITS_COVID/FeatureServer/1/query?'
 # CITY_SUMMARY_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPHCovidDashboard/FeatureServer/1/query?'
@@ -84,21 +88,26 @@ city_summary_params = {
 }
 
 
-TOTAL_REC_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPH_COVID19_Zip_Codes_map_prod/FeatureServer/0/query?'
+# TOTAL_REC_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/ArcGIS/rest/services/HCPH_COVID19_Zip_Codes_map_prod/FeatureServer/0/query?'
+TOTAL_REC_URL = 'https://services.arcgis.com/su8ic9KbA7PYVxPS/arcgis/rest/services/Download_Current_COVID_Case_Counts/FeatureServer/0/query?'
 total_rec_params = {
     'f':'json',
-    'where': '1=1',
+    # 'where': '1=1',
+    'where':'Source<>\'ALL\'', 
     'returnGeometry':'false',
     'spatialRel':'esriSpatialRelIntersects',
     'outFields':'*',
     'groupByFieldsForStatistics':'Today',
-    'outStatistics': '[{"statisticType":"sum","onStatisticField":"TotalConfirmedCases","outStatisticFieldName":"TotalConfirmedCases"},{"statisticType":"sum","onStatisticField":"ActiveCases","outStatisticFieldName":"ActiveCases"},{"statisticType":"sum","onStatisticField":"Recovered","outStatisticFieldName":"Recovered"},{"statisticType":"sum","onStatisticField":"Death","outStatisticFieldName":"Deceased"}]',
+    # 'outStatistics': '[{"statisticType":"sum","onStatisticField":"TotalConfirmedCases","outStatisticFieldName":"TotalConfirmedCases"},{"statisticType":"sum","onStatisticField":"ActiveCases","outStatisticFieldName":"ActiveCases"},{"statisticType":"sum","onStatisticField":"Recovered","outStatisticFieldName":"Recovered"},{"statisticType":"sum","onStatisticField":"Death","outStatisticFieldName":"Deceased"}]',
+    'outStatistics': '[{"statisticType":"sum","onStatisticField":"Confirmed_Cases","outStatisticFieldName":"TotalConfirmedCases"},{"statisticType":"sum","onStatisticField":"Active","outStatisticFieldName":"ActiveCases"},{"statisticType":"sum","onStatisticField":"Recovered","outStatisticFieldName":"Recovered"},{"statisticType":"sum","onStatisticField":"Deaths","outStatisticFieldName":"Deceased"}]',
     'resultType': 'standard',
     'cacheHint': 'true'
 }
 
 # Today
-
+'''
+%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Total%22%2C%22outStatisticFieldName%22%3A%22value%22%7D%2C%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Active%22%2C%22outStatisticFieldName%22%3A%22ActiveCases%22%7D%5D
+'''
 
 
 agerange_summary_params = {

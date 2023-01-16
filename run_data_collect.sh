@@ -5,8 +5,12 @@ FILE="outfile.txt"
 FILE=${FILE%.*}_`date +%d%b%y`.${FILE#*.}
 echo $FILE
 
+
+venv/bin/python -m pip freeze > requirements.txt
+
 venv/bin/python main.py >> ./out/$FILE
-# venv/bin/python data_reporters/texas_reporter.py
+
+venv/bin/python data_reporters/texas_reporter.py > ./out/report.txt
 
 
 
